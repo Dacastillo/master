@@ -1,14 +1,21 @@
 from qutip import *
 from matplotlib.pyplot import *
 import numpy as np
-H = np.sqrt(1.1) * sigmap() - np.sqrt(0.1) * sigmam()
-est0=qeye(2)
-est1=projection(2,0,0)
-est2=projection(2,1,1)
+H0 = sigmap() #reservorio vacio
+H2 = np.sqrt(1.1) * sigmap() #reservorio termal
+H2 = np.sqrt(1.1) * sigmap() - np.sqrt(0.1) * sigmam() #reservorio comprimido 
+aest0 = qeye(2)
+aest1 = projection(2,0,0)
+aest2 = projection(2,1,1)
+abest0 = bell_state(00)
+abest1 = bell_state(10)
+abest2 = pdrojection(4,1,1)
+abest3 = projection(4,3,3) 
+abest4 = projection(4,0,0)
 times = np.linspace(int(0.0), int(10.0), int(60.0))
-result1 = mesolve(H, est0, times)
-result2 = mesolve(H, est1, times)
-result3 = mesolve(H, est2, times)
+result1 = mesolve(H2, aest0, times)
+result2 = mesolve(H2, aest1, times)
+result3 = mesolve(H2, aest2, times)
 fin0 = result1.states[2]
 fin1 = result2.states[2]
 fin2 = result3.states[2]
