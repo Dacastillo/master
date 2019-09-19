@@ -142,4 +142,7 @@ conc_I4_S2S = [0 for i in range(200)]
 disc_I4_S2S = [0 for i in range(200)]
 conc_I5_S2S = [0 for i in range(200)]
 disc_I5_S2S = [0 for i in range(200)]
+for i in range (0,200):
+      conc_I1_S0S[i] = concurrence(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])))
+      disc_I1_S0S[i] = entropy_mutual(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])).ptrace(0))
 #Graficar
