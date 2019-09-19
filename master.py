@@ -68,10 +68,6 @@ emB_I2_S2S = mesolve(identity(2), I2_B, times, S2S) #Ecuacion Maestra para estad
 emB_I3_S2S = mesolve(identity(2), I3_B, times, S2S) #Ecuacion Maestra para estado inicial logico 01 con reservorios comprimidos sin interaccion
 emB_I4_S2S = mesolve(identity(2), I4_B, times, S2S) #Ecuacion Maestra para estado inicial logico 11 con reservorios comprimidos sin interaccion
 emB_I5_S2S = mesolve(identity(2), I5_B, times, S2S) #Ecuacion Maestra para estado inicial logico 00 con reservorios comprimidos sin interaccion
-#Tomar matrices producto y traza parcial necesarios
-#for i in range (0,200):  
-#     conc_I1_S0C[i] = concurrence( em_I1_S0C.states[i] )  
-#     disc_I1_S0C[i] = entropy_conditional(em_I1_S0C.states[i],0)-entropy_vn(em_I1_S0C.states[i])
 
            
 (concurrence(Qobj(tensor(emA_I3_S2S.states[32],emB_I3_S2S.states[32]))))
@@ -82,67 +78,68 @@ emB_I5_S2S = mesolve(identity(2), I5_B, times, S2S) #Ecuacion Maestra para estad
 
 
 #Calcular todos los discord (mutua-A-condicional) y las concurrencias necesarias
-conc_I1_S0C = [0 for i in range(200)]
-disc_I1_S0C = [0 for i in range(200)]
-conc_I2_S0C = [0 for i in range(200)]
-disc_I2_S0C = [0 for i in range(200)]
-conc_I3_S0C = [0 for i in range(200)]
-disc_I3_S0C = [0 for i in range(200)]
-conc_I4_S0C = [0 for i in range(200)]
-disc_I4_S0C = [0 for i in range(200)]
-conc_I5_S0C = [0 for i in range(200)]
-disc_I5_S0C = [0 for i in range(200)]
-conc_I1_S1C = [0 for i in range(200)]
-disc_I1_S1C = [0 for i in range(200)]
-conc_I2_S1C = [0 for i in range(200)]
-disc_I2_S1C = [0 for i in range(200)]
-conc_I3_S1C = [0 for i in range(200)]
-disc_I3_S1C = [0 for i in range(200)]
-conc_I4_S1C = [0 for i in range(200)]
-disc_I4_S1C = [0 for i in range(200)]
-conc_I5_S1C = [0 for i in range(200)]
-disc_I5_S1C = [0 for i in range(200)]
-conc_I1_S2C = [0 for i in range(200)]
-disc_I1_S2C = [0 for i in range(200)]
-conc_I2_S2C = [0 for i in range(200)]
-disc_I2_S2C = [0 for i in range(200)]
-conc_I3_S2C = [0 for i in range(200)]
-disc_I3_S2C = [0 for i in range(200)]
-conc_I4_S2C = [0 for i in range(200)]
-disc_I4_S2C = [0 for i in range(200)]
-conc_I5_S2C = [0 for i in range(200)]
-disc_I5_S2C = [0 for i in range(200)]
-conc_I1_S0S = [0 for i in range(200)]
-disc_I1_S0S = [0 for i in range(200)]
-conc_I2_S0S = [0 for i in range(200)]
-disc_I2_S0S = [0 for i in range(200)]
-conc_I3_S0S = [0 for i in range(200)]
-disc_I3_S0S = [0 for i in range(200)]
-conc_I4_S0S = [0 for i in range(200)]
-disc_I4_S0S = [0 for i in range(200)]
-conc_I5_S0S = [0 for i in range(200)]
-disc_I5_S0S = [0 for i in range(200)]
-conc_I1_S1S = [0 for i in range(200)]
-disc_I1_S1S = [0 for i in range(200)]
-conc_I2_S1S = [0 for i in range(200)]
-disc_I2_S1S = [0 for i in range(200)]
-conc_I3_S1S = [0 for i in range(200)]
-disc_I3_S1S = [0 for i in range(200)]
-conc_I4_S1S = [0 for i in range(200)]
-disc_I4_S1S = [0 for i in range(200)]
-conc_I5_S1S = [0 for i in range(200)]
-disc_I5_S1S = [0 for i in range(200)]
-conc_I1_S2S = [0 for i in range(200)]
-disc_I1_S2S = [0 for i in range(200)]
-conc_I2_S2S = [0 for i in range(200)]
-disc_I2_S2S = [0 for i in range(200)]
-conc_I3_S2S = [0 for i in range(200)]
-disc_I3_S2S = [0 for i in range(200)]
-conc_I4_S2S = [0 for i in range(200)]
-disc_I4_S2S = [0 for i in range(200)]
-conc_I5_S2S = [0 for i in range(200)]
-disc_I5_S2S = [0 for i in range(200)]
-for i in range (0,200):
+tiempo = [0.01*i for i in range(20)]
+conc_I1_S0C = [0 for i in range(20)]
+disc_I1_S0C = [0 for i in range(20)]
+conc_I2_S0C = [0 for i in range(20)]
+disc_I2_S0C = [0 for i in range(20)]
+conc_I3_S0C = [0 for i in range(20)]
+disc_I3_S0C = [0 for i in range(20)]
+conc_I4_S0C = [0 for i in range(20)]
+disc_I4_S0C = [0 for i in range(20)]
+conc_I5_S0C = [0 for i in range(20)]
+disc_I5_S0C = [0 for i in range(20)]
+conc_I1_S1C = [0 for i in range(20)]
+disc_I1_S1C = [0 for i in range(20)]
+conc_I2_S1C = [0 for i in range(20)]
+disc_I2_S1C = [0 for i in range(20)]
+conc_I3_S1C = [0 for i in range(20)]
+disc_I3_S1C = [0 for i in range(20)]
+conc_I4_S1C = [0 for i in range(20)]
+disc_I4_S1C = [0 for i in range(20)]
+conc_I5_S1C = [0 for i in range(20)]
+disc_I5_S1C = [0 for i in range(20)]
+conc_I1_S2C = [0 for i in range(20)]
+disc_I1_S2C = [0 for i in range(20)]
+conc_I2_S2C = [0 for i in range(20)]
+disc_I2_S2C = [0 for i in range(20)]
+conc_I3_S2C = [0 for i in range(20)]
+disc_I3_S2C = [0 for i in range(20)]
+conc_I4_S2C = [0 for i in range(20)]
+disc_I4_S2C = [0 for i in range(20)]
+conc_I5_S2C = [0 for i in range(20)]
+disc_I5_S2C = [0 for i in range(20)]
+conc_I1_S0S = [0 for i in range(20)]
+disc_I1_S0S = [0 for i in range(20)]
+conc_I2_S0S = [0 for i in range(20)]
+disc_I2_S0S = [0 for i in range(20)]
+conc_I3_S0S = [0 for i in range(20)]
+disc_I3_S0S = [0 for i in range(20)]
+conc_I4_S0S = [0 for i in range(20)]
+disc_I4_S0S = [0 for i in range(20)]
+conc_I5_S0S = [0 for i in range(20)]
+disc_I5_S0S = [0 for i in range(20)]
+conc_I1_S1S = [0 for i in range(20)]
+disc_I1_S1S = [0 for i in range(20)]
+conc_I2_S1S = [0 for i in range(20)]
+disc_I2_S1S = [0 for i in range(20)]
+conc_I3_S1S = [0 for i in range(20)]
+disc_I3_S1S = [0 for i in range(20)]
+conc_I4_S1S = [0 for i in range(20)]
+disc_I4_S1S = [0 for i in range(20)]
+conc_I5_S1S = [0 for i in range(20)]
+disc_I5_S1S = [0 for i in range(20)]
+conc_I1_S2S = [0 for i in range(20)]
+disc_I1_S2S = [0 for i in range(20)]
+conc_I2_S2S = [0 for i in range(20)]
+disc_I2_S2S = [0 for i in range(20)]
+conc_I3_S2S = [0 for i in range(20)]
+disc_I3_S2S = [0 for i in range(20)]
+conc_I4_S2S = [0 for i in range(20)]
+disc_I4_S2S = [0 for i in range(20)]
+conc_I5_S2S = [0 for i in range(20)]
+disc_I5_S2S = [0 for i in range(20)]
+for i in range (0,20):
       conc_I1_S0S[i] = concurrence(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])))
       disc_I1_S0S[i] = entropy_mutual(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])).ptrace(0))
       conc_I2_S0S[i] = concurrence(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])))
@@ -175,3 +172,11 @@ for i in range (0,200):
       disc_I5_S2S[i] = entropy_mutual(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])).ptrace(0))
 
 #Graficar
+figure()
+plot(tiempo,disc_I4_S0S)
+plot(tiempo,disc_I4_S1S)
+#plot(tiempo,disc_I4_S2S)
+xlabel('gamma tiempo')
+ylabel('discordia cuantica')
+legend(('reservorio vacio', 'reservorio termico'))
+savefig('bell1.png')
