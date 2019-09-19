@@ -1,13 +1,3 @@
-#for i in range (1,20):
-#    print(entropy_vn(result1.states[10*i]), entropy_vn(result2.states[10*i]), entropy_vn(result3.states[10*i]))
-#figure()
-#plot(times, result.expect[0])
-#plot(times, result.expect[1])
-#xlabel('Gamma*Tiempo')
-#ylabel('Quantum Discord')
-#ylabel('Concurrencia')
-#legend(('Reservorio Vacio', 'Reservorio Termico', 'Reservorio Comprimido))
-#show()
 from qutip import * #Liberia qutip
 from matplotlib.pyplot import * #Libreria matplotlib
 import numpy as np #Liberia numpy
@@ -27,55 +17,70 @@ I5 = Qobj( np.array( [ [1.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.
 I5_A = Qobj( np.array( [[1.0, 0.0], [0.0, 0.0]] ) )#Traza parcial A
 I5_B = Qobj( np.array( [[1.0, 0.0], [0.0, 0.0]] ) )#Traza parcial B
 times = np.linspace(int(0.0), int(10.0), int(1000.0)) #Definir intervalo temporal
-S0Sin = Qobj( np.array( [ [0.0, 0.0], [1.0, 0.0] ] ) )#Reservorio vacio sin interaccion con el otro 
-S1Sin = Qobj( np.array( [ [0.0, 0.0], [1.1, 0.0] ] ) )#Reservorio termal sin interaccion con el otro 
-S2Sin = Qobj( np.array( [ [0.0, -0.1], [1.1, 0.0] ] ) )#Reservorio comprimido sin interaccion con el otro 
-S0Cin = Qobj( np.array( [ [0.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 1.0, 0.0] ]) ) #Reservorios vacios con interaccion
-S1Cin = Qobj( np.array( [ [0.0, 0.0, 0.0, 0.0], [1.1, 0.0, 0.0, 0.0], [1.1, 0.0, 0.0, 0.0], [0.0, 1.1, 1.1, 0.0] ]) ) #Reservorios termales con interaccion
-S2Cin = Qobj( np.array( [ [0.0,-0.1,-0.1, 0.0], [1.1, 0.0, 0.0, 0.0], [1.1, 0.0, 0.0, 0.0], [0.0, 1.1, 1.1, 0.0] ]) ) #Reservorios comprimidos con interaccion 
-em_I1_S0Cin = mesolve( identity(4), I1, times, S0Cin )  #Ecuacion Maestra para estado inicial Bell 00 con reservorios vacios con interaccion
-em_I2_S0Cin = mesolve( identity(4), I2, times, S0Cin )  #Ecuacion Maestra para estado inicial Bell 10 con reservorios vacios con interaccion
-em_I3_S0Cin = mesolve( identity(4), I3, times, S0Cin )  #Ecuacion Maestra para estado inicial logico 01 con reservorios vacios con interaccion
-em_I4_S0Cin = mesolve( identity(4), I4, times, S0Cin )  #Ecuacion Maestra para estado inicial logico 11 con reservorios vacios con interaccion 
-em_I5_S0Cin = mesolve( identity(4), I5, times, S0Cin )  #Ecuacion Maestra para estado inicial logico 00 con reservorios vacios con interaccion
-em_I1_S1Cin = mesolve( identity(4), I1, times, S1Cin )  #Ecuacion Maestra para estado inicial Bell 00 con reservorios termales con tinteraccion
-em_I2_S1Cin = mesolve( identity(4), I2, times, S1Cin ) #Ecuacion Maestra para estado inicial Bell 10 con reservorios termales con interaccion
-em_I3_S1Cin = mesolve( identity(4), I3, times, S1Cin ) #Ecuacion Maestra para estado inicial logico 01 con reservorios termales con interaccion
-em_I4_S1Cin = mesolve( identity(4), I4, times, S1Cin ) #Ecuacion Maestra para estado inicial logico 11 con reservorios termales con interaccion
-em_I5_S1Cin = mesolve( identity(4), I5, times, S1Cin ) #Ecuacion Maestra para estado inicial logico 00 con reservorios termales con interaccion
-em_I1_S2Cin = mesolve( identity(4), I1, times, S2Cin ) #Ecuacion Maestra para estado inicial Bell 00 con reservorios comprimidos con interaccion
-em_I2_S2Cin = mesolve( identity(4), I2, times, S2Cin ) #Ecuacion Maestra para estado inicial Bell 10 con reservorios comprimidos con interaccion
-em_I3_S2Cin = mesolve( identity(4), I3, times, S2Cin ) #Ecuacion Maestra para estado inicial logico 01 con reservorios comprimidos con interaccion
-em_I4_S2Cin = mesolve( identity(4), I4, times, S2Cin ) #Ecuacion Maestra para estado inicial logico 11 con reservorios comprimidos con interaccion
-em_I5_S2Cin = mesolve( identity(4), I5, times, S2Cin ) #Ecuacion Maestra para estado inicial logico 00 con reservorios comprimidos con interaccion
-emA_I1_S0Sin = mesolve( identity(2), I1_A, times) #Ecuacion Maestra para estado inicial Bell 00 con reservorios vacios sin interaccion
-emA_I2_S0Sin = mesolve( identity(2), I2_A, times) #Ecuacion Maestra para estado inicial Bell 10 con reservorios vacios sin interaccion
-emA_I3_S0Sin = mesolve( identity(2), I3_A, times) #Ecuacion Maestra para estado inicial logico 01 con reservorios vacios sin interaccion
-emA_I4_S0Sin = mesolve( identity(2), I4_A, times) #Ecuacion Maestra para estado inicial logico 11 con reservorios vacios sin interaccion
-emA_I5_S0Sin = mesolve( identity(2), I5_A, times) #Ecuacion Maestra para estado inicial logico 00 con reservorios vacios sin interaccion
-emA_I1_S1Sin = mesolve( identity(2), I1_A, times) #Ecuacion Maestra para estado inicial Bell 00 con reservorios termales sin interaccion
-emA_I2_S1Sin = mesolve( identity(2), I2_A, times) #Ecuacion Maestra para estado inicial Bell 10 con reservorios termales sin interaccion
-emA_I3_S1Sin = mesolve( identity(2), I3_A, times) #Ecuacion Maestra para estado inicial logico 01 con reservorios termales sin interaccion
-emA_I4_S1Sin = mesolve( identity(2), I4_A, times) #Ecuacion Maestra para estado inicial logico 11 con reservorios termales sin interaccion
-emA_I5_S1Sin = mesolve( identity(2), I5_A, times) #Ecuacion Maestra para estado inicial logico 00 con reservorios termales sin interaccion
-emA_I1_S2Sin = mesolve( identity(2), I1_A, times) #Ecuacion Maestra para estado inicial Bell 00 con reservorios comprimidos sin interaccion 
-emA_I2_S2Sin = mesolve( identity(2), I2_A, times) #Ecuacion Maestra para estado inicial Bell 10 con reservorios comprimidos sin interaccion
-emA_I3_S2Sin = mesolve( identity(2), I3_A, times) #Ecuacion Maestra para estado inicial logico 01 con reservorios comprimidos sin interaccion
-emA_I4_S2Sin = mesolve( identity(2), I4_A, times) #Ecuacion Maestra para estado inicial logico 11 con reservorios comprimidos sin interaccion
-emA_I5_S2Sin = mesolve( identity(2), I5_A, times) #Ecuacion Maestra para estado inicial logico 00 con reservorios comprimidos sin interaccion
-emB_I1_S0Sin = mesolve( identity(2), I1_B, times) #Ecuacion Maestra para estado inicial Bell 00  
-emB_I2_S0Sin = mesolve( identity(2), I2_B, times) #Ecuacion Maestra para estado inicial Bell 10
-emB_I3_S0Sin = mesolve( identity(2), I3_B, times) #Ecuacion Maestra para estado inicial logico 01
-emB_I4_S0Sin = mesolve( identity(2), I4_B, times) #Ecuacion Maestra para estado inicial logico 11
-emB_I5_S0Sin = mesolve( identity(2), I5_B, times) #Ecuacion Maestra para estado inicial logico 00
-emB_I1_S1Sin = mesolve( identity(2), I1_B, times) #Ecuacion Maestra para estado inicial Bell 00
-emB_I2_S1Sin = mesolve( identity(2), I2_B, times) #Ecuacion Maestra para estado inicial Bell 10
-emB_I3_S1Sin = mesolve( identity(2), I3_B, times) #Ecuacion Maestra para estado inicial logico 01 
-emB_I4_S1Sin = mesolve( identity(2), I4_B, times) #Ecuacion Maestra para estado inicial logico 11
-emB_I5_S1Sin = mesolve( identity(2), I5_B, times) #Ecuacion Maestra para estado inicial logico 00
-emB_I1_S2Sin = mesolve( identity(2), I1_B, times) #Ecuacion Maestra para estado inicial Bell 00
-emB_I2_S2Sin = mesolve( identity(2), I2_B, times) #Ecuacion Maestra para estado inicial Bell 10
-emB_I3_S2Sin = mesolve( identity(2), I3_B, times) #Ecuacion Maestra para estado inicial logico 01
-emB_I4_S2Sin = mesolve( identity(2), I4_B, times) #Ecuacion Maestra para estado inicial logico 11
-emB_I5_S2Sin = mesolve( identity(2), I5_B, times) #Ecuacion Maestra para estado inicial logico 00
+S0S = Qobj( np.array( [ [0.0, 0.0], [1.0, 0.0] ] ) )#Reservorio vacio sin interaccion con el otro 
+S1S = Qobj( np.array( [ [0.0, 0.0], [1.1, 0.0] ] ) )#Reservorio termal sin interaccion con el otro 
+S2S = Qobj( np.array( [ [0.0, -0.1], [1.1, 0.0] ] ) )#Reservorio comprimido sin interaccion con el otro 
+S0C = Qobj( np.array( [ [0.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 1.0, 0.0] ]) ) #Reservorios vacios con interaccion
+S1C = Qobj( np.array( [ [0.0, 0.0, 0.0, 0.0], [1.1, 0.0, 0.0, 0.0], [1.1, 0.0, 0.0, 0.0], [0.0, 1.1, 1.1, 0.0] ]) ) #Reservorios termales con interaccion
+S2C = Qobj( np.array( [ [0.0,-0.1,-0.1, 0.0], [1.1, 0.0, 0.0, 0.0], [1.1, 0.0, 0.0, 0.0], [0.0, 1.1, 1.1, 0.0] ]) ) #Reservorios comprimidos con interaccion 
+em_I1_S0C = mesolve(identity(4), I1, times, S0C)  #Ecuacion Maestra para estado inicial Bell 00 con reservorios vacios con interaccion
+em_I2_S0C = mesolve(identity(4), I2, times, S0C)  #Ecuacion Maestra para estado inicial Bell 10 con reservorios vacios con interaccion
+em_I3_S0C = mesolve(identity(4), I3, times, S0C)  #Ecuacion Maestra para estado inicial logico 01 con reservorios vacios con interaccion
+em_I4_S0C = mesolve(identity(4), I4, times, S0C)  #Ecuacion Maestra para estado inicial logico 11 con reservorios vacios con interaccion 
+em_I5_S0C = mesolve(identity(4), I5, times, S0C)  #Ecuacion Maestra para estado inicial logico 00 con reservorios vacios con interaccion
+em_I1_S1C = mesolve(identity(4), I1, times, S1C)  #Ecuacion Maestra para estado inicial Bell 00 con reservorios termales con tinteraccion
+em_I2_S1C = mesolve(identity(4), I2, times, S1C) #Ecuacion Maestra para estado inicial Bell 10 con reservorios termales con interaccion
+em_I3_S1C = mesolve(identity(4), I3, times, S1C) #Ecuacion Maestra para estado inicial logico 01 con reservorios termales con interaccion
+em_I4_S1C = mesolve(identity(4), I4, times, S1C) #Ecuacion Maestra para estado inicial logico 11 con reservorios termales con interaccion
+em_I5_S1C = mesolve(identity(4), I5, times, S1C) #Ecuacion Maestra para estado inicial logico 00 con reservorios termales con interaccion
+em_I1_S2C = mesolve(identity(4), I1, times, S2C) #Ecuacion Maestra para estado inicial Bell 00 con reservorios comprimidos con interaccion
+em_I2_S2C = mesolve(identity(4), I2, times, S2C) #Ecuacion Maestra para estado inicial Bell 10 con reservorios comprimidos con interaccion
+em_I3_S2C = mesolve(identity(4), I3, times, S2C) #Ecuacion Maestra para estado inicial logico 01 con reservorios comprimidos con interaccion
+em_I4_S2C = mesolve(identity(4), I4, times, S2C) #Ecuacion Maestra para estado inicial logico 11 con reservorios comprimidos con interaccion
+em_I5_S2C = mesolve(identity(4), I5, times, S2C) #Ecuacion Maestra para estado inicial logico 00 con reservorios comprimidos con interaccion
+emA_I1_S0S = mesolve(identity(2), I1_A, times, S0S) #Ecuacion Maestra para estado inicial Bell 00 con reservorios vacios sin interaccion
+emA_I2_S0S = mesolve(identity(2), I2_A, times, S0S) #Ecuacion Maestra para estado inicial Bell 10 con reservorios vacios sin interaccion
+emA_I3_S0S = mesolve(identity(2), I3_A, times, S0S) #Ecuacion Maestra para estado inicial logico 01 con reservorios vacios sin interaccion
+emA_I4_S0S = mesolve(identity(2), I4_A, times, S0S) #Ecuacion Maestra para estado inicial logico 11 con reservorios vacios sin interaccion
+emA_I5_S0S = mesolve(identity(2), I5_A, times, S0S) #Ecuacion Maestra para estado inicial logico 00 con reservorios vacios sin interaccion
+emA_I1_S1S = mesolve(identity(2), I1_A, times, S1S) #Ecuacion Maestra para estado inicial Bell 00 con reservorios termales sin interaccion
+emA_I2_S1S = mesolve(identity(2), I2_A, times, S1S) #Ecuacion Maestra para estado inicial Bell 10 con reservorios termales sin interaccion
+emA_I3_S1S = mesolve(identity(2), I3_A, times, S1S) #Ecuacion Maestra para estado inicial logico 01 con reservorios termales sin interaccion
+emA_I4_S1S = mesolve(identity(2), I4_A, times, S1S) #Ecuacion Maestra para estado inicial logico 11 con reservorios termales sin interaccion
+emA_I5_S1S = mesolve(identity(2), I5_A, times, S1S) #Ecuacion Maestra para estado inicial logico 00 con reservorios termales sin interaccion
+emA_I1_S2S = mesolve(identity(2), I1_A, times, S2S) #Ecuacion Maestra para estado inicial Bell 00 con reservorios comprimidos sin interaccion 
+emA_I2_S2S = mesolve(identity(2), I2_A, times, S2S) #Ecuacion Maestra para estado inicial Bell 10 con reservorios comprimidos sin interaccion
+emA_I3_S2S = mesolve(identity(2), I3_A, times, S2S) #Ecuacion Maestra para estado inicial logico 01 con reservorios comprimidos sin interaccion
+emA_I4_S2S = mesolve(identity(2), I4_A, times, S2S) #Ecuacion Maestra para estado inicial logico 11 con reservorios comprimidos sin interaccion
+emA_I5_S2S = mesolve(identity(2), I5_A, times, S2S) #Ecuacion Maestra para estado inicial logico 00 con reservorios comprimidos sin interaccion
+emB_I1_S0S = mesolve(identity(2), I1_B, times, S0S) #Ecuacion Maestra para estado inicial Bell 00 con reservorios vacios sin interaccion 
+emB_I2_S0S = mesolve(identity(2), I2_B, times, S0S) #Ecuacion Maestra para estado inicial Bell 10 con reservorios vacios sin interaccion
+emB_I3_S0S = mesolve(identity(2), I3_B, times, S0S) #Ecuacion Maestra para estado inicial logico 01 con reservorios vacios sin interaccion
+emB_I4_S0S = mesolve(identity(2), I4_B, times, S0S) #Ecuacion Maestra para estado inicial logico 11 con reservorios vacios sin interaccion
+emB_I5_S0S = mesolve(identity(2), I5_B, times, S0S) #Ecuacion Maestra para estado inicial logico 00 con reservorios vacios sin interaccion
+emB_I1_S1S = mesolve(identity(2), I1_B, times, S1S) #Ecuacion Maestra para estado inicial Bell 00 con reservorios termales sin interaccion
+emB_I2_S1S = mesolve(identity(2), I2_B, times, S1S) #Ecuacion Maestra para estado inicial Bell 10 con reservorios termales sin interaccion 
+emB_I3_S1S = mesolve(identity(2), I3_B, times, S1S) #Ecuacion Maestra para estado inicial logico 01 con reservorios termales sin interaccion
+emB_I4_S1S = mesolve(identity(2), I4_B, times, S1S) #Ecuacion Maestra para estado inicial logico 11 con reservorios termales sin interaccion
+emB_I5_S1S = mesolve(identity(2), I5_B, times, S1S) #Ecuacion Maestra para estado inicial logico 00 con reservorios termales sin interaccion 
+emB_I1_S2S = mesolve(identity(2), I1_B, times, S2S) #Ecuacion Maestra para estado inicial Bell 00 con reservorios comprimidos sin interaccion
+emB_I2_S2S = mesolve(identity(2), I2_B, times, S2S) #Ecuacion Maestra para estado inicial Bell 10 con reservorios comprimidos sin interaccion 
+emB_I3_S2S = mesolve(identity(2), I3_B, times, S2S) #Ecuacion Maestra para estado inicial logico 01 con reservorios comprimidos sin interaccion
+emB_I4_S2S = mesolve(identity(2), I4_B, times, S2S) #Ecuacion Maestra para estado inicial logico 11 con reservorios comprimidos sin interaccion
+emB_I5_S2S = mesolve(identity(2), I5_B, times, S2S) #Ecuacion Maestra para estado inicial logico 00 con reservorios comprimidos sin interaccion
+#Tomar matrices producto y traza parcial necesarios
+conc_I1_S0C = [0 for i in range (200)]
+disc_I1_S0C = [0 for i in range (200)]
+for i in range (0,200):  
+     st_I1_S0C = Qobj( em_I1_S0C.states[i] )
+     conc_I1_S0C[i] = conc_I1_S0C[i]  
+     disc_I1_S0C[i] = entropy_conditional(em_I1_S0C.states[i],0)-entropy_vn(em_I1_S0C.states[i])
 
+for x in ['I2','I4','I3']:
+    for y in ['S0S', 'S1S', 'S2S']:
+    print(emB_lx)
+           
+print( concurrence(Qobj( tensor( emA_I3_S2S.states[32],emB_I3_S2S.states[32] ) ) ) )
+print( entropy_mutual(Qobj( tensor( emA_I3_S2S.states[32],emB_I3_S2S.states[32]) ), 0, 1 )+ entropy_conditional(Qobj( tensor( emA_I3_S2S.states[32],emB_I3_S2S.states[32]) ), 1 ) - entropy_vn(Qobj( tensor( emA_I3_S2S.states[32], emB_I3_S2S.states[32]) ).ptrace(0) ) )
+#Calcular todos los discord (mutua-A-condicional) y las concurrencias necesarias
+#Graficar
