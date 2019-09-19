@@ -69,18 +69,77 @@ emB_I3_S2S = mesolve(identity(2), I3_B, times, S2S) #Ecuacion Maestra para estad
 emB_I4_S2S = mesolve(identity(2), I4_B, times, S2S) #Ecuacion Maestra para estado inicial logico 11 con reservorios comprimidos sin interaccion
 emB_I5_S2S = mesolve(identity(2), I5_B, times, S2S) #Ecuacion Maestra para estado inicial logico 00 con reservorios comprimidos sin interaccion
 #Tomar matrices producto y traza parcial necesarios
-conc_I1_S0C = [0 for i in range (200)]
-disc_I1_S0C = [0 for i in range (200)]
-for i in range (0,200):  
-     st_I1_S0C = Qobj( em_I1_S0C.states[i] )
-     conc_I1_S0C[i] = conc_I1_S0C[i]  
-     disc_I1_S0C[i] = entropy_conditional(em_I1_S0C.states[i],0)-entropy_vn(em_I1_S0C.states[i])
+#for i in range (0,200):  
+#     conc_I1_S0C[i] = concurrence( em_I1_S0C.states[i] )  
+#     disc_I1_S0C[i] = entropy_conditional(em_I1_S0C.states[i],0)-entropy_vn(em_I1_S0C.states[i])
 
-for x in ['I2','I4','I3']:
-    for y in ['S0S', 'S1S', 'S2S']:
-    print(emB_lx)
            
-print( concurrence(Qobj( tensor( emA_I3_S2S.states[32],emB_I3_S2S.states[32] ) ) ) )
-print( entropy_mutual(Qobj( tensor( emA_I3_S2S.states[32],emB_I3_S2S.states[32]) ), 0, 1 )+ entropy_conditional(Qobj( tensor( emA_I3_S2S.states[32],emB_I3_S2S.states[32]) ), 1 ) - entropy_vn(Qobj( tensor( emA_I3_S2S.states[32], emB_I3_S2S.states[32]) ).ptrace(0) ) )
+(concurrence(Qobj(tensor(emA_I3_S2S.states[32],emB_I3_S2S.states[32]))))
+(entropy_mutual(Qobj(tensor(emA_I3_S2S.states[32],emB_I3_S2S.states[32])),0,1)+entropy_conditional(Qobj(tensor(emA_I3_S2S.states[32],emB_I3_S2S.states[32])),1)-entropy_vn(Qobj(tensor(emA_I3_S2S.states[32],emB_I3_S2S.states[32])).ptrace(0)))
+#print(concurrence(Qobj( tensor(em_I3_S2C.states[32].ptrace(0),em_I3_S2C.states[32].ptrace(0) ))))
+#print(entropy_mutual(Qobj(em_I3_S2C.states[32]),0,1)+entropy_conditional(Qobj(em_I3_S2C.states[32]),1))-entropy_vn(Qobj(em_I3_S2C.states[32]).ptrace(0))
+#print(entropy_mutual(Qobj(em_I3_S2C.states[32]),0,0))
+
+
 #Calcular todos los discord (mutua-A-condicional) y las concurrencias necesarias
+conc_I1_S0C = [0 for i in range(200)]
+disc_I1_S0C = [0 for i in range(200)]
+conc_I2_S0C = [0 for i in range(200)]
+disc_I2_S0C = [0 for i in range(200)]
+conc_I3_S0C = [0 for i in range(200)]
+disc_I3_S0C = [0 for i in range(200)]
+conc_I4_S0C = [0 for i in range(200)]
+disc_I4_S0C = [0 for i in range(200)]
+conc_I5_S0C = [0 for i in range(200)]
+disc_I5_S0C = [0 for i in range(200)]
+conc_I1_S1C = [0 for i in range(200)]
+disc_I1_S1C = [0 for i in range(200)]
+conc_I2_S1C = [0 for i in range(200)]
+disc_I2_S1C = [0 for i in range(200)]
+conc_I3_S1C = [0 for i in range(200)]
+disc_I3_S1C = [0 for i in range(200)]
+conc_I4_S1C = [0 for i in range(200)]
+disc_I4_S1C = [0 for i in range(200)]
+conc_I5_S1C = [0 for i in range(200)]
+disc_I5_S1C = [0 for i in range(200)]
+conc_I1_S2C = [0 for i in range(200)]
+disc_I1_S2C = [0 for i in range(200)]
+conc_I2_S2C = [0 for i in range(200)]
+disc_I2_S2C = [0 for i in range(200)]
+conc_I3_S2C = [0 for i in range(200)]
+disc_I3_S2C = [0 for i in range(200)]
+conc_I4_S2C = [0 for i in range(200)]
+disc_I4_S2C = [0 for i in range(200)]
+conc_I5_S2C = [0 for i in range(200)]
+disc_I5_S2C = [0 for i in range(200)]
+conc_I1_S0S = [0 for i in range(200)]
+disc_I1_S0S = [0 for i in range(200)]
+conc_I2_S0S = [0 for i in range(200)]
+disc_I2_S0S = [0 for i in range(200)]
+conc_I3_S0S = [0 for i in range(200)]
+disc_I3_S0S = [0 for i in range(200)]
+conc_I4_S0S = [0 for i in range(200)]
+disc_I4_S0S = [0 for i in range(200)]
+conc_I5_S0S = [0 for i in range(200)]
+disc_I5_S0S = [0 for i in range(200)]
+conc_I1_S1S = [0 for i in range(200)]
+disc_I1_S1S = [0 for i in range(200)]
+conc_I2_S1S = [0 for i in range(200)]
+disc_I2_S1S = [0 for i in range(200)]
+conc_I3_S1S = [0 for i in range(200)]
+disc_I3_S1S = [0 for i in range(200)]
+conc_I4_S1S = [0 for i in range(200)]
+disc_I4_S1S = [0 for i in range(200)]
+conc_I5_S1S = [0 for i in range(200)]
+disc_I5_S1S = [0 for i in range(200)]
+conc_I1_S2S = [0 for i in range(200)]
+disc_I1_S2S = [0 for i in range(200)]
+conc_I2_S2S = [0 for i in range(200)]
+disc_I2_S2S = [0 for i in range(200)]
+conc_I3_S2S = [0 for i in range(200)]
+disc_I3_S2S = [0 for i in range(200)]
+conc_I4_S2S = [0 for i in range(200)]
+disc_I4_S2S = [0 for i in range(200)]
+conc_I5_S2S = [0 for i in range(200)]
+disc_I5_S2S = [0 for i in range(200)]
 #Graficar
