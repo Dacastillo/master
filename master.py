@@ -76,70 +76,70 @@ emB_I5_S2S = mesolve(identity(2), I5_B, times, S2S) #Ecuacion Maestra para estad
 #print(entropy_mutual(Qobj(em_I3_S2C.states[32]),0,1)+entropy_conditional(Qobj(em_I3_S2C.states[32]),1))-entropy_vn(Qobj(em_I3_S2C.states[32]).ptrace(0))
 #print(entropy_mutual(Qobj(em_I3_S2C.states[32]),0,0))
 
-
+n = 10
 #Calcular todos los discord (mutua-A-condicional) y las concurrencias necesarias
-tiempo = [0.01*i for i in range(20)]
-conc_I1_S0C = [0 for i in range(20)]
-disc_I1_S0C = [0 for i in range(20)]
-conc_I2_S0C = [0 for i in range(20)]
-disc_I2_S0C = [0 for i in range(20)]
-conc_I3_S0C = [0 for i in range(20)]
-disc_I3_S0C = [0 for i in range(20)]
-conc_I4_S0C = [0 for i in range(20)]
-disc_I4_S0C = [0 for i in range(20)]
-conc_I5_S0C = [0 for i in range(20)]
-disc_I5_S0C = [0 for i in range(20)]
-conc_I1_S1C = [0 for i in range(20)]
-disc_I1_S1C = [0 for i in range(20)]
-conc_I2_S1C = [0 for i in range(20)]
-disc_I2_S1C = [0 for i in range(20)]
-conc_I3_S1C = [0 for i in range(20)]
-disc_I3_S1C = [0 for i in range(20)]
-conc_I4_S1C = [0 for i in range(20)]
-disc_I4_S1C = [0 for i in range(20)]
-conc_I5_S1C = [0 for i in range(20)]
-disc_I5_S1C = [0 for i in range(20)]
-conc_I1_S2C = [0 for i in range(20)]
-disc_I1_S2C = [0 for i in range(20)]
-conc_I2_S2C = [0 for i in range(20)]
-disc_I2_S2C = [0 for i in range(20)]
-conc_I3_S2C = [0 for i in range(20)]
-disc_I3_S2C = [0 for i in range(20)]
-conc_I4_S2C = [0 for i in range(20)]
-disc_I4_S2C = [0 for i in range(20)]
-conc_I5_S2C = [0 for i in range(20)]
-disc_I5_S2C = [0 for i in range(20)]
-conc_I1_S0S = [0 for i in range(20)]
-disc_I1_S0S = [0 for i in range(20)]
-conc_I2_S0S = [0 for i in range(20)]
-disc_I2_S0S = [0 for i in range(20)]
-conc_I3_S0S = [0 for i in range(20)]
-disc_I3_S0S = [0 for i in range(20)]
-conc_I4_S0S = [0 for i in range(20)]
-disc_I4_S0S = [0 for i in range(20)]
-conc_I5_S0S = [0 for i in range(20)]
-disc_I5_S0S = [0 for i in range(20)]
-conc_I1_S1S = [0 for i in range(20)]
-disc_I1_S1S = [0 for i in range(20)]
-conc_I2_S1S = [0 for i in range(20)]
-disc_I2_S1S = [0 for i in range(20)]
-conc_I3_S1S = [0 for i in range(20)]
-disc_I3_S1S = [0 for i in range(20)]
-conc_I4_S1S = [0 for i in range(20)]
-disc_I4_S1S = [0 for i in range(20)]
-conc_I5_S1S = [0 for i in range(20)]
-disc_I5_S1S = [0 for i in range(20)]
-conc_I1_S2S = [0 for i in range(20)]
-disc_I1_S2S = [0 for i in range(20)]
-conc_I2_S2S = [0 for i in range(20)]
-disc_I2_S2S = [0 for i in range(20)]
-conc_I3_S2S = [0 for i in range(20)]
-disc_I3_S2S = [0 for i in range(20)]
-conc_I4_S2S = [0 for i in range(20)]
-disc_I4_S2S = [0 for i in range(20)]
-conc_I5_S2S = [0 for i in range(20)]
-disc_I5_S2S = [0 for i in range(20)]
-for i in range (0,20):
+tiempo = [0.01*i for i in range(n)]
+conc_I1_S0C = [0 for i in range(n)]
+disc_I1_S0C = [0 for i in range(n)]
+conc_I2_S0C = [0 for i in range(n)]
+disc_I2_S0C = [0 for i in range(n)]
+conc_I3_S0C = [0 for i in range(n)]
+disc_I3_S0C = [0 for i in range(n)]
+conc_I4_S0C = [0 for i in range(n)]
+disc_I4_S0C = [0 for i in range(n)]
+conc_I5_S0C = [0 for i in range(n)]
+disc_I5_S0C = [0 for i in range(n)]
+conc_I1_S1C = [0 for i in range(n)]
+disc_I1_S1C = [0 for i in range(n)]
+conc_I2_S1C = [0 for i in range(n)]
+disc_I2_S1C = [0 for i in range(n)]
+conc_I3_S1C = [0 for i in range(n)]
+disc_I3_S1C = [0 for i in range(n)]
+conc_I4_S1C = [0 for i in range(n)]
+disc_I4_S1C = [0 for i in range(n)]
+conc_I5_S1C = [0 for i in range(n)]
+disc_I5_S1C = [0 for i in range(n)]
+conc_I1_S2C = [0 for i in range(n)]
+disc_I1_S2C = [0 for i in range(n)]
+conc_I2_S2C = [0 for i in range(n)]
+disc_I2_S2C = [0 for i in range(n)]
+conc_I3_S2C = [0 for i in range(n)]
+disc_I3_S2C = [0 for i in range(n)]
+conc_I4_S2C = [0 for i in range(n)]
+disc_I4_S2C = [0 for i in range(n)]
+conc_I5_S2C = [0 for i in range(n)]
+disc_I5_S2C = [0 for i in range(n)]
+conc_I1_S0S = [0 for i in range(n)]
+disc_I1_S0S = [0 for i in range(n)]
+conc_I2_S0S = [0 for i in range(n)]
+disc_I2_S0S = [0 for i in range(n)]
+conc_I3_S0S = [0 for i in range(n)]
+disc_I3_S0S = [0 for i in range(n)]
+conc_I4_S0S = [0 for i in range(n)]
+disc_I4_S0S = [0 for i in range(n)]
+conc_I5_S0S = [0 for i in range(n)]
+disc_I5_S0S = [0 for i in range(n)]
+conc_I1_S1S = [0 for i in range(n)]
+disc_I1_S1S = [0 for i in range(n)]
+conc_I2_S1S = [0 for i in range(n)]
+disc_I2_S1S = [0 for i in range(n)]
+conc_I3_S1S = [0 for i in range(n)]
+disc_I3_S1S = [0 for i in range(n)]
+conc_I4_S1S = [0 for i in range(n)]
+disc_I4_S1S = [0 for i in range(n)]
+conc_I5_S1S = [0 for i in range(n)]
+disc_I5_S1S = [0 for i in range(n)]
+conc_I1_S2S = [0 for i in range(n)]
+disc_I1_S2S = [0 for i in range(n)]
+conc_I2_S2S = [0 for i in range(n)]
+disc_I2_S2S = [0 for i in range(n)]
+conc_I3_S2S = [0 for i in range(n)]
+disc_I3_S2S = [0 for i in range(n)]
+conc_I4_S2S = [0 for i in range(n)]
+disc_I4_S2S = [0 for i in range(n)]
+conc_I5_S2S = [0 for i in range(n)]
+disc_I5_S2S = [0 for i in range(n)]
+for i in range (0,n):
       conc_I1_S0S[i] = concurrence(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])))
       disc_I1_S0S[i] = entropy_mutual(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])).ptrace(0))
       conc_I2_S0S[i] = concurrence(Qobj(tensor(emA_I2_S0S.states[i],emB_I2_S0S.states[i])))
@@ -262,4 +262,24 @@ ylabel('discordia cuantica')
 legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
 savefig('conc_logi1_S.png')
 
+#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,1))
+#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,3)) 
+#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,1))
+#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,3)) 
 
+#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,2))
+#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,3))
+#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,2))
+#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,3))
+
+matA=Qobj(np.array([[Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,1))
+,Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,3)) 
+],[Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,1))
+,Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,3)) 
+]]))
+matB=Qobj(np.array([[Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,2))
+,Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,3))
+],[Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,2))
+,Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,3))
+]]))
+print(concurrence(tensor(matA,matB)))
