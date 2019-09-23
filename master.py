@@ -70,7 +70,7 @@ emB_I4_S2S = mesolve(identity(2), I4_B, times, S2S) #Ecuacion Maestra para estad
 emB_I5_S2S = mesolve(identity(2), I5_B, times, S2S) #Ecuacion Maestra para estado inicial logico 00 con reservorios comprimidos sin interaccion
 
      
-n = 10
+n = 20
 #Calcular todos los discord (mutua-A-condicional) y las concurrencias necesarias
 tiempo = [0.01*i for i in range(n)]
 #conc_I1_S0C = [0 for i in range(n)]
@@ -137,223 +137,921 @@ for var in ['disc', 'conc']:
     for est in ['I1_A', 'I2_A', 'I3_A', 'I4_A', 'I5_A']:
         for res in ['S0S', 'S1S', 'S2S']:
             var_est_res= [0 for i in range(n)] 
-#            print(var_est_res])
-#for i in range (0,n):
-#      conc_I1_S0S[i] = concurrence(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])))
-#      disc_I1_S0S[i] = entropy_mutual(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])).ptrace(0))
-#      conc_I2_S0S[i] = concurrence(Qobj(tensor(emA_I2_S0S.states[i],emB_I2_S0S.states[i])))
-#      disc_I2_S0S[i] = entropy_mutual(Qobj(tensor(emA_I2_S0S.states[i],emB_I2_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I2_S0S.states[i],emB_I2_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I2_S0S.states[i],emB_I2_S0S.states[i])).ptrace(0))
-#      conc_I3_S0S[i] = concurrence(Qobj(tensor(emA_I3_S0S.states[i],emB_I3_S0S.states[i])))
-#      disc_I3_S0S[i] = entropy_mutual(Qobj(tensor(emA_I3_S0S.states[i],emB_I3_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I3_S0S.states[i],emB_I3_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I3_S0S.states[i],emB_I3_S0S.states[i])).ptrace(0))
-#      conc_I4_S0S[i] = concurrence(Qobj(tensor(emA_I4_S0S.states[i],emB_I4_S0S.states[i])))
-#      disc_I4_S0S[i] = entropy_mutual(Qobj(tensor(emA_I4_S0S.states[i],emB_I4_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I4_S0S.states[i],emB_I4_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I4_S0S.states[i],emB_I1_S0S.states[i])).ptrace(0))
-#      conc_I5_S0S[i] = concurrence(Qobj(tensor(emA_I5_S0S.states[i],emB_I5_S0S.states[i])))
-#      disc_I5_S0S[i] = entropy_mutual(Qobj(tensor(emA_I5_S0S.states[i],emB_I5_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I5_S0S.states[i],emB_I5_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I5_S0S.states[i],emB_I1_S0S.states[i])).ptrace(0))
-#      conc_I1_S1S[i] = concurrence(Qobj(tensor(emA_I1_S1S.states[i],emB_I1_S1S.states[i])))
-#      disc_I1_S1S[i] = entropy_mutual(Qobj(tensor(emA_I1_S1S.states[i],emB_I1_S1S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I1_S1S.states[i],emB_I1_S1S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I1_S1S.states[i],emB_I1_S1S.states[i])).ptrace(0))
-#      conc_I2_S1S[i] = concurrence(Qobj(tensor(emA_I2_S1S.states[i],emB_I2_S1S.states[i])))
-#      disc_I2_S1S[i] = entropy_mutual(Qobj(tensor(emA_I2_S1S.states[i],emB_I2_S1S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I2_S1S.states[i],emB_I2_S1S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I2_S1S.states[i],emB_I2_S1S.states[i])).ptrace(0))
-#      conc_I3_S1S[i] = concurrence(Qobj(tensor(emA_I3_S1S.states[i],emB_I3_S1S.states[i])))
-#      disc_I3_S1S[i] = entropy_mutual(Qobj(tensor(emA_I3_S1S.states[i],emB_I3_S1S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I3_S1S.states[i],emB_I3_S1S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I3_S1S.states[i],emB_I3_S1S.states[i])).ptrace(0))
-#      conc_I4_S1S[i] = concurrence(Qobj(tensor(emA_I4_S1S.states[i],emB_I4_S1S.states[i])))
-#      disc_I4_S1S[i] = entropy_mutual(Qobj(tensor(emA_I4_S1S.states[i],emB_I4_S1S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I4_S1S.states[i],emB_I4_S1S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I4_S1S.states[i],emB_I4_S1S.states[i])).ptrace(0))
-#      conc_I5_S1S[i] = concurrence(Qobj(tensor(emA_I5_S1S.states[i],emB_I5_S1S.states[i])))
-#      disc_I5_S1S[i] = entropy_mutual(Qobj(tensor(emA_I5_S1S.states[i],emB_I5_S1S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I5_S1S.states[i],emB_I5_S1S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I5_S1S.states[i],emB_I5_S1S.states[i])).ptrace(0))
-#      conc_I1_S2S[i] = concurrence(Qobj(tensor(emA_I1_S2S.states[i],emB_I1_S2S.states[i])))
-#      disc_I1_S2S[i] = entropy_mutual(Qobj(tensor(emA_I1_S2S.states[i],emB_I1_S2S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I1_S2S.states[i],emB_I1_S2S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I1_S2S.states[i],emB_I1_S2S.states[i])).ptrace(0))
-#      conc_I2_S2S[i] = concurrence(Qobj(tensor(emA_I2_S2S.states[i],emB_I2_S2S.states[i])))
-#      disc_I2_S2S[i] = entropy_mutual(Qobj(tensor(emA_I2_S2S.states[i],emB_I2_S2S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I2_S2S.states[i],emB_I2_S2S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I2_S2S.states[i],emB_I2_S2S.states[i])).ptrace(0))
-#      conc_I3_S2S[i] = concurrence(Qobj(tensor(emA_I3_S2S.states[i],emB_I3_S2S.states[i])))
-#      disc_I3_S2S[i] = entropy_mutual(Qobj(tensor(emA_I3_S2S.states[i],emB_I3_S2S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I3_S2S.states[i],emB_I3_S2S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I3_S2S.states[i],emB_I3_S2S.states[i])).ptrace(0))
-#      conc_I4_S2S[i] = concurrence(Qobj(tensor(emA_I4_S2S.states[i],emB_I4_S2S.states[i])))
-#      disc_I4_S2S[i] = entropy_mutual(Qobj(tensor(emA_I4_S2S.states[i],emB_I4_S2S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I4_S2S.states[i],emB_I4_S2S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I4_S2S.states[i],emB_I4_S2S.states[i])).ptrace(0))
-#      conc_I5_S2S[i] = concurrence(Qobj(tensor(emA_I5_S2S.states[i],emB_I5_S2S.states[i])))
-#      disc_I5_S2S[i] = entropy_mutual(Qobj(tensor(emA_I5_S2S.states[i],emB_I5_S2S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I5_S2S.states[i],emB_I5_S2S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I5_S2S.states[i],emB_I5_S2S.states[i])).ptrace(0))
-#      conc_I1_S0S[i] = concurrence(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])))
-#      disc_I1_S0S[i] = entropy_mutual(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I1_S0S.states[i],emB_I1_S0S.states[i])).ptrace(0))
-#      conc_I2_S0S[i] = concurrence(Qobj(tensor(emA_I2_S0S.states[i],emB_I2_S0S.states[i])))
-#      disc_I2_S0S[i] = entropy_mutual(Qobj(tensor(emA_I2_S0S.states[i],emB_I2_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I2_S0S.states[i],emB_I2_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I2_S0S.states[i],emB_I2_S0S.states[i])).ptrace(0))
-#      conc_I3_S0S[i] = concurrence(Qobj(tensor(emA_I3_S0S.states[i],emB_I3_S0S.states[i])))
-#      disc_I3_S0S[i] = entropy_mutual(Qobj(tensor(emA_I3_S0S.states[i],emB_I3_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I3_S0S.states[i],emB_I3_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I3_S0S.states[i],emB_I3_S0S.states[i])).ptrace(0))
-#      conc_I4_S0S[i] = concurrence(Qobj(tensor(emA_I4_S0S.states[i],emB_I4_S0S.states[i])))
-#      disc_I4_S0S[i] = entropy_mutual(Qobj(tensor(emA_I4_S0S.states[i],emB_I4_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I4_S0S.states[i],emB_I4_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I4_S0S.states[i],emB_I1_S0S.states[i])).ptrace(0))
-#      conc_I5_S0S[i] = concurrence(Qobj(tensor(emA_I5_S0S.states[i],emB_I5_S0S.states[i])))
-#      disc_I5_S0S[i] = entropy_mutual(Qobj(tensor(emA_I5_S0S.states[i],emB_I5_S0S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I5_S0S.states[i],emB_I5_S0S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I5_S0S.states[i],emB_I1_S0S.states[i])).ptrace(0))
-#      conc_I1_S1S[i] = concurrence(Qobj(tensor(emA_I1_S1S.states[i],emB_I1_S1S.states[i])))
-#      disc_I1_S1S[i] = entropy_mutual(Qobj(tensor(emA_I1_S1S.states[i],emB_I1_S1S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I1_S1S.states[i],emB_I1_S1S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I1_S1S.states[i],emB_I1_S1S.states[i])).ptrace(0))
-#      conc_I2_S1S[i] = concurrence(Qobj(tensor(emA_I2_S1S.states[i],emB_I2_S1S.states[i])))
-#      disc_I2_S1S[i] = entropy_mutual(Qobj(tensor(emA_I2_S1S.states[i],emB_I2_S1S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I2_S1S.states[i],emB_I2_S1S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I2_S1S.states[i],emB_I2_S1S.states[i])).ptrace(0))
-#      conc_I3_S1S[i] = concurrence(Qobj(tensor(emA_I3_S1S.states[i],emB_I3_S1S.states[i])))
-#      disc_I3_S1S[i] = entropy_mutual(Qobj(tensor(emA_I3_S1S.states[i],emB_I3_S1S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I3_S1S.states[i],emB_I3_S1S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I3_S1S.states[i],emB_I3_S1S.states[i])).ptrace(0))
-#      conc_I4_S1S[i] = concurrence(Qobj(tensor(emA_I4_S1S.states[i],emB_I4_S1S.states[i])))
-#      disc_I4_S1S[i] = entropy_mutual(Qobj(tensor(emA_I4_S1S.states[i],emB_I4_S1S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I4_S1S.states[i],emB_I4_S1S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I4_S1S.states[i],emB_I4_S1S.states[i])).ptrace(0))
-#      conc_I5_S1S[i] = concurrence(Qobj(tensor(emA_I5_S1S.states[i],emB_I5_S1S.states[i])))
-#      disc_I5_S1S[i] = entropy_mutual(Qobj(tensor(emA_I5_S1S.states[i],emB_I5_S1S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I5_S1S.states[i],emB_I5_S1S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I5_S1S.states[i],emB_I5_S1S.states[i])).ptrace(0))
-#      conc_I1_S2S[i] = concurrence(Qobj(tensor(emA_I1_S2S.states[i],emB_I1_S2S.states[i])))
-#      disc_I1_S2S[i] = entropy_mutual(Qobj(tensor(emA_I1_S2S.states[i],emB_I1_S2S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I1_S2S.states[i],emB_I1_S2S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I1_S2S.states[i],emB_I1_S2S.states[i])).ptrace(0))
-#      conc_I2_S2S[i] = concurrence(Qobj(tensor(emA_I2_S2S.states[i],emB_I2_S2S.states[i])))
-#      disc_I2_S2S[i] = entropy_mutual(Qobj(tensor(emA_I2_S2S.states[i],emB_I2_S2S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I2_S2S.states[i],emB_I2_S2S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I2_S2S.states[i],emB_I2_S2S.states[i])).ptrace(0))
-#      conc_I3_S2S[i] = concurrence(Qobj(tensor(emA_I3_S2S.states[i],emB_I3_S2S.states[i])))
-#      disc_I3_S2S[i] = entropy_mutual(Qobj(tensor(emA_I3_S2S.states[i],emB_I3_S2S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I3_S2S.states[i],emB_I3_S2S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I3_S2S.states[i],emB_I3_S2S.states[i])).ptrace(0))
-#      conc_I4_S2S[i] = concurrence(Qobj(tensor(emA_I4_S2S.states[i],emB_I4_S2S.states[i])))
-#      disc_I4_S2S[i] = entropy_mutual(Qobj(tensor(emA_I4_S2S.states[i],emB_I4_S2S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I4_S2S.states[i],emB_I4_S2S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I4_S2S.states[i],emB_I4_S2S.states[i])).ptrace(0))
-#      conc_I5_S2S[i] = concurrence(Qobj(tensor(emA_I5_S2S.states[i],emB_I5_S2S.states[i])))
-#      disc_I5_S2S[i] = entropy_mutual(Qobj(tensor(emA_I5_S2S.states[i],emB_I5_S2S.states[i])),0,1)+entropy_conditional(Qobj(tensor(emA_I5_S2S.states[i],emB_I5_S2S.states[i])),1)-entropy_vn(Qobj(tensor(emA_I5_S2S.states[i],emB_I5_S2S.states[i])).ptrace(0))
 
-#Graficar
-#figure()
-#plot(tiempo,disc_I1_S0S)
-#plot(tiempo,disc_I1_S1S)
-#plot(tiempo,disc_I1_S2S)
-#xlabel('gamma tiempo')
-#ylabel('discordia cuantica')
-#legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
-savefig('disc_bell1_S.png')
-
-#figure()
-#plot(tiempo,disc_I2_S0S)
-#plot(tiempo,disc_I2_S1S)
-#plot(tiempo,disc_I2_S2S)
-#xlabel('gamma tiempo')
-#ylabel('discordia cuantica')
-#legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
-#savefig('disc_bell3_S.png')
-
-#figure()
-#plot(tiempo,disc_I3_S0S)
-#plot(tiempo,disc_I3_S1S)
-#plot(tiempo,disc_I3_S2S)
-#xlabel('gamma tiempo')
-#ylabel('discordia cuantica')
-#legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
-#savefig('disc_logi2_S.png')
-
-#figure()
-#plot(tiempo,disc_I4_S0S)
-#plot(tiempo,disc_I4_S1S)
-#plot(tiempo,disc_I4_S2S)
-#xlabel('gamma tiempo')
-#ylabel('discordia cuantica')
-#legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
-#savefig('disc_logi4_S.png')
-
-#figure()
-#plot(tiempo,disc_I5_S0S)
-#plot(tiempo,disc_I5_S1S)
-#plot(tiempo,disc_I5_S2S)
-#xlabel('gamma tiempo')
-#ylabel('discordia cuantica')
-#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-#savefig('disc_logi1_S.png')
-
-#figure()
-#plot(tiempo,conc_I1_S0S)
-#plot(tiempo,conc_I1_S1S)
-#plot(tiempo,conc_I1_S2S)
-#xlabel('gamma tiempo')
-#ylabel('concurrencia')
-#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-#savefig('conc_bell1_S.png')
-
-#figure()
-#plot(tiempo,conc_I2_S0S)
-#plot(tiempo,conc_I2_S1S)
-#plot(tiempo,conc_I2_S2S)
-#xlabel('gamma tiempo')
-#ylabel('concurrencia')
-#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-#savefig('conc_bell3_S.png')
-
-#figure()
-#plot(tiempo,conc_I3_S0S)
-#plot(tiempo,conc_I3_S1S)
-#plot(tiempo,conc_I3_S2S)
-#xlabel('gamma tiempo')
-#ylabel('concurrencia')
-#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-#savefig('conc_logi3_S.png')
-
-#figure()
-#plot(tiempo,conc_I4_S0S)
-#plot(tiempo,conc_I4_S1S)
-#plot(tiempo,conc_I4_S2S)
-#xlabel('gamma tiempo')
-#ylabel('concurrencia')
-#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-#savefig('conc_logi4_S.png')
-
-#figure()
-#plot(tiempo,conc_I5_S0S)
-#plot(tiempo,conc_I5_S1S)
-#plot(tiempo,conc_I5_S2S)
-#xlabel('gamma tiempo')
-#ylabel('discordia cuantica')
-#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-#savefig('conc_logi1_S.png')
-
-#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,1))
-#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,3)) 
-#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,1))
-#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,3)) 
-
-#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,2))
-#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,2).dag(),basis(4,3))
-#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,2))
-#Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[21]).matrix_element(basis(4,3).dag(),basis(4,3))
-
-
-for i in range (0,20):
+for i in range (0,n):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
     if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
        if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
           if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
-             conc=tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
 
     if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
        if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
           if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
-             conc=tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
 
     if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
        if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
           if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
-             conc=tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
 
     if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
        if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
           if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
-             conc=tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
 
-    disc=-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
     print(conc,disc)
 
 
-for i in range (0,20):
+for i in range (0,n):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
     if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
        if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
           if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
-             conc=tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
 
  
     if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
        if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
           if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
-             conc=tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
 
     if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
        if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
           if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
-             conc=tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
 
     if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
        if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
           if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
-             conc=tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
 
-    disc=-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
     print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+  
+ for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+for i in range (0,n):
+    matA=Qobj(emA_I3_S0S.states[i])
+    matB=Qobj(emB_I3_S0S.states[i])
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+    print(conc,disc)
+
+
+for i in range (0,n):
+    matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+    matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
+
+    if tensor(matA,matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[0] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+ 
+    if tensor(matA,matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[0]:
+       if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[1] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[0]:
+          if tensor(matA, matB).eigenenergies()[2] > tensor(matA, matB).eigenenergies()[3]:
+             conc[i] =tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[0]-tensor(matA, matB).eigenenergies()[3]
+
+    if tensor(matA,matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[1]:
+       if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[2]:
+          if tensor(matA, matB).eigenenergies()[3] > tensor(matA, matB).eigenenergies()[0]:
+             conc[i] =tensor(matA, matB).eigenenergies()[3]-tensor(matA, matB).eigenenergies()[1]-tensor(matA, matB).eigenenergies()[2]-tensor(matA, matB).eigenenergies()[0]
+
+    disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
+   
+
+
+#Graficar
+figure()
+plot(tiempo,disc_I1_S0S)
+plot(tiempo,disc_I1_S1S)
+plot(tiempo,disc_I1_S2S)
+xlabel('gamma tiempo')
+ylabel('discordia cuantica')
+legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
+savefig('disc_bell1_S.png')
+
+figure()
+plot(tiempo,disc_I2_S0S)
+plot(tiempo,disc_I2_S1S)
+plot(tiempo,disc_I2_S2S)
+xlabel('gamma tiempo')
+ylabel('discordia cuantica')
+legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
+savefig('disc_bell3_S.png')
+
+figure()
+plot(tiempo,disc_I3_S0S)
+plot(tiempo,disc_I3_S1S)
+plot(tiempo,disc_I3_S2S)
+xlabel('gamma tiempo')
+ylabel('discordia cuantica')
+legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
+savefig('disc_logi2_S.png')
+
+figure()
+plot(tiempo,disc_I4_S0S)
+plot(tiempo,disc_I4_S1S)
+plot(tiempo,disc_I4_S2S)
+xlabel('gamma tiempo')
+ylabel('discordia cuantica')
+legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
+savefig('disc_logi4_S.png')
+
+figure()
+plot(tiempo,disc_I5_S0S)
+plot(tiempo,disc_I5_S1S)
+plot(tiempo,disc_I5_S2S)
+xlabel('gamma tiempo')
+ylabel('discordia cuantica')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('disc_logi1_S.png')
+
+figure()
+plot(tiempo,conc_I1_S0S)
+plot(tiempo,conc_I1_S1S)
+plot(tiempo,conc_I1_S2S)
+xlabel('gamma tiempo')
+ylabel('concurrencia')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_bell1_S.png')
+
+figure()
+plot(tiempo,conc_I2_S0S)
+plot(tiempo,conc_I2_S1S)
+plot(tiempo,conc_I2_S2S)
+xlabel('gamma tiempo')
+ylabel('concurrencia')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_bell3_S.png')
+
+figure()
+plot(tiempo,conc_I3_S0S)
+plot(tiempo,conc_I3_S1S)
+plot(tiempo,conc_I3_S2S)
+xlabel('gamma tiempo')
+ylabel('concurrencia')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_logi3_S.png')
+
+figure()
+plot(tiempo,conc_I4_S0S)
+plot(tiempo,conc_I4_S1S)
+plot(tiempo,conc_I4_S2S)
+xlabel('gamma tiempo')
+ylabel('concurrencia')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_logi4_S.png')
+
+figure()
+plot(tiempo,conc_I5_S0S)
+plot(tiempo,conc_I5_S1S)
+plot(tiempo,conc_I5_S2S)
+xlabel('gamma tiempo')
+ylabel('discordia cuantica')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_logi1_S.png')
