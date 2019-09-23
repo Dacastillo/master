@@ -136,9 +136,9 @@ tiempo = [0.01*i for i in range(n)]
 for var in ['disc', 'conc']:
     for est in ['I1_A', 'I2_A', 'I3_A', 'I4_A', 'I5_A']:
         for res in ['S0S', 'S1S', 'S2S']:
-            var_est_res= [0 for i in range(n)] 
+            var_est_res= [0 for i in range(20)] 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -166,7 +166,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -193,7 +193,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -221,7 +221,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -248,7 +248,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -276,7 +276,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -303,7 +303,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -331,7 +331,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -358,7 +358,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -386,7 +386,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -413,7 +413,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -441,7 +441,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -468,7 +468,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
   
- for i in range (0,n):
+ for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -496,7 +496,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -523,7 +523,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -551,7 +551,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -578,7 +578,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -606,7 +606,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -633,7 +633,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -661,7 +661,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -688,7 +688,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -716,7 +716,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -743,7 +743,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -771,7 +771,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -798,7 +798,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -826,7 +826,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -853,7 +853,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -881,7 +881,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -908,7 +908,7 @@ for i in range (0,n):
 
     disc[i] =-entropy_mutual(tensor(matA,matB),0,1)-entropy_conditional(tensor(matA,matB),0)+entropy_vn(matA)
    
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(emA_I3_S0S.states[i])
     matB=Qobj(emB_I3_S0S.states[i])
 
@@ -936,7 +936,7 @@ for i in range (0,n):
     print(conc,disc)
 
 
-for i in range (0,n):
+for i in range (0,20):
     matA=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,3)) ],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,1)) ,Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
     matB=Qobj(np.array([[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,0).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,2).dag(),basis(4,3))],[Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,0))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,2)),Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,1).dag(),basis(4,1))+Qobj(em_I3_S0C.states[i]).matrix_element(basis(4,3).dag(),basis(4,3))]]))
 
@@ -966,92 +966,92 @@ for i in range (0,n):
 
 
 #Graficar
-figure()
-plot(tiempo,disc_I1_S0S)
-plot(tiempo,disc_I1_S1S)
-plot(tiempo,disc_I1_S2S)
-xlabel('gamma tiempo')
-ylabel('discordia cuantica')
-legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
-savefig('disc_bell1_S.png')
+#figure()
+#plot(tiempo,disc_I1_S0S)
+#plot(tiempo,disc_I1_S1S)
+#plot(tiempo,disc_I1_S2S)
+#xlabel('gamma tiempo')
+#ylabel('discordia cuantica')
+#legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
+#savefig('disc_bell1_S.png')
 
-figure()
-plot(tiempo,disc_I2_S0S)
-plot(tiempo,disc_I2_S1S)
-plot(tiempo,disc_I2_S2S)
-xlabel('gamma tiempo')
-ylabel('discordia cuantica')
-legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
-savefig('disc_bell3_S.png')
+#figure()
+#plot(tiempo,disc_I2_S0S)
+#plot(tiempo,disc_I2_S1S)
+#plot(tiempo,disc_I2_S2S)
+#xlabel('gamma tiempo')
+#ylabel('discordia cuantica')
+#legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
+#savefig('disc_bell3_S.png')
 
-figure()
-plot(tiempo,disc_I3_S0S)
-plot(tiempo,disc_I3_S1S)
-plot(tiempo,disc_I3_S2S)
-xlabel('gamma tiempo')
-ylabel('discordia cuantica')
-legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
-savefig('disc_logi2_S.png')
+#figure()
+#plot(tiempo,disc_I3_S0S)
+#plot(tiempo,disc_I3_S1S)
+#plot(tiempo,disc_I3_S2S)
+#xlabel('gamma tiempo')
+#ylabel('discordia cuantica')
+#legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
+#savefig('disc_logi2_S.png')
 
-figure()
-plot(tiempo,disc_I4_S0S)
-plot(tiempo,disc_I4_S1S)
-plot(tiempo,disc_I4_S2S)
-xlabel('gamma tiempo')
-ylabel('discordia cuantica')
-legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
-savefig('disc_logi4_S.png')
+#figure()
+#plot(tiempo,disc_I4_S0S)
+#plot(tiempo,disc_I4_S1S)
+#plot(tiempo,disc_I4_S2S)
+#xlabel('gamma tiempo')
+#ylabel('discordia cuantica')
+#legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
+#savefig('disc_logi4_S.png')
 
-figure()
-plot(tiempo,disc_I5_S0S)
-plot(tiempo,disc_I5_S1S)
-plot(tiempo,disc_I5_S2S)
-xlabel('gamma tiempo')
-ylabel('discordia cuantica')
-legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-savefig('disc_logi1_S.png')
+#figure()
+#plot(tiempo,disc_I5_S0S)
+#plot(tiempo,disc_I5_S1S)
+#plot(tiempo,disc_I5_S2S)
+#xlabel('gamma tiempo')
+#ylabel('discordia cuantica')
+#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+#savefig('disc_logi1_S.png')
 
-figure()
-plot(tiempo,conc_I1_S0S)
-plot(tiempo,conc_I1_S1S)
-plot(tiempo,conc_I1_S2S)
-xlabel('gamma tiempo')
-ylabel('concurrencia')
-legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-savefig('conc_bell1_S.png')
+#figure()
+#plot(tiempo,conc_I1_S0S)
+#plot(tiempo,conc_I1_S1S)
+#plot(tiempo,conc_I1_S2S)
+#xlabel('gamma tiempo')
+#ylabel('concurrencia')
+#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+#savefig('conc_bell1_S.png')
 
-figure()
-plot(tiempo,conc_I2_S0S)
-plot(tiempo,conc_I2_S1S)
-plot(tiempo,conc_I2_S2S)
-xlabel('gamma tiempo')
-ylabel('concurrencia')
-legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-savefig('conc_bell3_S.png')
+#figure()
+#plot(tiempo,conc_I2_S0S)
+#plot(tiempo,conc_I2_S1S)
+#plot(tiempo,conc_I2_S2S)
+#xlabel('gamma tiempo')
+#ylabel('concurrencia')
+#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+#savefig('conc_bell3_S.png')
 
-figure()
-plot(tiempo,conc_I3_S0S)
-plot(tiempo,conc_I3_S1S)
-plot(tiempo,conc_I3_S2S)
-xlabel('gamma tiempo')
-ylabel('concurrencia')
-legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-savefig('conc_logi3_S.png')
+#figure()
+#plot(tiempo,conc_I3_S0S)
+#plot(tiempo,conc_I3_S1S)
+#plot(tiempo,conc_I3_S2S)
+#xlabel('gamma tiempo')
+#ylabel('concurrencia')
+#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+#savefig('conc_logi3_S.png')
 
-figure()
-plot(tiempo,conc_I4_S0S)
-plot(tiempo,conc_I4_S1S)
-plot(tiempo,conc_I4_S2S)
-xlabel('gamma tiempo')
-ylabel('concurrencia')
-legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-savefig('conc_logi4_S.png')
+#figure()
+#plot(tiempo,conc_I4_S0S)
+#plot(tiempo,conc_I4_S1S)
+#plot(tiempo,conc_I4_S2S)
+#xlabel('gamma tiempo')
+#ylabel('concurrencia')
+#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+#savefig('conc_logi4_S.png')
 
-figure()
-plot(tiempo,conc_I5_S0S)
-plot(tiempo,conc_I5_S1S)
-plot(tiempo,conc_I5_S2S)
-xlabel('gamma tiempo')
-ylabel('discordia cuantica')
-legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
-savefig('conc_logi1_S.png')
+#figure()
+#plot(tiempo,conc_I5_S0S)
+#plot(tiempo,conc_I5_S1S)
+#plot(tiempo,conc_I5_S2S)
+#xlabel('gamma tiempo')
+#ylabel('concurrencia')
+#legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+#savefig('conc_logi1_S.png')
