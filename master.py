@@ -59,7 +59,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I1_S0S[i]=np.amax(carray)
     disc_I1_S0S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -72,7 +72,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I2_S0S[i]=np.amax(carray)
     disc_I2_S0S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -85,7 +85,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I3_S0S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -97,7 +97,7 @@ for i in range (0,100):
     print(c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I4_S0S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -109,7 +109,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I5_S0S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -129,7 +129,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I1_S1S[i]=np.amax(carray)
     disc_I1_S1S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -142,7 +142,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I2_S1S[i]=np.amax(carray)
     disc_I2_S1S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -155,7 +155,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I3_S1S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -167,7 +167,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I4_S1S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -179,7 +179,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([-0.5*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I5_S1S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -199,7 +199,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I1_S2S[i]=np.amax(carray)
     disc_I1_S2S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -211,7 +211,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I2_S2S[i]=np.amax(carray)
     disc_I2_S2S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -223,7 +223,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I3_S2S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -235,7 +235,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I4_S2S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -247,7 +247,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I5_S2S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -267,7 +267,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I1_S0C[i]=np.amax(carray)
     disc_I1_S0C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -280,7 +280,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I2_S0C[i]=np.amax(carray)
     disc_I2_S0C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -293,7 +293,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I3_S0C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -305,7 +305,7 @@ for i in range (0,100):
     print(c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I4_S0C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -317,7 +317,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I5_S0C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -337,7 +337,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I1_S1C[i]=np.amax(carray)
     disc_I1_S1C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -350,7 +350,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I2_S1C[i]=np.amax(carray)
     disc_I2_S1C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -363,7 +363,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I3_S1C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -375,7 +375,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I4_S1C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -387,7 +387,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([-0.5*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I5_S1C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -407,7 +407,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I1_S2C[i]=np.amax(carray)
     disc_I1_S2C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -419,7 +419,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     conc_I2_S2C[i]=np.amax(carray)
     disc_I2_S2C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
@@ -431,7 +431,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I3_S2C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -443,7 +443,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I4_S2C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
@@ -455,7 +455,7 @@ for i in range (0,100):
     print (c1,c2,c3)
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
-    carray=np.array([0,2*(c1+c2-1-c3),2*(c1-c1-1+c3)])
+    carray=np.array([0,c1+c2-1-c3,c1-c1-1+c3])
     disc_I5_S2C[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
