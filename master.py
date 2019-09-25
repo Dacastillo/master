@@ -64,7 +64,7 @@ for i in range (0,100):
     c=np.amax(consar)
     carray=np.array([0,0.5*(c1+c2-1-c3),0.5*(c1-c2-1+c3)])
     conc_I1_S0S[i]=np.amax(carray)
-    disc_I1_S0S[i]=-0.5*((1-c1-c2-c3)*np.log2(np.absolute(1-c1-c2-c3))+(1-c1+c2+c3)*np.log2(np.absolute(1-c1+c2+c3))-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I1_S0S[i]=mat.eigenvalues[1]*np.log2(4*mat.eigenvalues[1])-0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
     
 for i in range (0,100):
@@ -124,8 +124,11 @@ conc_I1_S1S=[0 for i in range(100)]
 disc_I1_S1S=[0 for i in range(100)]
 conc_I2_S1S=[0 for i in range(100)]
 disc_I2_S1S=[0 for i in range(100)]
+conc_I3_S1S=[0 for i in range(100)]
 disc_I3_S1S=[0 for i in range(100)]
+conc_I4_S1S=[0 for i in range(100)]
 disc_I4_S1S=[0 for i in range(100)]
+conc_I5_S1S=[0 for i in range(100)]
 disc_I5_S1S=[0 for i in range(100)]
 for i in range (0,100):
     mat=Qobj(em_I1_S1S.states[i])
@@ -197,8 +200,11 @@ conc_I1_S2S=[0 for i in range(100)]
 disc_I1_S2S=[0 for i in range(100)]
 conc_I2_S2S=[0 for i in range(100)]
 disc_I2_S2S=[0 for i in range(100)]
+conc_I3_S2S=[0 for i in range(100)]
 disc_I3_S2S=[0 for i in range(100)]
+conc_I4_S2S=[0 for i in range(100)]
 disc_I4_S2S=[0 for i in range(100)]
+conc_I5_S2S=[0 for i in range(100)]
 disc_I5_S2S=[0 for i in range(100)]
 for i in range (0,100):
     mat=Qobj(em_I1_S2S.states[i])
@@ -268,8 +274,11 @@ conc_I1_S0C=[0 for i in range(100)]
 disc_I1_S0C=[0 for i in range(100)]
 conc_I2_S0C=[0 for i in range(100)]
 disc_I2_S0C=[0 for i in range(100)]
+conc_I3_S0C=[0 for i in range(100)]
 disc_I3_S0C=[0 for i in range(100)]
+conc_I4_S0C=[0 for i in range(100)]
 disc_I4_S0C=[0 for i in range(100)]
+conc_I5_S0C=[0 for i in range(100)]
 disc_I5_S0C=[0 for i in range(100)]
 for i in range (0,100):
     mat=Qobj(em_I1_S0C.states[i])
@@ -341,8 +350,11 @@ conc_I1_S1C=[0 for i in range(100)]
 disc_I1_S1C=[0 for i in range(100)]
 conc_I2_S1C=[0 for i in range(100)]
 disc_I2_S1C=[0 for i in range(100)]
+conc_I3_S1C=[0 for i in range(100)]
 disc_I3_S1C=[0 for i in range(100)]
+conc_I4_S1C=[0 for i in range(100)]
 disc_I4_S1C=[0 for i in range(100)]
+conc_I5_S1C=[0 for i in range(100)]
 disc_I5_S1C=[0 for i in range(100)]
 for i in range (0,100):
     mat=Qobj(em_I1_S1C.states[i])
@@ -414,8 +426,11 @@ conc_I1_S2C=[0 for i in range(100)]
 disc_I1_S2C=[0 for i in range(100)]
 conc_I2_S2C=[0 for i in range(100)]
 disc_I2_S2C=[0 for i in range(100)]
+conc_I3_S2C=[0 for i in range(100)]
 disc_I3_S2C=[0 for i in range(100)]
+conc_I4_S2C=[0 for i in range(100)]
 disc_I4_S2C=[0 for i in range(100)]
+conc_I5_S2C=[0 for i in range(100)]
 disc_I5_S2C=[0 for i in range(100)]
 for i in range (0,100):
     mat=Qobj(em_I1_S2C.states[i])
@@ -545,6 +560,33 @@ legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
 savefig('conc_bell3_S.png')
 
 figure()
+plot(tiempo,conc_I3_S0S)
+plot(tiempo,conc_I3_S1S)
+plot(tiempo,conc_I3_S2S)
+xlabel('gamma tiempo')
+ylabel('concurrencia')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_logi2_S.png')
+
+figure()
+plot(tiempo,conc_I4_S0S)
+plot(tiempo,conc_I4_S1S)
+plot(tiempo,conc_I4_S2S)
+xlabel('gamma tiempo')
+ylabel('concurrencia')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_logi4_S.png')
+
+figure()
+plot(tiempo,conc_I5_S0S)
+plot(tiempo,conc_I5_S1S)
+plot(tiempo,conc_I5_S2S)
+xlabel('gamma tiempo')
+ylabel('concurrencia')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_logi1_S.png')
+
+figure()
 plot(tiempo,disc_I1_S0C)
 plot(tiempo,disc_I1_S1C)
 plot(tiempo,disc_I1_S2C)
@@ -606,3 +648,30 @@ xlabel('gamma tiempo')
 ylabel('concurrencia')
 legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
 savefig('conc_bell3_C.png')
+
+figure()
+plot(tiempo,conc_I3_S0C)
+plot(tiempo,conc_I3_S1C)
+plot(tiempo,conc_I3_S2C)
+xlabel('gamma tiempo')
+ylabel('concurrencia')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_logi2_C.png')
+
+figure()
+plot(tiempo,conc_I4_S0C)
+plot(tiempo,conc_I4_S1C)
+plot(tiempo,conc_I4_S2C)
+xlabel('gamma tiempo')
+ylabel('concurrencia')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_logi4_C.png')
+
+figure()
+plot(tiempo,conc_I5_S0C)
+plot(tiempo,conc_I5_S1C)
+plot(tiempo,conc_I5_S2C)
+xlabel('gamma tiempo')
+ylabel('concurrencia')
+legend(('reservorio vacio', 'reservorio termico', 'reservorio comprimido'))
+savefig('conc_logi1_C.png')
