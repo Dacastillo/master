@@ -59,22 +59,22 @@ for i in range (0,100):
       c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
       c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
       c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-      print (c1,c2,c3)
+      
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I1_S0S[i]=concurrence(mat)
-      disc_I1_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+      disc_I1_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 for i in range (0,100):
       mat=Qobj(em_I2_S0S.states[i])
       c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
       c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
       c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-      print (c1,c2,c3)
+      
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I2_S0S[i]=concurrence(mat)
-      disc_I2_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+      disc_I2_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -82,11 +82,11 @@ for i in range (0,100):
       c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
       c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
       c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-      print (c1,c2,c3)
+      
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I3_S0S[i]=concurrence(mat)
-      disc_I3_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+      disc_I3_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -98,7 +98,7 @@ for i in range (0,100):
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I4_S0S[i]=concurrence(mat)
-      disc_I4_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+      disc_I4_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -106,11 +106,11 @@ for i in range (0,100):
       c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
       c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
       c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-      print (c1,c2,c3)
+      
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I5_S0S[i]=concurrence(mat)
-      disc_I5_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+      disc_I5_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 #Reservorio térmico sin interacción
@@ -129,11 +129,11 @@ for i in range (0,100):
       c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
       c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
       c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-      print (c1,c2,c3)
+      
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I1_S1S[i]=concurrence(mat)
-      disc_I1_S1S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+      disc_I1_S1S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -141,11 +141,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I2_S1S[i]=concurrence(mat)
-    disc_I2_S1S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I2_S1S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -153,11 +153,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I3_S1S[i]=concurrence(mat)
-    disc_I3_S1S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I3_S1S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -165,22 +165,22 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I4_S1S[i]=concurrence(mat)
-    disc_I4_S1S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I4_S1S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 for i in range (0,100):
     mat=Qobj(em_I5_S1S.states[i])
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I5_S1S[i]=concurrence(mat)
-    disc_I5_S1S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I5_S1S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 #Reservorio comprimido sin interacción
@@ -199,33 +199,33 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I1_S2S[i]=concurrence(mat)
-    disc_I1_S2S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I1_S2S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 for i in range (0,100):
     mat=Qobj(em_I2_S2S.states[i])
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I2_S2S[i]=concurrence(mat)
-    disc_I2_S2S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I2_S2S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 for i in range (0,100):
     mat=Qobj(em_I3_S2S.states[i])
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I3_S2S[i]=concurrence(mat)
-    disc_I3_S2S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I3_S2S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -233,11 +233,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I4_S2S[i]=concurrence(mat)
-    disc_I4_S2S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I4_S2S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -245,11 +245,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I5_S2S[i]=concurrence(mat)
-    disc_I5_S2S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I5_S2S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 #Reservorio vacío con interacción
@@ -268,11 +268,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I1_S0C[i]=concurrence(mat)
-    disc_I1_S0C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I1_S0C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -280,11 +280,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I2_S0C[i]=concurrence(mat)
-    disc_I2_S0C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I2_S0C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -292,11 +292,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I3_S0C[i]=concurrence(mat)
-    disc_I3_S0C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I3_S0C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -308,7 +308,7 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I4_S0C[i]=concurrence(mat)
-    disc_I4_S0C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I4_S0C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -316,11 +316,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I5_S0C[i]=concurrence(mat)
-    disc_I5_S0C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I5_S0C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 #Reservorio térmico con interacción
@@ -339,11 +339,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I1_S1C[i]=concurrence(mat)
-    disc_I1_S1C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I1_S1C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
     
 for i in range (0,100):
@@ -351,11 +351,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I2_S1C[i]=concurrence(mat)
-    disc_I2_S1C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I2_S1C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -363,11 +363,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I3_S1C[i]=concurrence(mat)
-    disc_I3_S1C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I3_S1C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -375,11 +375,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I4_S1C[i]=concurrence(mat)
-    disc_I4_S1C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I4_S1C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -387,11 +387,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I5_S1C[i]=concurrence(mat)
-    disc_I5_S1C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I5_S1C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 #Reservorio comprimido con interacción
@@ -410,33 +410,33 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I1_S2C[i]=concurrence(mat)
-    disc_I1_S2C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I1_S2C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 for i in range (0,100):
     mat=Qobj(em_I2_S2C.states[i])
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I2_S2C[i]=concurrence(mat)
-    disc_I2_S2C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I2_S2C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 for i in range (0,100):
     mat=Qobj(em_I3_S2C.states[i])
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I3_S2C[i]=concurrence(mat)
-    disc_I3_S2C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I3_S2C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -444,11 +444,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I4_S2C[i]=concurrence(mat)
-    disc_I4_S2C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I4_S2C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 for i in range (0,100):
@@ -456,11 +456,11 @@ for i in range (0,100):
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print (c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I5_S2C[i]=concurrence(mat)
-    disc_I5_S2C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+    disc_I5_S2C[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
 
 
 #Graficar
