@@ -63,7 +63,10 @@ for i in range (0,100):
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I1_S0S[i]=concurrence(mat)
-      disc_I1_S0S[i]=mat.eigenenergies()[0]*np.log2(np.absolute(4.*mat.eigenenergies()[0]))+mat.eigenenergies()[1]*np.log2(np.absolute(4.*mat.eigenenergies()[1]))+mat.eigenenergies()[2]*np.log2(np.absolute(4.*mat.eigenenergies()[2]))+mat.eigenenergies()[3]*np.log2(np.absolute(4.*mat.eigenenergies()[3]))+0.5*(-(1+c)*np.log2(np.absolute(1+c))-(1-c)*np.log2(np.absolute(1-c)))
+      disc_I1_S0S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+      for j in range (0,4):
+            if mat.eigenenergies()[j]!=0:
+               disc_I1_S0S[i]=disc_I1_S0S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
       mat=Qobj(em_I2_S0S.states[i])
