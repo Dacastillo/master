@@ -80,4 +80,27 @@ for ax in fig.get_axes():
     ax.label_outer()
 savefig('bell1.png')
 
+#Graficar
+fig, axs = subplots(2,2)
+axs[0,0].plot(tiempo,me2(I2,S0S)[1])
+axs[0,0].plot(tiempo,me2(I2,S1S)[1])
+axs[0,0].plot(tiempo,me2(I2,S2S)[1])
+axs[0,0].set_title('Discordia sin acoplamiento')
+axs[0,1].plot(tiempo,me2(I2,S0S)[0])
+axs[0,1].plot(tiempo,me2(I2,S1S)[0])
+axs[0,1].plot(tiempo,me2(I2,S2S)[0])
+axs[0,1].set_title('Concurrencia sin acoplamiento')
+axs[1,0].plot(tiempo,me2(I2,S0C)[1])
+axs[1,0].plot(tiempo,me2(I2,S1C)[1])
+axs[1,0].plot(tiempo,me2(I2,S2C)[1])
+axs[1,0].set_title('Discordia con acoplamiento')
+axs[1,1].plot(tiempo,me2(I2,S0C)[0])
+axs[1,1].plot(tiempo,me2(I2,S1C)[0])
+axs[1,1].plot(tiempo,me2(I2,S2C)[0])
+axs[1,1].set_title('Concurrencia con acoplamiento')
+for ax in fig.get_axes():
+    ax.label_outer()
+savefig('bell3.png')
+
+
 
