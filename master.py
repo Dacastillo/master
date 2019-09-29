@@ -59,15 +59,25 @@ tiempo = [(1/20)*i for i in range(100)]#Intervalo de tiempo para los gráficos
 print(me2(I1,S0S)[1])
  
 #Graficar
-figure()
-plot(tiempo,np.array(me2(I1,S0S)[1]))
-plot(tiempo,np.array(me2(I1,S1S)[1]))
-plot(tiempo,np.array(me2(I1,S2S)[1]))
-xlabel('gamma tiempo')
-ylabel('discordia cuantica')
-legend(('reservorio vacio', 'reservorio termico','reservorio comprimido'))
+fig, axs = subplots(2,2)
+axs[0,0].plot(tiempo,me2(I1,S0S)[1])
+axs[0,0].plot(tiempo,me2(I1,S1S)[1])
+axs[0,0].plot(tiempo,me2(I1,S2S)[1])
+axs[0,0].set_title('Discordia sin acoplamiento')
+axs[0,1].plot(tiempo,me2(I1,S0S)[0])
+axs[0,1].plot(tiempo,me2(I1,S1S)[0])
+axs[0,1].plot(tiempo,me2(I1,S2S)[0])
+axs[0,1].set_title('Concurrencia sin acoplamiento')
+axs[1,0].plot(tiempo,me2(I1,S0C)[1])
+axs[1,0].plot(tiempo,me2(I1,S1C)[1])
+axs[1,0].plot(tiempo,me2(I1,S2C)[1])
+axs[1,0].set_title('Discordia con acoplamiento')
+axs[1,1].plot(tiempo,me2(I1,S0C)[0])
+axs[1,1].plot(tiempo,me2(I1,S1C)[0])
+axs[1,1].plot(tiempo,me2(I1,S2C)[0])
+axs[1,1].set_title('Concurrencia con acoplamiento')
+for ax in fig.get_axes():
+    ax.label_outer()
 savefig('bell1.png')
-
-
 
 
