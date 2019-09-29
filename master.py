@@ -11,6 +11,10 @@ sigmen1 = tensor(sigmam(),identity(2)) #Sigma menos en sistema 1
 sigmas1 = tensor(sigmap(),identity(2)) #Sigma mas en sistema 1 
 sigmen2 = tensor(identity(2),sigmam()) #Sigma menos en sistema 2
 sigmas2 = tensor(identity(2),sigmap()) #Sigma mas en sistema 2
+def log_2(x):
+    if x <= 0:
+       return 0
+    return np.log2(x)
 em_I1_S0C = mesolve(tensor(identity(2),identity(2)), I1, times, [sigmen1+sigmen2])  #Ecuacion Maestra para estado inicial Bell 00 con reservorios vacios con interaccion
 em_I2_S0C = mesolve(tensor(identity(2),identity(2)), I2, times, [sigmen1+sigmen2])  #Ecuacion Maestra para estado inicial Bell 10 con reservorios vacios con interaccion
 em_I3_S0C = mesolve(tensor(identity(2),identity(2)), I3, times, [sigmen1+sigmen2])  #Ecuacion Maestra para estado inicial logico 01 con reservorios vacios con interaccion
@@ -63,10 +67,10 @@ for i in range (0,100):
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I1_S0S[i]=concurrence(mat)
-      disc_I1_S0S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+      disc_I1_S0S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
       for j in range (0,4):
             if (mat.eigenenergies()[j]!=0):
-               disc_I1_S0S[i]=disc_I1_S0S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+               disc_I1_S0S[i]=disc_I1_S0S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
       mat=Qobj(em_I2_S0S.states[i])
@@ -77,10 +81,10 @@ for i in range (0,100):
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I2_S0S[i]=concurrence(mat)
-      disc_I2_S0S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+      disc_I2_S0S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
       for j in range (0,4):
             if (mat.eigenenergies()[j]!=0):
-               disc_I2_S0S[i]=disc_I2_S0S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+               disc_I2_S0S[i]=disc_I2_S0S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 
 
@@ -93,24 +97,24 @@ for i in range (0,100):
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I3_S0S[i]=concurrence(mat)
-      disc_I3_S0S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+      disc_I3_S0S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
       for j in range (0,4):
             if (mat.eigenenergies()[j]!=0):
-               disc_I3_S0S[i]=disc_I3_S0S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+               disc_I3_S0S[i]=disc_I3_S0S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
       mat=Qobj(em_I4_S0S.states[i])
       c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
       c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
       c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-      print(c1,c2,c3)
+      
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I4_S0S[i]=concurrence(mat)
-      disc_I4_S0S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+      disc_I4_S0S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
       for j in range (0,4):
             if (mat.eigenenergies()[j]!=0):
-               disc_I4_S0S[i]=disc_I4_S0S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+               disc_I4_S0S[i]=disc_I4_S0S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 
 for i in range (0,100):
@@ -122,10 +126,10 @@ for i in range (0,100):
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I5_S0S[i]=concurrence(mat)
-      disc_I5_S0S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+      disc_I5_S0S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
       for j in range (0,4):
             if (mat.eigenenergies()[j]!=0):
-               disc_I5_S0S[i]=disc_I5_S0S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+               disc_I5_S0S[i]=disc_I5_S0S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 
 #Reservorio térmico sin interacción
@@ -148,10 +152,10 @@ for i in range (0,100):
       consar=np.array([c1,c2,c3])
       c=np.amax(consar)
       conc_I1_S1S[i]=concurrence(mat)
-      disc_I1_S1S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+      disc_I1_S1S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
       for j in range (0,4):
             if (mat.eigenenergies()[j]!=0):
-               disc_I1_S1S[i]=disc_I1_S1S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+               disc_I1_S1S[i]=disc_I1_S1S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I2_S1S.states[i])
@@ -162,10 +166,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I2_S1S[i]=concurrence(mat)
-    disc_I2_S1S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I2_S1S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I2_S1S[i]=disc_I1_S1S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I2_S1S[i]=disc_I1_S1S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I3_S1S.states[i])
@@ -176,10 +180,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I3_S1S[i]=concurrence(mat)
-    disc_I3_S1S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I3_S1S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I3_S1S[i]=disc_I3_S1S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I3_S1S[i]=disc_I3_S1S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I4_S1S.states[i])
@@ -190,10 +194,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I4_S1S[i]=concurrence(mat)
-    disc_I4_S1S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I4_S1S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I4_S1S[i]=disc_I1_S0S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I4_S1S[i]=disc_I1_S0S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I5_S1S.states[i])
@@ -204,10 +208,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I5_S1S[i]=concurrence(mat)
-    disc_I5_S1S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I5_S1S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I5_S1S[i]=disc_I5_S1S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I5_S1S[i]=disc_I5_S1S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 
 #Reservorio comprimido sin interacción
@@ -230,10 +234,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I1_S2S[i]=concurrence(mat)
-    disc_I1_S2S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I1_S2S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I1_S2S[i]=disc_I1_S2S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I1_S2S[i]=disc_I1_S2S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I2_S2S.states[i])
@@ -244,10 +248,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I2_S2S[i]=concurrence(mat)
-    disc_I2_S2S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I2_S2S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I2_S2S[i]=disc_I2_S2S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I2_S2S[i]=disc_I2_S2S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 
 for i in range (0,100):
@@ -259,10 +263,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I3_S2S[i]=concurrence(mat)
-    disc_I3_S2S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I3_S2S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I3_S2S[i]=disc_I3_S2S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I3_S2S[i]=disc_I3_S2S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I4_S2S.states[i])
@@ -273,10 +277,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I4_S2S[i]=concurrence(mat)
-    disc_I4_S2S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I4_S2S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I4_S2S[i]=disc_I4_S2S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I4_S2S[i]=disc_I4_S2S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 
 for i in range (0,100):
@@ -288,10 +292,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I5_S2S[i]=concurrence(mat)
-    disc_I5_S2S[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I5_S2S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I5_S2S[i]=disc_I5_S2S[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I5_S2S[i]=disc_I5_S2S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 #Reservorio vacío con interacción
 conc_I1_S0C=[0 for i in range(100)]
@@ -313,10 +317,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I1_S0C[i]=concurrence(mat)
-    disc_I1_S0C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I1_S0C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I1_S0C[i]=disc_I1_S0C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I1_S0C[i]=disc_I1_S0C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I2_S0C.states[i])
@@ -327,10 +331,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I2_S0C[i]=concurrence(mat)
-    disc_I2_S0C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I2_S0C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I2_S0C[i]=disc_I2_S0C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I2_S0C[i]=disc_I2_S0C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I3_S0C.states[i])
@@ -341,24 +345,24 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I3_S0C[i]=concurrence(mat)
-    disc_I3_S0C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I3_S0C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I3_S0C[i]=disc_I3_S0C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I3_S0C[i]=disc_I3_S0C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I4_S0C.states[i])
     c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
     c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
     c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
-    print(c1,c2,c3)
+    
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I4_S0C[i]=concurrence(mat)
-    disc_I4_S0C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I4_S0C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I4_S0C[i]=disc_I4_S0C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I4_S0C[i]=disc_I4_S0C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 
 for i in range (0,100):
@@ -370,10 +374,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I5_S0C[i]=concurrence(mat)
-    disc_I5_S0C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I5_S0C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I5_S0C[i]=disc_I5_S0C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I5_S0C[i]=disc_I5_S0C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 #Reservorio térmico con ineraccion
 conc_I1_S1C=[0 for i in range(100)]
@@ -395,10 +399,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I1_S1C[i]=concurrence(mat)
-    disc_I1_S1C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I1_S1C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I1_S1C[i]=disc_I1_S1C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I1_S1C[i]=disc_I1_S1C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
     
 for i in range (0,100):
     mat=Qobj(em_I2_S1C.states[i])
@@ -409,10 +413,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I2_S1C[i]=concurrence(mat)
-    disc_I2_S1C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I2_S1C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I2_S1C[i]=disc_I2_S1C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I2_S1C[i]=disc_I2_S1C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I3_S1C.states[i])
@@ -423,10 +427,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I3_S1C[i]=concurrence(mat)
-    disc_I3_S1C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I3_S1C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I3_S1C[i]=disc_I4_S0C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I3_S1C[i]=disc_I4_S0C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I4_S1C.states[i])
@@ -437,10 +441,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I4_S1C[i]=concurrence(mat)
-    disc_I4_S1C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I4_S1C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I4_S1C[i]=disc_I4_S1C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I4_S1C[i]=disc_I4_S1C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I5_S1C.states[i])
@@ -451,10 +455,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I5_S1C[i]=concurrence(mat)
-    disc_I5_S1C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I5_S1C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I5_S1C[i]=disc_I5_S1C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I5_S1C[i]=disc_I5_S1C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 #Reservorio comprimido con interacción
 conc_I1_S2C=[0 for i in range(100)]
@@ -476,10 +480,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I1_S2C[i]=concurrence(mat)
-    disc_I1_S2C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I1_S2C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I1_S2C[i]=disc_I1_S2C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I1_S2C[i]=disc_I1_S2C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I2_S2C.states[i])
@@ -490,10 +494,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I2_S2C[i]=concurrence(mat)
-    disc_I2_S2C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I2_S2C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I2_S2C[i]=disc_I2_S2C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I2_S2C[i]=disc_I2_S2C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I3_S2C.states[i])
@@ -504,10 +508,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I3_S2C[i]=concurrence(mat)
-    disc_I3_S2C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I3_S2C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I3_S2C[i]=disc_I3_S2C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I3_S2C[i]=disc_I3_S2C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I4_S2C.states[i])
@@ -518,10 +522,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I4_S2C[i]=concurrence(mat)
-    disc_I4_S2C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I4_S2C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I4_S2C[i]=disc_I4_S2C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I4_S2C[i]=disc_I4_S2C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I5_S2C.states[i])
@@ -532,10 +536,10 @@ for i in range (0,100):
     consar=np.array([c1,c2,c3])
     c=np.amax(consar)
     conc_I5_S2C[i]=concurrence(mat)
-    disc_I5_S2C[i]=-0.5*((1+c)*np.log2(1+c)+(1-c)*np.log2(1-c))
+    disc_I5_S2C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
           if (mat.eigenenergies()[j]!=0):
-             disc_I5_S2C[i]=disc_I5_S2C[i]+mat.eigenenergies()[j]*np.log2(4*mat.eigenenergies()[j])
+             disc_I5_S2C[i]=disc_I5_S2C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 #Graficar
 figure()
