@@ -182,7 +182,7 @@ for i in range (0,100):
     conc_I4_S1S[i]=concurrence(mat)
     disc_I4_S1S[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
-             disc_I4_S1S[i]=disc_I1_S0S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
+             disc_I4_S1S[i]=disc_I4_S1S[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I5_S1S.states[i])
@@ -387,7 +387,7 @@ for i in range (0,100):
     conc_I3_S1C[i]=concurrence(mat)
     disc_I3_S1C[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
     for j in range (0,4):
-             disc_I3_S1C[i]=disc_I4_S0C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
+             disc_I3_S1C[i]=disc_I3_S1C[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
 
 for i in range (0,100):
     mat=Qobj(em_I4_S1C.states[i])
