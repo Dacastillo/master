@@ -23,16 +23,31 @@ def log_2(x):
     if x <= 0:
        return 0
     return np.log2(x)
+
+#Definir entropia condicional para minimizar
+def entropy_cond(a,b,t1,t2):
+    e=a*(-((1-t1)/2)*log_2((1-t1)/2)-((1+t1)/2)*log_2((1+t1)/2))+b*(-((1+t2)/2)*log_2((1+t2)/2)-((1+t2)/2)*log_2((1+t2)/2))
+    return e
+   
 #Definir funcion que calcula ecuaciones maestras y evaluar si funciona fuera
 def me3(IN,RES):
     sol=mesolve(tensor(identity(2),identity(2)), IN, times, RES)
     out=[[0 for i in range(100)],[0 for i in range(100)]]
     conc=[0 for i in range(100)]
     mutu=[0 for i in range(100)]
+    
+    def entropy_opt(a):
+        ent_comp=[0 for i in range(4)]
+        ent_comp[0]=entropy_cond(a.matrix_element(1,1)+a.matrix_element(3,3),a.matrix_element(0,0)+a.matrix_element(2,2),(a.matrix_element(1,1)-a.matrix_element(3,3))/(a.matrix_element(0,0)+a.matrix_element(2,2)),(a.matrix_element(0,0)-a.matrix_element(2,2))/(a.matrix_element(1,1)+a.matrix_element(3,3)))
+        ent_comp[1]=entropy_cond(a.matrix_element(0,0)+a.matrix_element(2,2),a.matrix_element(1,1)+a.matrix_element(3,3),(a.matrix_element(0,0)-a.matrix_element(2,2))/(a.matrix_element(1,1)+a.matrix_element(3,3)),(a.matrix_element(1,1)-a.matrix_element(3,3))/(a.matrix_element(0,0)+a.matrix_element(2,2)))
+        ent_comp[2]=entropy_cond(0.5,0.5,np.sqrt(((a.matrix_element(0,0)-a.matrix_element(2,2))+(a.matrix_element(1,1)-a.matrix_element(3,3)))**2+4(a.matrix_element(0,3)+a.matrix_element(1,2))**2),np.sqrt(((a.matrix_element(0,0)-a.matrix_element(2,2))+(a.matrix_element(1,1)-a.matrix_element(3,3)))**2+4(a.matrix_element(0,3)-a.matrix_element(1,2))**2))
+        ent_comp[3]=entropy_cond(0.5,0.5,np.sqrt(((a.matrix_element(0,0)-a.matrix_element(2,2))+(a.matrix_element(1,1)-a.matrix_element(3,3)))**2+4(a.matrix_element(0,3)-a.matrix_element(1,2))**2),np.sqrt(((a.matrix_element(0,0)-a.matrix_element(2,2))+(a.matrix_element(1,1)-a.matrix_element(3,3)))**2+4(a.matrix_element(0,3)-a.matrix_element(1,2))**2))              
+        e= min(ent_comp)
+        return e
     for i in range (0,100):
         mat=Qobj(sol.states[i])
         conc[i]=round(concurrence(mat),4)
-        mutu[i]=round(entropy_mutual(mat,0,1)-entropy_conditional(mat,0),4)
+        mutu[i]=round(entropy_mutual(mat,0,1)-entropy_vn(ptrace(mat,0))+entropy_opt(mat),4)
     out=[conc,mutu]
     return out
 
@@ -56,7 +71,7 @@ def me2(IN,RES):
     return out    
 
 tiempo = [(1/20)*i for i in range(100)]#Intervalo de tiempo para los gráficos
-print(me2(I1,S0S)[1])
+
  
 #Graficar
 fig, axs = subplots(2,2)
