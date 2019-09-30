@@ -39,11 +39,11 @@ def me3(IN,RES):
     def entropy_opt(a):
         ent_comp=[0 for i in range(4)]
         if a.matrix_element(tensor(basis(2,0)),tensor(basis(2,0)))+a.matrix_element(tensor(basis(2,1)),tensor(basis(2,1)))==0:
-           ent_comp[0]=0
-           ent_comp[1]=0
+           ent_comp[0]=1
+           ent_comp[1]=1
         elif a.matrix_element(tensor(basis(2,0)),tensor(basis(2,1)))+a.matrix_element(tensor(basis(2,1)),tensor(basis(2,0)))==0:
-           ent_comp[0]=0
-           ent_comp[1]=0
+           ent_comp[0]=1
+           ent_comp[1]=1
         else:
            ent_comp[0]=entropy_cond(a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,0),basis(2,1)))+a.matrix_element(tensor(basis(2,1),basis(2,1)).dag(),tensor(basis(2,1),basis(2,1))),a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,0),basis(2,0)))+a.matrix_element(tensor(basis(2,1),basis(2,0)).dag(),tensor(basis(2,1),basis(2,0))),(a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,0),basis(2,1)))-a.matrix_element(tensor(basis(2,1),basis(2,1)).dag(),tensor(basis(2,1),basis(2,1))))/(a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,0),basis(2,0)))+a.matrix_element(tensor(basis(2,1),basis(2,0)).dag(),tensor(basis(2,1),basis(2,0)))),(a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,0),basis(2,0)))-a.matrix_element(tensor(basis(2,1),basis(2,0)).dag(),tensor(basis(2,1),basis(2,0))))/(a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,0),basis(2,1)))+a.matrix_element(tensor(basis(2,1),basis(2,1)).dag(),tensor(basis(2,1),basis(2,1)))))
            ent_comp[1]=entropy_cond(a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,0),basis(2,0)))+a.matrix_element(tensor(basis(2,1),basis(2,0)).dag(),tensor(basis(2,1),basis(2,0))),a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,0),basis(2,1)))+a.matrix_element(tensor(basis(2,1),basis(2,1)).dag(),tensor(basis(2,1),basis(2,1))),(a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,0),basis(2,0)))-a.matrix_element(tensor(basis(2,1),basis(2,0)).dag(),tensor(basis(2,1),basis(2,0))))/(a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,0),basis(2,1)))+a.matrix_element(tensor(basis(2,1),basis(2,1)).dag(),tensor(basis(2,1),basis(2,1)))),(a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,0),basis(2,1)))-a.matrix_element(tensor(basis(2,1),basis(2,1)).dag(),tensor(basis(2,1),basis(2,1))))/(a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,0),basis(2,0)))+a.matrix_element(tensor(basis(2,1),basis(2,0)).dag(),tensor(basis(2,1),basis(2,0)))))
