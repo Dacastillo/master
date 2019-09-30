@@ -32,9 +32,9 @@ def entropy_cond(a,b,t1,t2):
 #Definir funcion que calcula ecuaciones maestras y evaluar si funciona fuera
 def me3(IN,RES):
     sol=mesolve(tensor(identity(2),identity(2)), IN, times, RES)
-    out=[[0 for i in range(100)],[0 for i in range(100)]]
-    conc=[0 for i in range(100)]
-    disc=[0 for i in range(100)]    
+    out=[[0 for i in range(20)],[0 for i in range(20)]]
+    conc=[0 for i in range(20)]
+    disc=[0 for i in range(20)]    
     def entropy_opt(a):
         ent_comp=[0 for i in range(4)]
         if a.matrix_element(tensor(basis(2,0)),tensor(basis(2,0)))+a.matrix_element(tensor(basis(2,1)),tensor(basis(2,1)))==0:
@@ -53,7 +53,7 @@ def me3(IN,RES):
         else:
             e= min(ent_comp)
         return e
-    for i in range (0,100):
+    for i in range (0,20):
         mat=Qobj(sol.states[i])
         conc[i]=concurrence(mat),4
         disc[i]=np.abs(-entropy_vn(mat)+entropy_vn(mat.ptrace(0))+entropy_opt(mat))
@@ -62,10 +62,10 @@ def me3(IN,RES):
 
 def me2(IN,RES):
     sol=mesolve(tensor(identity(2),identity(2)), IN, times, RES)
-    out=[[0 for i in range(100)],[0 for i in range(100)]]
-    conc=[0 for i in range(100)]
-    disc=[0 for i in range(100)]
-    for i in range (0,100):
+    out=[[0 for i in range(20)],[0 for i in range(20)]]
+    conc=[0 for i in range(20)]
+    disc=[0 for i in range(20)]
+    for i in range (0,20):
         mat=Qobj(sol.states[i])
         c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
         c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
@@ -79,7 +79,7 @@ def me2(IN,RES):
     out=[conc,disc]
     return out    
 
-tiempo = [(1/20)*i for i in range(100)]#Intervalo de tiempo para los gráficos
+tiempo = [(1/4)*i for i in range(20)]#Intervalo de tiempo para los gráficos
 
  
 #Graficar
