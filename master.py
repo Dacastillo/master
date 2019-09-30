@@ -54,8 +54,8 @@ def me3(IN,RES):
         return e
     for i in range (0,100):
         mat=Qobj(sol.states[i])
-        conc[i]=round(concurrence(mat),4)
-        disc[i]=round(entropy_mutual(mat,0,1)-entropy_vn(ptrace(mat,0))+entropy_opt(mat),4)
+        conc[i]=concurrence(mat),4
+        disc[i]=entropy_mutual(mat,0,1)-entropy_vn(mat.ptrace(0))+entropy_opt(mat)
     out=[conc,disc]
     return out
 
@@ -71,7 +71,7 @@ def me2(IN,RES):
         c3=mat.eigenenergies()[1]+mat.eigenenergies()[2]-mat.eigenenergies()[0]-mat.eigenenergies()[3]
         consar=np.array([c1,c2,c3])
         c=np.amax(consar)       
-        conc[i]=round(concurrence(mat), 4)
+        conc[i]=concurrence(mat)
         disc[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
         for j in range (0,4):
             disc[i]=disc[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
