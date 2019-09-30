@@ -35,8 +35,7 @@ def me3(IN,RES):
     sol=mesolve(tensor(identity(2),identity(2)), IN, times, RES)
     out=[[0 for i in range(100)],[0 for i in range(100)]]
     conc=[0 for i in range(100)]
-    disc=[0 for i in range(100)]
-    
+    disc=[0 for i in range(100)]    
     def entropy_opt(a):
         ent_comp=[0 for i in range(4)]
         if a.matrix_element(tensor(basis(2,0)),tensor(basis(2,0)))+a.matrix_element(tensor(basis(2,1)),tensor(basis(2,1)))==0:
@@ -55,7 +54,7 @@ def me3(IN,RES):
     for i in range (0,100):
         mat=Qobj(sol.states[i])
         conc[i]=concurrence(mat),4
-        disc[i]=entropy_mutual(mat,0,1)-entropy_vn(mat.ptrace(0))+entropy_opt(mat)
+        disc[i]=-entropy_vn(mat)+entropy_vn(mat.ptrace(0))+entropy_opt(mat)
     out=[conc,disc]
     return out
 
