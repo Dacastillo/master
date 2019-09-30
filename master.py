@@ -57,7 +57,7 @@ def me3(IN,RES):
     for i in range (0,100):
         mat=Qobj(sol.states[i])
         conc[i]=concurrence(mat),4
-        disc[i]=-entropy_vn(mat)+entropy_vn(mat.ptrace(0))+entropy_opt(mat)
+        disc[i]=np.abs(-entropy_vn(mat)+entropy_vn(mat.ptrace(0))+entropy_opt(mat))
     out=[conc,disc]
     return out
 
