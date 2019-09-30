@@ -1,7 +1,7 @@
 from qutip import * #Liberia qutip
 from matplotlib.pyplot import * #Libreria matplotlib
 import numpy as np #Liberia numpy
-times = np.linspace(0,5,20000) #definir intervalo temporal 
+times = np.linspace(0,5,200) #definir intervalo temporal 
 I1 =  (1/(np.sqrt(2)))*(tensor(basis(2,0),basis(2,0))+tensor(basis(2,1),basis(2,1)))#Definir estado inicial Bell 1
 I2 =  (1/(np.sqrt(2)))*(tensor(basis(2,0),basis(2,1))+tensor(basis(2,1),basis(2,0)))#Definir estado inicial Bell 3
 I3 =  tensor(basis(2,0),basis(2,1))#Definir estado inicial logico 01
@@ -32,9 +32,9 @@ def entropy_cond(a,b,t1,t2):
 #Definir funcion que calcula ecuaciones maestras y evaluar si funciona fuera
 def me3(IN,RES):
     sol=mesolve(tensor(identity(2),identity(2)), IN, times, RES)
-    out=[[0 for i in range(20000)],[0 for i in range(20000)]]
-    conc=[0 for i in range(20000)]
-    disc=[0 for i in range(20000)]    
+    out=[[0 for i in range(200)],[0 for i in range(200)]]
+    conc=[0 for i in range(200)]
+    disc=[0 for i in range(200)]    
     def entropy_opt(a):
         ent_comp=[0 for i in range(4)]
         if a.matrix_element(tensor(basis(2,0)),tensor(basis(2,0)))+a.matrix_element(tensor(basis(2,1)),tensor(basis(2,1)))==0:
@@ -53,7 +53,7 @@ def me3(IN,RES):
         else:
             e= min(ent_comp)
         return e
-    for i in range (0,20000):
+    for i in range (0,200):
         mat=Qobj(sol.states[i])
         conc[i]=concurrence(mat),4
         disc[i]=np.abs(-entropy_vn(mat)+entropy_vn(mat.ptrace(0))+entropy_opt(mat))
@@ -62,10 +62,10 @@ def me3(IN,RES):
 
 def me2(IN,RES):
     sol=mesolve(tensor(identity(2),identity(2)), IN, times, RES)
-    out=[[0 for i in range(20000)],[0 for i in range(20000)]]
-    conc=[0 for i in range(20000)]
-    disc=[0 for i in range(20000)]
-    for i in range (0,20000):
+    out=[[0 for i in range(200)],[0 for i in range(200)]]
+    conc=[0 for i in range(200)]
+    disc=[0 for i in range(200)]
+    for i in range (0,200):
         mat=Qobj(sol.states[i])
         c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
         c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
@@ -79,7 +79,7 @@ def me2(IN,RES):
     out=[conc,disc]
     return out    
 
-tiempo = [(1/4000)*i for i in range(20000)]#Intervalo de tiempo para los gráficos
+tiempo = [(1/40)*i for i in range(200)]#Intervalo de tiempo para los gráficos
 
  
 #Graficar
