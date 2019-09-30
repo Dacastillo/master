@@ -27,7 +27,7 @@ def log_2(x):
 #Definir entropia condicional para minimizar
 def entropy_cond(a,b,t1,t2):
     e=0    
-    e = a*(-((1-t1)/2)*log_2((1-t1)/2)-((1+t1)/2)*log_2((1+t1)/2))+ b*(-((1+t2)/2)*log_2((1+t2)/2)-((1+t2)/2)*log_2((1+t2)/2))
+    e = a*(-((1-t1)/2)*log_2((1-t1)/2)-((1+t1)/2)*log_2((1+t1)/2))+ b*(-((1-t2)/2)*log_2((1-t2)/2)-((1+t2)/2)*log_2((1+t2)/2))
     return e
    
 #Definir funcion que calcula ecuaciones maestras y evaluar si funciona fuera
