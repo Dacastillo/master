@@ -1,7 +1,7 @@
 from qutip import * #Liberia qutip
 from matplotlib.pyplot import * #Libreria matplotlib
 import numpy as np #Liberia numpy
-times = np.linspace(0,5, 200) #definir intervalo temporal 
+times = np.linspace(0,5, 100) #definir intervalo temporal 
 I1 =  (1/(np.sqrt(2)))*(tensor(basis(2,0),basis(2,0))+tensor(basis(2,1),basis(2,1)))#Definir estado inicial Bell 1
 I2 =  (1/(np.sqrt(2)))*(tensor(basis(2,0),basis(2,1))+tensor(basis(2,1),basis(2,0)))#Definir estado inicial Bell 3
 I3 =  tensor(basis(2,0),basis(2,1))#Definir estado inicial logico 01
@@ -33,11 +33,9 @@ def h_bin(x):
 #Definir funcion que calcula ecuaciones maestras y evaluar si funciona fuera para los estados lógicos
 def me3(IN,RES):
     sol=mesolve(tensor(identity(2),identity(2)), IN, times, RES)
-    out=[[0 for i in range(200)],[0 for i in range(200)],[0 for i in range(200)], [0 for i in range(200)]]
-    conc=[0 for i in range(200)]
-    disc=[0 for i in range(200)]
-#    clas=[0 for i in range(200)]
-#    entf=[0 for i in range(200)]    
+    out=[[0 for i in range(100)],[0 for i in range(100)]]
+    conc=[0 for i in range(100)]
+    disc=[0 for i in range(100)]   
     def entropy_opt(a): #función que optimiza la entropía condicional necesaria para sacar discordia
         ent_comp=[0 for i in range(4)]
         r00= a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,0),basis(2,0)))
@@ -48,39 +46,39 @@ def me3(IN,RES):
         r12r= np.real(a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,1),basis(2,0))))
         r03i= np.imag(a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,1),basis(2,1))))
         r12i= np.imag(a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,1),basis(2,0))))
+        r03a= np.absolute(a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,1),basis(2,1))))
+        r12a= np.absolute(a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,1),basis(2,0))))
         if r11+r33 ==0:
-           ent_comp[0]=0
-           ent_comp[1]=0
+           ent_comp[0]=1
+           ent_comp[1]=1
         elif r00+r22 ==0:
-           ent_comp[0]=0
-           ent_comp[1]=0
+           ent_comp[0]=1
+           ent_comp[1]=1
         else:
            ent_comp[0]=entropy_cond( r11+r33, r00+r22, (r11-r33)/(r00+r22) ,(r00-r22)/(r11+r33) )
            ent_comp[1]=entropy_cond( r00+r22, r11+r33, (r00-r22)/(r11+r33) ,(r11-r33)/(r00+r22) )
-        ent_comp[2]=entropy_cond( 0.5, 0.5,  np.sqrt(((r00-r22)+(r11-r33))**2+4*(r03r+r12r)**2), np.sqrt(((r00-r22)+(r11-r33))**2+4*(r03r+r12r)**2))
-        ent_comp[3]=entropy_cond( 0.5, 0.5,  np.sqrt(((r00-r22)+(r11-r33))**2+4*(r03r+r12r)**2), np.sqrt(((r00-r22)+(r11-r33))**2+4*(r03r+r12r)**2))              
+        ent_comp[2]=entropy_cond( 0.5, 0.5,  np.sqrt(((r00-r22)+(r11-r33))**2+4*(r03r+r12r)**2), np.sqrt(((r00-r22)+(r11-r33))**2+4*np.absolute((r03a)**2+(r12a)**2+2*r03r*r12r)))
+        ent_comp[3]=entropy_cond( 0.5, 0.5,  np.sqrt(((r00-r22)+(r11-r33))**2+4*(r03r-r12r)**2), np.sqrt(((r00-r22)+(r11-r33))**2+4*np.absolute((r03a)**2+(r12a)**2+2*r03r*r12r)))              
         if min(ent_comp)<=0:
            e=0
         else:
            e= np.absolute(min(ent_comp))
         return e
-    for i in range (0,200):
+    for i in range (0,100):
         mat=Qobj(sol.states[i])
         conc[i]=concurrence(mat)
-        disc[i]=entropy_vn(mat.ptrace(0))-entropy_vn(mat)+entropy_opt(mat)
-#        clas[i]=entropy_mutual(mat,0,1)-disc[i]
-#        entf[i]=h_bin((1+np.sqrt(1-(concurrence(mat))**2))/2)
+        disc[i]=entropy_mutual(mat,0,1)-entropy_vn(mat.ptrace(1))+entropy_opt(mat)
     out=[conc,disc]
     return out
 
 def me2(IN,RES):
     sol=mesolve(tensor(identity(2),identity(2)), IN, times, RES)
-    out=[[0 for i in range(200)],[0 for i in range(200)],[0 for i in range(200)],[0 for i in range(200)]]
-    conc=[0 for i in range(200)]
-    disc=[0 for i in range(200)]
-    clas=[0 for i in range(200)]
-    entf=[0 for i in range(200)]
-    for i in range (0,200):
+    out=[[0 for i in range(100)],[0 for i in range(100)],[0 for i in range(100)],[0 for i in range(100)]]
+    conc=[0 for i in range(100)]
+    disc=[0 for i in range(100)]
+    clas=[0 for i in range(100)]
+    entf=[0 for i in range(100)]
+    for i in range (0,100):
         mat=Qobj(sol.states[i])
         c1=mat.eigenenergies()[2]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[1]
         c2=mat.eigenenergies()[1]+mat.eigenenergies()[3]-mat.eigenenergies()[0]-mat.eigenenergies()[2]
@@ -91,193 +89,116 @@ def me2(IN,RES):
         disc[i]=-0.5*((1+c)*log_2(1+c)+(1-c)*log_2(1-c))
         for j in range (0,4):
             disc[i]=disc[i]+mat.eigenenergies()[j]*log_2(4*mat.eigenenergies()[j])
-        clas[i]=entropy_mutual(mat,0,1)-disc[i]
-        entf[i]=h_bin((1+np.sqrt(1-(concurrence(mat))**2))/2)
-    out=[conc,disc,clas,entf]
+    out=[conc,disc]
     return out    
 
-tiempo = [(1/40)*i for i in range(200)]#Intervalo de tiempo para los gráficos
+tiempo = [(1/20)*i for i in range(100)]#Intervalo de tiempo para los gráficos
 
  
 #Graficar
-#fig, axs = subplots(2,2)
-#axs[0,0].plot(tiempo,me2(I1,S0S)[1])
-#axs[0,0].plot(tiempo,me2(I1,S1S)[1])
-#axs[0,0].plot(tiempo,me2(I1,S2S)[1])
-#axs[0,0].set_title('Discordia sin acoplamiento')
-#axs[0,1].plot(tiempo,me2(I1,S0S)[0])
-#axs[0,1].plot(tiempo,me2(I1,S1S)[0])
-#axs[0,1].plot(tiempo,me2(I1,S2S)[0])
-#axs[0,1].set_title('Concurrencia sin acoplamiento')
-#axs[1,0].plot(tiempo,me2(I1,S0C)[1])
-#axs[1,0].plot(tiempo,me2(I1,S1C)[1])
-#axs[1,0].plot(tiempo,me2(I1,S2C)[1])
-#axs[1,0].set_title('Discordia con acoplamiento')
-#axs[1,1].plot(tiempo,me2(I1,S0C)[0])
-#axs[1,1].plot(tiempo,me2(I1,S1C)[0])
-#axs[1,1].plot(tiempo,me2(I1,S2C)[0])
-#axs[1,1].set_title('Concurrencia con acoplamiento')
-#for ax in fig.get_axes():
-#    ax.label_outer()
-#savefig('bell1.png')
+fig, axs = subplots(2,2)
+axs[0,0].plot(tiempo,me2(I1,S0S)[1], 'r')
+axs[0,0].plot(tiempo,me2(I1,S1S)[1], 'g')
+axs[0,0].plot(tiempo,me2(I1,S2S)[1], 'b')
+axs[0,0].set_title('Discordia sin acoplamiento')
+axs[0,1].plot(tiempo,me2(I1,S0S)[0], 'r')
+axs[0,1].plot(tiempo,me2(I1,S1S)[0], 'g')
+axs[0,1].plot(tiempo,me2(I1,S2S)[0], 'b')
+axs[0,1].set_title('Concurrencia sin acoplamiento')
+axs[1,0].plot(tiempo,me2(I1,S0C)[1], 'r')
+axs[1,0].plot(tiempo,me2(I1,S1C)[1], 'g')
+axs[1,0].plot(tiempo,me2(I1,S2C)[1], 'b')
+axs[1,0].set_title('Discordia con acoplamiento')
+axs[1,1].plot(tiempo,me2(I1,S0C)[0], 'r')
+axs[1,1].plot(tiempo,me2(I1,S1C)[0], 'g')
+axs[1,1].plot(tiempo,me2(I1,S2C)[0], 'b')
+axs[1,1].set_title('Concurrencia con acoplamiento')
+savefig('bell1.png')
 
 #Graficar
-#fig, axs = subplots(2,2)
-#axs[0,0].plot(tiempo,me2(I2,S0S)[1])
-#axs[0,0].plot(tiempo,me2(I2,S1S)[1])
-#axs[0,0].plot(tiempo,me2(I2,S2S)[1])
-#axs[0,0].set_title('Discordia sin acoplamiento')
-#axs[0,1].plot(tiempo,me2(I2,S0S)[0])
-#axs[0,1].plot(tiempo,me2(I2,S1S)[0])
-#axs[0,1].plot(tiempo,me2(I2,S2S)[0])
-#axs[0,1].set_title('Concurrencia sin acoplamiento')
-#axs[1,0].plot(tiempo,me2(I2,S0C)[1])
-#axs[1,0].plot(tiempo,me2(I2,S1C  \bibitem{Omar} Jimenez, 0. Apunte Información Cuántica 1
-#axs[1,0].plot(tiempo,me2(I2,S2C)[1])
-#axs[1,0].set_title('Discordia con acoplamiento')
-#axs[1,1].plot(tiempo,me2(I2,S0C)[0])
-#axs[1,1].plot(tiempo,me2(I2,S1C)[0])
-#axs[1,1].plot(tiempo,me2(I2,S2C)[0])
-#axs[1,1].set_title('Concurrencia con acoplamiento')
-#for ax in fig.get_axes():
-#    ax.label_outer()
-#savefig('bell3.png')
+fig, axs = subplots(2,2)
+axs[0,0].plot(tiempo,me2(I2,S0S)[1], 'r')
+axs[0,0].plot(tiempo,me2(I2,S1S)[1], 'g')
+axs[0,0].plot(tiempo,me2(I2,S2S)[1], 'b')
+axs[0,0].set_title('Discordia sin acoplamiento')
+axs[0,1].plot(tiempo,me2(I2,S0S)[0], 'r')
+axs[0,1].plot(tiempo,me2(I2,S1S)[0], 'g')
+axs[0,1].plot(tiempo,me2(I2,S2S)[0], 'b')
+axs[0,1].set_title('Concurrencia sin acoplamiento')
+axs[1,0].plot(tiempo,me2(I2,S0C)[1], 'r')
+axs[1,0].plot(tiempo,me2(I2,S1C)[1], 'g')
+axs[1,0].plot(tiempo,me2(I2,S2C)[1], 'b')
+axs[1,0].set_title('Discordia con acoplamiento')
+axs[1,1].plot(tiempo,me2(I2,S0C)[0], 'r')
+axs[1,1].plot(tiempo,me2(I2,S1C)[0], 'g')
+axs[1,1].plot(tiempo,me2(I2,S2C)[0], 'b')
+axs[1,1].set_title('Concurrencia con acoplamiento')
+savefig('bell3.png')
 
 
 #Graficar
 fig, axs = subplots(2,2)
-axs[0,0].plot(tiempo,me3(I3,S0S)[1])
-axs[0,0].plot(tiempo,me3(I3,S1S)[1])
-axs[0,0].plot(tiempo,me3(I3,S2S)[1])
+axs[0,0].plot(tiempo,me3(I3,S0S)[1], 'r')
+axs[0,0].plot(tiempo,me3(I3,S1S)[1], 'g')
+axs[0,0].plot(tiempo,me3(I3,S2S)[1], 'b')
 axs[0,0].set_title('Discordia sin acoplamiento')
-axs[0,1].plot(tiempo,me3(I3,S0S)[0])
-axs[0,1].plot(tiempo,me3(I3,S1S)[0])
-axs[0,1].plot(tiempo,me3(I3,S2S)[0])
+axs[0,1].plot(tiempo,me3(I3,S0S)[0], 'r')
+axs[0,1].plot(tiempo,me3(I3,S1S)[0], 'g')
+axs[0,1].plot(tiempo,me3(I3,S2S)[0], 'b')
 axs[0,1].set_title('Concurrencia sin acoplamiento')
-axs[1,0].plot(tiempo,me3(I3,S0C)[1])
-axs[1,0].plot(tiempo,me3(I3,S1C)[1])
-axs[1,0].plot(tiempo,me3(I3,S2C)[1])
+axs[1,0].plot(tiempo,me3(I3,S0C)[1], 'r')
+axs[1,0].plot(tiempo,me3(I3,S1C)[1], 'g')
+axs[1,0].plot(tiempo,me3(I3,S2C)[1], 'b')
 axs[1,0].set_title('Discordia con acoplamiento')
-axs[1,1].plot(tiempo,me3(I3,S0C)[0])
-axs[1,1].plot(tiempo,me3(I3,S1C)[0])
-axs[1,1].plot(tiempo,me3(I3,S2C)[0])
+axs[1,1].plot(tiempo,me3(I3,S0C)[0], 'r')
+axs[1,1].plot(tiempo,me3(I3,S1C)[0], 'g')
+axs[1,1].plot(tiempo,me3(I3,S2C)[0], 'b')
 axs[1,1].set_title('Concurrencia con acoplamiento')
 savefig('logi01.png')
 
 
 #Graficar
 fig, axs = subplots(2,2)
-axs[0,0].plot(tiempo,me3(I4,S0S)[1])
-axs[0,0].plot(tiempo,me3(I4,S1S)[1])
-axs[0,0].plot(tiempo,me3(I4,S2S)[1])
+axs[0,0].plot(tiempo,me3(I4,S0S)[1], 'r')
+axs[0,0].plot(tiempo,me3(I4,S1S)[1], 'g')
+axs[0,0].plot(tiempo,me3(I4,S2S)[1], 'b')
 axs[0,0].set_title('Discordia sin acoplamiento')
-axs[0,1].plot(tiempo,me3(I4,S0S)[0])
-axs[0,1].plot(tiempo,me3(I4,S1S)[0])
-axs[0,1].plot(tiempo,me3(I4,S2S)[0])
+axs[0,1].plot(tiempo,me3(I4,S0S)[0], 'r')
+axs[0,1].plot(tiempo,me3(I4,S1S)[0], 'g')
+axs[0,1].plot(tiempo,me3(I4,S2S)[0], 'b')
 axs[0,1].set_title('Concurrencia sin acoplamiento')
-axs[1,0].plot(tiempo,me3(I4,S0C)[1])
-axs[1,0].plot(tiempo,me3(I4,S1C)[1])
-axs[1,0].plot(tiempo,me3(I4,S2C)[1])
+axs[1,0].plot(tiempo,me3(I4,S0C)[1], 'r')
+axs[1,0].plot(tiempo,me3(I4,S1C)[1], 'g')
+axs[1,0].plot(tiempo,me3(I4,S2C)[1], 'b')
 axs[1,0].set_title('Discordia con acoplamiento')
-axs[1,1].plot(tiempo,me3(I4,S0C)[0])
-axs[1,1].plot(tiempo,me3(I4,S1C)[0])
-axs[1,1].plot(tiempo,me3(I4,S2C)[0])
+axs[1,1].plot(tiempo,me3(I4,S0C)[0], 'r')
+axs[1,1].plot(tiempo,me3(I4,S1C)[0], 'g')
+axs[1,1].plot(tiempo,me3(I4,S2C)[0], 'b')
 axs[1,1].set_title('Concurrencia con acoplamiento')
 savefig('logi11.png')
 
 
 #Graficar
 fig, axs = subplots(2,2)
-axs[0,0].plot(tiempo,me3(I5,S0S)[1])
-axs[0,0].plot(tiempo,me3(I5,S1S)[1])
-axs[0,0].plot(tiempo,me3(I5,S2S)[1])
+axs[0,0].plot(tiempo,me3(I5,S0S)[1], 'r')
+axs[0,0].plot(tiempo,me3(I5,S1S)[1], 'g')
+axs[0,0].plot(tiempo,me3(I5,S2S)[1], 'b')
 axs[0,0].set_title('Discordia sin acoplamiento')
-axs[0,1].plot(tiempo,me3(I5,S0S)[0])
-axs[0,1].plot(tiempo,me3(I5,S1S)[0])
-axs[0,1].plot(tiempo,me3(I5,S2S)[0])
+axs[0,1].plot(tiempo,me3(I5,S0S)[0], 'r')
+axs[0,1].plot(tiempo,me3(I5,S1S)[0], 'g')
+axs[0,1].plot(tiempo,me3(I5,S2S)[0], 'b')
 axs[0,1].set_title('Concurrencia sin acoplamiento')
-axs[1,0].plot(tiempo,me3(I5,S0C)[1])
-axs[1,0].plot(tiempo,me3(I5,S1C)[1])
-axs[1,0].plot(tiempo,me3(I5,S2C)[1])
+axs[1,0].plot(tiempo,me3(I5,S0C)[1], 'r')
+axs[1,0].plot(tiempo,me3(I5,S1C)[1], 'g')
+axs[1,0].plot(tiempo,me3(I5,S2C)[1], 'b')
 axs[1,0].set_title('Discordia con acoplamiento')
-axs[1,1].plot(tiempo,me3(I5,S0C)[0])
-axs[1,1].plot(tiempo,me3(I5,S1C)[0])
-axs[1,1].plot(tiempo,me3(I5,S2C)[0])
+axs[1,1].plot(tiempo,me3(I5,S0C)[0], 'r')
+axs[1,1].plot(tiempo,me3(I5,S1C)[0], 'g')
+axs[1,1].plot(tiempo,me3(I5,S2C)[0], 'b')
 axs[1,1].set_title('Concurrencia con acoplamiento')
 savefig('logi00.png')
 
-#Graficar
-#fig, axs = subplots(3,1)
-#axs[0,0].plot(tiempo,me3(I4,S1C)[1])
-#axs[0,0].plot(tiempo,me3(I4,S1C)[2])
-#axs[0,0].plot(tiempo,me3(I4,S1C)[3])
-#axs[0,0].set_title('Estado lógico 11')
-#axs[0,1].plot(tiempo,me3(I5,S1C)[1])
-#axs[0,1].plot(tiempo,me3(I5,S1C)[2])
-#axs[0,1].plot(tiempo,me3(I5,S1C)[3])
-#axs[0,1].set_title('Estado lógico 00')
-#axs[1,0].plot(tiempo,me3(I3,S1C)[1])
-#axs[1,0].plot(tiempo,me3(I3,S1C)[2])
-#axs[1,0].plot(tiempo,me3(I3,S1C)[3])
-#axs[1,0].set_title('Estado lógico 01')
-#for ax in fig.get_axes():
-#    ax.label_outer()
-#savefig('termal.png')
 
-#Graficar
-#fig, axs = subplots(3,1)
-#axs[0,0].plot(tiempo,me3(I4,S2C)[1])
-#axs[0,0].plot(tiempo,me3(I4,S2C)[2])
-#axs[0,0].plot(tiempo,me3(I4,S2C)[3])
-#axs[0,0].set_title('Estado Lógico 11')
-#axs[0,1].plot(tiempo,me3(I5,S2C)[1])
-#axs[0,1].plot(tiempo,me3(I5,S2C)[2])
-#axs[0,1].plot(tiempo,me3(I5,S2C)[3])
-#axs[0,1].set_title('Estado lógico 00')
-#axs[1,0].plot(tiempo,me3(I3,S2C)[1])
-#axs[1,0].plot(tiempo,me3(I3,S2C)[2])
-#axs[1,0].plot(tiempo,me3(I3,S2C)[3])
-#axs[1,0].set_title('Estado lógico 01')
-#for ax in fig.get_axes():
-#    ax.label_outer()
-#savefig('compri.png')
-
-#Graficar
-#fig, axs = subplots(2,2)
-#axs[0,0].plot(tiempo,me2(I1,S1S)[3])
-#axs[0,0].plot(tiempo,me2(I2,S1S)[3])
-#axs[0,0].set_title('Entrelazamiento sin acoplamiento')
-#axs[0,1].plot(tiempo,me2(I1,S1S)[1])
-#axs[0,1].plot(tiempo,me2(I2,S1S)[1])
-#axs[0,1].set_title('Discordia sin acoplamiento')
-#axs[1,0].plot(tiempo,me2(I1,S1C)[3])
-#axs[1,0].plot(tiempo,me2(I2,S1C)[3])
-#axs[1,0].set_title('Entrelazamiento con acoplamiento')
-#axs[1,1].plot(tiempo,me2(I1,S1C)[1])
-#axs[1,1].plot(tiempo,me2(I2,S1C)[1])
-#axs[1,1].set_title('Discordia con acoplamiento')
-#for ax in fig.get_axes():
-#    ax.label_outer()
-#savefig('belltermal.png')
-
-
-#Graficar
-#fig, axs = subplots(2,2)
-#axs[0,0].plot(tiempo,me2(I1,S2S)[3])
-#axs[0,0].plot(tiempo,me2(I2,S2S)[3])
-#axs[0,0].set_title('Entrelazamiento sin acoplamiento')
-#axs[0,1].plot(tiempo,me2(I1,S2S)[1])
-#axs[0,1].plot(tiempo,me2(I2,S2S)[1])
-#axs[0,1].set_title('Discordia sin acoplamiento')
-#axs[1,0].plot(tiempo,me2(I1,S2C)[3])
-#axs[1,0].plot(tiempo,me2(I2,S2C)[3])
-#axs[1,0].set_title('Entrelazamiento con acoplamiento')
-#axs[1,1].plot(tiempo,me2(I1,S2C)[1])
-#axs[1,1].plot(tiempo,me2(I2,S2C)[1])
-#axs[1,1].set_title('Discordia con acoplamiento')
-#for ax in fig.get_axes():
-#    ax.label_outer()
-#savefig('bellcomprim.png')
 
 
 
