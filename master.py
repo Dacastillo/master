@@ -18,31 +18,27 @@ S0C = [sigmen1+sigmen2]
 S1C = [np.sqrt(1.1)*sigmen1+np.sqrt(1.1)*sigmen2,np.sqrt(0.1)*sigmas1+np.sqrt(0.1)*sigmas2]
 S2C = [np.sqrt(1.1)*sigmen1+np.sqrt(0.1)*sigmas1+np.sqrt(1.1)*sigmen2+np.sqrt(0.1)*sigmas2]
 #Definir funcion logaritmo segura
-
 def log_2(x):
     if np.real(x) <= 0:
        return 0
     return np.log2(x)
-
 #Definir entropia condicional para minimizar
 def entropy_cond(a,b,t1,t2):
     e = a*(-((1-t1)/2)*log_2((1-t1)/2)-((1+t1)/2)*log_2((1+t1)/2))+b*(-((1-t2)/2)*log_2((1-t2)/2)-((1+t2)/2)*log_2((1+t2)/2))
     return e
-
 #Definir función entropía binaria con logaritmo seguro
 def h_bin(x):
     h=-x*log_2(x)-(1-x)*log_2(1-x)
     return h
-   
-#Definir funcion que calcula ecuaciones maestras y evaluar si funciona fuera
+#Definir funcion que calcula ecuaciones maestras y evaluar si funciona fuera para los estados lógicos
 def me3(IN,RES):
     sol=mesolve(tensor(identity(2),identity(2)), IN, times, RES)
     out=[[0 for i in range(200)],[0 for i in range(200)],[0 for i in range(200)], [0 for i in range(200)]]
     conc=[0 for i in range(200)]
     disc=[0 for i in range(200)]
-    clas=[0 for i in range(200)]
-    entf=[0 for i in range(200)]    
-    def entropy_opt(a):
+#    clas=[0 for i in range(200)]
+#    entf=[0 for i in range(200)]    
+    def entropy_opt(a): #función que optimiza la entropía condicional necesaria para sacar discordia
         ent_comp=[0 for i in range(4)]
         r00= a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,0),basis(2,0)))
         r11= a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,0),basis(2,1)))
@@ -53,11 +49,11 @@ def me3(IN,RES):
         r03i= np.imag(a.matrix_element(tensor(basis(2,0),basis(2,0)).dag(),tensor(basis(2,1),basis(2,1))))
         r12i= np.imag(a.matrix_element(tensor(basis(2,0),basis(2,1)).dag(),tensor(basis(2,1),basis(2,0))))
         if r11+r33 ==0:
-           ent_comp[0]=1
-           ent_comp[1]=1
+           ent_comp[0]=0
+           ent_comp[1]=0
         elif r00+r22 ==0:
-           ent_comp[0]=1
-           ent_comp[1]=1
+           ent_comp[0]=0
+           ent_comp[1]=0
         else:
            ent_comp[0]=entropy_cond( r11+r33, r00+r22, (r11-r33)/(r00+r22) ,(r00-r22)/(r11+r33) )
            ent_comp[1]=entropy_cond( r00+r22, r11+r33, (r00-r22)/(r11+r33) ,(r11-r33)/(r00+r22) )
@@ -66,15 +62,15 @@ def me3(IN,RES):
         if min(ent_comp)<=0:
            e=0
         else:
-            e= min(ent_comp)
+           e= np.absolute(min(ent_comp))
         return e
     for i in range (0,200):
         mat=Qobj(sol.states[i])
         conc[i]=concurrence(mat)
-        disc[i]=np.abs(-entropy_vn(mat)+entropy_vn(mat.ptrace(0))+entropy_opt(mat))
-        clas[i]=entropy_mutual(mat,0,1)-disc[i]
-        entf[i]=h_bin((1+np.sqrt(1-(concurrence(mat))**2))/2)
-    out=[conc,disc,clas,entf]
+        disc[i]=entropy_vn(mat.ptrace(0))-entropy_vn(mat)+entropy_opt(mat)
+#        clas[i]=entropy_mutual(mat,0,1)-disc[i]
+#        entf[i]=h_bin((1+np.sqrt(1-(concurrence(mat))**2))/2)
+    out=[conc,disc]
     return out
 
 def me2(IN,RES):
@@ -136,7 +132,7 @@ tiempo = [(1/40)*i for i in range(200)]#Intervalo de tiempo para los gráficos
 #axs[0,1].plot(tiempo,me2(I2,S2S)[0])
 #axs[0,1].set_title('Concurrencia sin acoplamiento')
 #axs[1,0].plot(tiempo,me2(I2,S0C)[1])
-#axs[1,0].plot(tiempo,me2(I2,S1C)[1])
+#axs[1,0].plot(tiempo,me2(I2,S1C  \bibitem{Omar} Jimenez, 0. Apunte Información Cuántica 1
 #axs[1,0].plot(tiempo,me2(I2,S2C)[1])
 #axs[1,0].set_title('Discordia con acoplamiento')
 #axs[1,1].plot(tiempo,me2(I2,S0C)[0])
