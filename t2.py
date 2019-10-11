@@ -48,7 +48,7 @@ for i in range (0,ene):
         else:
             vec=tongo(S2.dot(vec))   
     else:
-        vec=tongo(expm(-1j*(Hjc-0.5j*(S1d.dot(S1)+S2d.dot(S2)))*deltat).dot(vec))
+        vec=tongo(vec-1j*(Hjc-0.5j*(S1d.dot(S1)+S2d.dot(S2)))*deltat.dot(vec))
     e1 = vec
     eqju.append(np.absolute(np.dot(sigmas.dot(vec),sigmas.dot(vec))))
 
