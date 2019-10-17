@@ -14,10 +14,20 @@ S2 = np.sqrt(0.2)*a
 S2d = S2.transpose()
 Hju = Hjc-0.5j*(np.matmul(S1d,S1)+np.matmul(S2d,S2))
 ene=500
-nst=300
-emas=[]
-eqju=[]
-eqav=[0 for i in range(ene)]
+nst=500
+emas_gg=[]
+eqju_gg=[]
+eqav_gg=[0 for i in range(ene)]
+emas_ee=[]
+eqju_ee=[]
+eqav_ee=[0 for i in range(ene)]
+emas_00=[]
+eqju_00=[]
+eqav_00=[0 for i in range(ene)]
+emas_11=[]
+eqju_11=[]
+eqav_11=[0 for i in range(ene)]
+
 deltat=5/ene
 tiempo=[deltat*i for i in range (ene)]
 #ecuacion maestra
@@ -27,7 +37,11 @@ for i in range (0,ene):
     mat = mat +deltat*0.5*( 2*np.matmul(S1,np.matmul(mat,S1d)) -1*np.matmul(mat,np.matmul(S1d,S1)) -1*np.matmul(S1d,np.matmul(S1,mat)) )
     mat = mat +deltat*0.5*( 2*np.matmul(S2,np.matmul(mat,S2d)) -1*np.matmul(mat,np.matmul(S2d,S2)) -1*np.matmul(S2d,np.matmul(S2,mat)) )
     d1 = mat
-    emas.append(np.abs(np.matmul(mat,np.matmul(sigmas,sigmen)).trace()))
+    emas_gg.append(np.abs(np.matmul(mat,np.matmul(sigmas,sigmen)).trace()))
+    emas_ee.append(np.abs(np.matmul(mat,np.matmul(sigmen,sigmas)).trace()))
+    emas_00.append(np.abs(np.matmul(mat,np.matmul(adag,a)).trace()))
+    emas_11.append(np.abs(np.matmul(mat,np.matmul(a,adag)).trace()))
+
 #quantum jumps
 for m in range(0,nst):
     for n in range(0,ene):
@@ -54,11 +68,37 @@ for m in range(0,nst):
               vec=tongo(np.matmul(S2,vec))
         else:
            vec=tongo(np.matmul(expm(-1j*deltat*Hju),vec))
-        aver= np.matmul(sigmen,vec)
-        eqju.append(np.abs(np.dot(aver,aver)))
+        aver_gg= np.matmul(sigmen,vec)
+        aver_ee= np.matmul(sigmas,vec)
+        aver_00= np.matmul(a,vec)
+        aver_11= np.matmul(adag,vec)
+        eqju_gg.append(np.abs(np.dot(aver_gg,aver_gg)))
+        eqju_ee.append(np.abs(np.dot(aver_ee,aver_ee)))
+        eqju_00.append(np.abs(np.dot(aver_00,aver_00)))
+        eqju_11.append(np.abs(np.dot(aver_11,aver_11)))
         e1 = vec
-        eqav[n]=eqav[n]+(np.abs(np.dot(aver,aver)))/nst
+        eqav_gg[n]=eqav_gg[n]+(np.abs(np.dot(aver_gg,aver_gg)))/nst
+        eqav_ee[n]=eqav_ee[n]+(np.abs(np.dot(aver_ee,aver_ee)))/nst
+        eqav_00[n]=eqav_00[n]+(np.abs(np.dot(aver_00,aver_00)))/nst
+        eqav_11[n]=eqav_11[n]+(np.abs(np.dot(aver_11,aver_11)))/nst
     e1 = np.array([0,1,0,0])
-plot(tiempo,emas)
-plot(tiempo,eqav)
+
+figure()
+plot(tiempo,emas_gg)
+plot(tiempo,eqav_gg)
 savefig('pobg.png')
+
+figure()
+plot(tiempo,emas_ee)
+plot(tiempo,eqav_ee)
+savefig('pobe.png')
+
+figure()
+plot(tiempo,emas_00)
+plot(tiempo,eqav_00)
+savefig('pob0.png')
+
+figure()
+plot(tiempo,emas_11)
+plot(tiempo,eqav_11)
+savefig('pob1.png')
