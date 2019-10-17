@@ -48,18 +48,17 @@ for m in range(0,nst):
         else:
           deltasum = deltap1+deltap2
         if(rn1<deltasum):
-           if(rn2>=(deltap2/deltasum)):
+           if(rn2<=(deltap1/deltasum)):
               vec=tongo(np.matmul(S1,vec))
            else:
               vec=tongo(np.matmul(S2,vec))
         else:
-           vec=tongo(vec-np.matmul(expm(-1j*deltat*Hju),vec))
+           vec=tongo(np.matmul(expm(-1j*deltat*Hju),vec))
         aver= np.matmul(sigmen,vec)
         eqju.append(np.abs(np.dot(aver,aver)))
         e1 = vec
         eqav[n]=eqav[n]+(np.abs(np.dot(aver,aver)))/nst
     e1 = np.array([0,1,0,0])
-print(eqav)
 plot(tiempo,emas)
 plot(tiempo,eqav)
-show()
+savefig('pobg.png')
