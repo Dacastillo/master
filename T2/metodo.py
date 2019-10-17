@@ -2,19 +2,17 @@ from matplotlib.pyplot import *
 import numpy as np
 from scipy.linalg import expm
 import math as math
-sigmas = np.array([[0,0,1,0],[0,0,0,1],[0,0,0,0],[0,0,0,0]])
+nex=2
+sigmas = np.kron(np.array([[0,1],[0 for i in range(2)]]),np.eye(nex))
 sigmen = sigmas.transpose()
-
 def a(x):
     mat = np.array([[0 for i in range(x)] for j in range(x)])
-    for y in range(0,x):
-        mat[y-1][y]=math.sqrt(float(y))
+    acum=0
+    for y in range(1,x):
+        acum=acum+1
+        mat[y-1][y]=float(math.sqrt(acum))
     return(mat)
-
-print(a(2))
-print(a(3))
-print(a(4))
-a = np.kron(np.eye(2),np.array([[0 for i in range(2)],[1,0]]))
+a = np.kron(np.eye(2),a(nex))
 adag = a.transpose()
 Hjc = np.matmul(sigmas,sigmen)+np.matmul(adag,a)+(np.matmul(adag,sigmen)+np.matmul(a,sigmas))/1000
 e1 = np.array([0,1,0,0])
