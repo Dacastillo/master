@@ -3,7 +3,7 @@ import numpy as np
 from scipy.linalg import expm
 import math as math
 nex=3
-sigmas = np.kron(np.array([[0,1],[0 for i in range(2)]]),np.eye(2*nex))
+sigmas = np.kron(np.array([[0,1],[0 for i in range(2)]]),np.eye(nex))
 sigmen = sigmas.transpose()
 def a(x):
     mat = np.array([[0 for i in range(x)] for j in range(x)])
@@ -103,7 +103,7 @@ for m in range(0,nst):
         eqav_ee[n]=eqav_ee[n]+(np.abs(np.dot(aver_ee,aver_ee)))/nst
         eqav_00[n]=eqav_00[n]+(np.abs(np.dot(aver_00,aver_00)))/nst
         eqav_11[n]=eqav_11[n]+(np.abs(np.dot(aver_11,aver_11)))/nst
-    e1 = np.array([0,1,0,0])
+    e1 = np.array([0,1,0,0,0,0])
 
 figure()
 plot(tiempo,emas_gg)
