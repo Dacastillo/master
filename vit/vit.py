@@ -113,7 +113,7 @@ for t in arange(1, Nit):
         #Evolution with full interaction and only oscillator's decoherence 
         evol_inter= mesolve(H1, rho0, tlist1, c_ops1, []) #
         
-#        rho_ss = steadystate(H1, c_ops1) 
+        rho_ss = steadystate(H1, c_ops1) 
         
         rho_tot = (evol_inter.states[len(tlist1)-1]).unit() #t = pi (losses)
         #rho_osc_qub = rho_ss
@@ -125,16 +125,16 @@ for t in arange(1, Nit):
         #rho_post = (ptrace(rho_tot,[1,2])).unit()
         
         # partial trace for cavity and oscillator
-#        rho_osc1 = (ptrace(rho_post,[0])).unit()
-#        rho_cav1 = (ptrace(rho_post,[1])).unit()
+        rho_osc1 = (ptrace(rho_post,[0])).unit()
+        rho_cav1 = (ptrace(rho_post,[1])).unit()
         
-#        n_cav1.append(expect( b.dag() * b , rho_cav1))
-#        n_osc1.append(expect( b.dag() * b , rho_osc1))
+        n_cav1.append(expect( b.dag() * b , rho_cav1))
+        n_osc1.append(expect( b.dag() * b , rho_osc1))
         
-#        dx_cav1.append(variance((b + b.dag())*0.5, rho_cav1))
-#        dp_cav1.append(variance(1j*(b.dag()-b)*0.5, rho_cav1))
-#        dx_osc1.append(variance((b + b.dag())*0.5, rho_osc1))
-#        dp_osc1.append(variance(1j*(b.dag()-b)*0.5, rho_osc1))
+        dx_cav1.append(variance((b + b.dag())*0.5, rho_cav1))
+        dp_cav1.append(variance(1j*(b.dag()-b)*0.5, rho_cav1))
+        dx_osc1.append(variance((b + b.dag())*0.5, rho_osc1))
+        dp_osc1.append(variance(1j*(b.dag()-b)*0.5, rho_osc1))
         
         rho_t = rho_post
         
@@ -148,85 +148,85 @@ for t in arange(1, Nit):
         
         rho0 = tensor(rho0_atom, rho_aux)
                 
-#        n_cav2.append(expect( b.dag() * b , rho_cav2))
-#        n_osc2.append(expect( b.dag() * b , rho_osc2))
+        n_cav2.append(expect( b.dag() * b , rho_cav2))
+        n_osc2.append(expect( b.dag() * b , rho_osc2))
         
-#        nom_cav=expect( b.dag()*b.dag()* b*b , rho_cav2)
-#        den_cav=expect( b.dag() * b , rho_cav2)
-#        nom_osc=expect( b.dag()*b.dag()* b*b , rho_osc2)
-#        den_osc=expect( b.dag() * b , rho_osc2)
+        nom_cav=expect( b.dag()*b.dag()* b*b , rho_cav2)
+        den_cav=expect( b.dag() * b , rho_cav2)
+        nom_osc=expect( b.dag()*b.dag()* b*b , rho_osc2)
+        den_osc=expect( b.dag() * b , rho_osc2)
         
-#        g2_cav.append(nom_cav/(den_cav**2))
-#        g2_osc.append(nom_osc/(den_osc**2))
+        g2_cav.append(nom_cav/(den_cav**2))
+        g2_osc.append(nom_osc/(den_osc**2))
         
-#        dx_cav2.append(variance((b + b.dag())*0.5, rho_cav2))
-#        dp_cav2.append(variance(1j*(b.dag()-b)*0.5, rho_cav2))
-#        dx_osc2.append(variance((b + b.dag())*0.5, rho_osc2))
-#        dp_osc2.append(variance(1j*(b.dag()-b)*0.5, rho_osc2))
+        dx_cav2.append(variance((b + b.dag())*0.5, rho_cav2))
+        dp_cav2.append(variance(1j*(b.dag()-b)*0.5, rho_cav2))
+        dx_osc2.append(variance((b + b.dag())*0.5, rho_osc2))
+        dp_osc2.append(variance(1j*(b.dag()-b)*0.5, rho_osc2))
 
-#        vector_x.append(t*dt)       
+        vector_x.append(t*dt)       
         #theta1 = theta1+pi*0.5
 
-#print('rate/loss', rate/gammam) #should be very large  
+print('rate/loss', rate/gammam) #should be very large  
 
 
-#rc('text', usetex=False)
-##print(' phonon - red  & photon -blue')
-#fig, axes = plt.subplots(1, 1, figsize=(7,5))
+rc('text', usetex=False)
+print(' phonon - red  & photon -blue')
+fig, axes = plt.subplots(1, 1, figsize=(7,5))
 
-#xlabel(r'$time$ [arb. units]')
-#ylabel('$<n_c>, <n_m>$')
+xlabel(r'$time$ [arb. units]')
+ylabel('$<n_c>, <n_m>$')
 
-#plot(vector_x,n_osc2,'r') #oscillator
-#plot(vector_x,n_cav2,'b') #cavity
-#savefig("fig_aver.pdf", bbox_inches='tight')
-#show()
+plot(vector_x,n_osc2,'r') #oscillator
+plot(vector_x,n_cav2,'b') #cavity
+savefig("fig_aver.pdf", bbox_inches='tight')
+show()
 
-#print(' phonon - red  & photon -blue')
-#fig, axes = plt.subplots(1, 1, figsize=(7,5))
-#g2_teor =[]
-#line = []
+print(' phonon - red  & photon -blue')
+fig, axes = plt.subplots(1, 1, figsize=(7,5))
+g2_teor =[]
+line = []
 
-#for t in arange(0, Nit): 
-#    line.append(1)
+for t in arange(0, Nit): 
+    line.append(1)
     
-#xlabel(r'$time$ [arb. units]')
-#ylabel('$g^{(2)}(0)$')
-#plot(vector_x,g2_teor,'r-.')
-#plot(vector_x,real(g2_osc),'r')
-#plot(vector_x,real(g2_cav),'b')
-#plot(vector_x,line,'k--')
-#savefig("fig_g2.pdf", bbox_inches='tight')
-#show()
+xlabel(r'$time$ [arb. units]')
+ylabel('$g^{(2)}(0)$')
+plot(vector_x,g2_teor,'r-.')
+plot(vector_x,real(g2_osc),'r')
+plot(vector_x,real(g2_cav),'b')
+plot(vector_x,line,'k--')
+savefig("fig_g2.pdf", bbox_inches='tight')
+show()
 
 
-#print(' phonon - red & photon - blue: dx -- & dp **')
+print(' phonon - red & photon - blue: dx -- & dp **')
 
-#fig, axes = plt.subplots(1, 1, figsize=(7,5))
-#axes = plt.axes(xlim=(0, (Nit*dt)), ylim=(0, 3))
+fig, axes = plt.subplots(1, 1, figsize=(7,5))
+axes = plt.axes(xlim=(0, (Nit*dt)), ylim=(0, 3))
 
-#H_insert = []
-#line =[]
+H_insert = []
+line =[]
 
-#dx=dx_osc2
-#dp=dp_osc2
+dx=dx_osc2
+dp=dp_osc2
 
-#for t in arange(0, Nit): 
-#    H_insert.append(sqrt(dx[t]*dp[t]))
-#    line.append(0.25)
+for t in arange(0, Nit): 
+    H_insert.append(sqrt(dx[t]*dp[t]))
+    line.append(0.25)
 
-#xlabel(r'$time$ [arb. units]')
-#ylabel('$<\Delta x^2>$, $<\Delta p^2>$')
+xlabel(r'$time$ [arb. units]')
+ylabel('$<\Delta x^2>$, $<\Delta p^2>$')
 
-#plot(vector_x,dx_cav2,'b--')
-#plot(vector_x,dx_osc2,'r--')
+plot(vector_x,dx_cav2,'b--')
+plot(vector_x,dx_osc2,'r--')
 
-#plot(vector_x,dp_cav2,'b*')
-#plot(vector_x,dp_osc2,'r*')
+plot(vector_x,dp_cav2,'b*')
+plot(vector_x,dp_osc2,'r*')
 
-#plot(vector_x,line,'k--')
+plot(vector_x,line,'k--')
 
-#savefig("fig_fluct.pdf", bbox_inches='tight')
+savefig("fig_fluct.pdf", bbox_inches='tight')
 
 
 b = destroy(Nmax_osc+1)
@@ -236,34 +236,34 @@ vector_n=[]
 nav_osc = abs(expect( b.dag() * b , rho_osc2))
 n0 = den0
 
-#for n in arange(0, Nmax_osc+1):
-#    pdistr.append(exp(-nav_osc)*nav_osc**n/misc.factorial(n))
-#    vector_n.append(n)
+for n in arange(0, Nmax_osc+1):
+    pdistr.append(exp(-nav_osc)*nav_osc**n/misc.factorial(n))
+    vector_n.append(n)
 
 
-#plot_fock_distribution(rho_osc2)
-#plot(vector_n,pdistr,'r') 
+plot_fock_distribution(rho_osc2)
+plot(vector_n,pdistr,'r') 
 
-#savefig("fig_Pdistr_osc.pdf", bbox_inches='tight')
+savefig("fig_Pdistr_osc.pdf", bbox_inches='tight')
 
-#b = destroy(Nmax_osc+1)
-#pdistr=[]
-#vector_n=[]
+b = destroy(Nmax_osc+1)
+pdistr=[]
+vector_n=[]
 
-#nav_cav = abs(expect( b.dag() * b , rho_cav2))
-#n0 = den0
+nav_cav = abs(expect( b.dag() * b , rho_cav2))
+n0 = den0
 
-#for n in arange(0, Nmax_osc+1):
-#    pdistr.append(exp(-nav_cav)*nav_cav**n/misc.factorial(n))
-#    vector_n.append(n)
+for n in arange(0, Nmax_osc+1):
+    pdistr.append(exp(-nav_cav)*nav_cav**n/misc.factorial(n))
+    vector_n.append(n)
 
-#plot_fock_distribution(rho_cav2)
-#plot(vector_n,pdistr,'r') 
+plot_fock_distribution(rho_cav2)
+plot(vector_n,pdistr,'r') 
 
-#savefig("fig_Pdistr_cav.pdf", bbox_inches='tight')
+savefig("fig_Pdistr_cav.pdf", bbox_inches='tight')
 
-#plot_wigner_fock_distribution(rho_osc2)
-#savefig("fig_wigner_osc.pdf", bbox_inches='tight')
+plot_wigner_fock_distribution(rho_osc2)
+savefig("fig_wigner_osc.pdf", bbox_inches='tight')
 
-#plot_wigner_fock_distribution(rho_cav2)
-#savefig("fig_wigner_cav.pdf", bbox_inches='tight')
+plot_wigner_fock_distribution(rho_cav2)
+savefig("fig_wigner_cav.pdf", bbox_inches='tight')
