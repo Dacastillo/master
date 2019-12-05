@@ -1,0 +1,2 @@
+  File "vit.py", line 7
+SyntaxError: Non-ASCII character '\xc3' in file vit.py on line 7, but no encoding declared; see http://www.python.org/peps/pep-0263.html for details
