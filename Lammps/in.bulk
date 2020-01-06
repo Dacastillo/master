@@ -1,0 +1,45 @@
+units 	        metal
+boundary	p p p
+dimension	3
+atom_style	charge
+read_data       marks.out
+mass		1 12.0107
+pair_style rebo
+pair_coeff * * CH.airebo C
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 1000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix             1 all nvt temp 300 300 0.1
+run 50000
+unfix 1
+#Imponer presión 0
+fix 1 all npt temp 300 300 0.1 iso 0 0 1
+run 50000
+unfix 1
+fix             1 all nvt temp 300 300 0.1
+variable t equal temp
+variable p equal press
+variable v equal vol
+variable e equal etotal #Tiene que haber calentamiento
+fix ave all ave/time 1 10000 20000 v_t v_p v_v v_e  file average.dat
+#loop escalar 0.1% por run
+label loop_bulk
+variable i loop 0 50
+change_box all x scale 1.001 y scale 1.001 z scale 1.001 remap units box
+run 20000
+next i
+jump in.bulk loop_bulk
+#loop escalar 0.1% por run
+label loop_bulk2
+variable i loop 0 50
+change_box all x scale 0.999 y scale 0.999 z scale 0.999 remap units box
+run 20000
+next i
+jump in.bulk loop_bulk2
+write_data melting.out 
+
+
+

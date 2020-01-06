@@ -1,0 +1,36 @@
+import h5py
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from mpl_toolkits.mplot3d import Axes3D
+eps= h5py.File('cav-eps-000000.00.h5','r')
+deps=eps['eps']
+dpwr0= h5py.File('cav-denergy-001600.00.h5','r')
+ddpwr0=dpwr0['denergy']
+dpwr1= h5py.File('cav-denergy-001700.00.h5','r')
+ddpwr1=dpwr1['denergy']
+dpwr2= h5py.File('cav-denergy-001800.00.h5','r')
+ddpwr2=dpwr2['denergy']
+efie0= h5py.File('cav-ey-001600.00.h5','r')
+defie0=efie0['ey']
+efie1= h5py.File('cav-ey-001700.00.h5','r')
+defie1=efie1['ey']
+efie2= h5py.File('cav-ey-001800.00.h5','r')
+defie2=efie2['ey']
+hfie1= h5py.File('cav-hz-001600.00.h5','r')
+dhfie0=hfie0['hz']
+hfie1= h5py.File('cav-hz-001700.00.h5','r')
+dhfie1=hfie1['hz']
+hfie2= h5py.File('cav-hz-001800.00.h5','r')
+dhfie2=hfie2['hz']
+a0=defie0[0:195][0:85]
+a1=defie1[0:195][0:85]
+a2=defie2[0:195][0:85]
+ep=deps[0:195][0:85]
+i0= a0*ep
+i1= a1*ep
+i2= a2*ep
+print(i0.max())
+print(i1.max())
+print(i2.max())
+

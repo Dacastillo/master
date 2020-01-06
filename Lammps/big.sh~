@@ -1,0 +1,26 @@
+#!/bin/bash
+#inicializar los distintos potenciales con sus respectivos script
+for potential in airebom bop comb reax rebo rebolj reboljtor rebotor tersoff
+do
+    mkdir $potential
+    awk '/#script $potential/,/#fin script $potential/' scriptgen.sh > $potential/in.marks
+    for numb in 5 10 15
+        do
+          mkidir num=$numb
+          sed 's/region bulto block -5 5 -5 5 -5 5/region bulto block -$numb $numb -$numb $numb -$numb $numb/g' $potential/in.marks > $potential/num=$numb/in.marks
+          for dist in 1.2 1.4 1.6 1.8
+          do
+            mkdir dist=$dist
+            sed 's/lattice sc 1.84 /lattice sc $dist /g' $potential/num=$numb/in.marks > $potential/num=$numb/dist=d/in.marks
+            cd $potential/num=$numb/dist=$dist
+            nohup mpirun -np 8 lmp_mpi -in in.marks
+            mv nohup.out nohup_marks.out
+            python coordination.py
+            nohup mpirun -np 8 lmp_mpi -in in.melting
+            mv log.lammps log.melting
+            mv average.dat average_melting.dat
+            gnuplot fit.gp nohup 
+            mpirun -np 8 lmp_mpi -in in.elastic 
+          done
+        done
+done
