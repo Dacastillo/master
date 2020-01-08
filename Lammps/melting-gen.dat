@@ -1,0 +1,343 @@
+#script airebom
+units 		metal
+boundary	p p p
+dimension	3
+atom_style	atomic
+read_data       marks.out
+mass		1 12.0107
+pair_style	airebo/morse 3.0
+pair_coeff	* * CH.airebo-m C
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 10000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+write_data melting.out #Cálculo lento con rampas
+reset_timestep 200000
+variable t equal temp
+variable v equal vol
+variable e equal etotal
+fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
+label loop_heating2
+variable i loop 100 160
+variable Temp equal $i*20
+fix 		1 all npt temp ${Temp} ${Temp} 0.1 iso 1.0 1.0 1
+run 200000
+unfix 1
+next i
+jump in.melting loop_heating2
+#fin script airebom
+#script bop
+units 		metal
+boundary	p p p
+dimension	3
+atom_style	atomic
+read_data       marks.out
+mass		1 12.0107
+pair_style	bop
+pair_coeff	* * CCu_v2.bop.table C
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 10000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+write_data melting.out #Cálculo lento con rampas
+reset_timestep 200000
+variable t equal temp
+variable v equal vol
+variable e equal etotal
+fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
+label loop_heating2
+variable i loop 100 160
+variable Temp equal $i*20
+fix 		1 all npt temp ${Temp} ${Temp} 0.1 iso 1.0 1.0 1
+run 200000
+unfix 1
+next i
+jump in.melting loop_heating2
+#fin script bop
+#script comb
+units 		metal
+boundary	p p p
+dimension	3
+atom_style	atomic
+read_data       marks.out
+mass		1 12.0107
+pair_style	comb3 polar_off
+pair_coeff	* * ffield.comb3 C
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 10000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+write_data melting.out #Cálculo lento con rampas
+reset_timestep 200000
+variable t equal temp
+variable v equal vol
+variable e equal etotal
+fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
+label loop_heating2
+variable i loop 100 160
+variable Temp equal $i*20
+fix 		1 all npt temp ${Temp} ${Temp} 0.1 iso 1.0 1.0 1
+run 200000
+unfix 1
+next i
+jump in.melting loop_heating2
+#fin script comb
+#script reax
+units 		metal
+boundary	p p p
+dimension	3
+atom_style	atomic
+read_data       marks.out
+mass		1 12.0107
+pair_style	ffield.rex C
+pair_coeff	* * ffield.reax C
+fix 1 all qeq/reax 1 0.0 10.0 1.0e-6 reax/c
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 10000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+write_data melting.out #Cálculo lento con rampas
+reset_timestep 200000
+variable t equal temp
+variable v equal vol
+variable e equal etotal
+fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
+label loop_heating2
+variable i loop 100 160
+variable Temp equal $i*20
+fix 		1 all npt temp ${Temp} ${Temp} 0.1 iso 1.0 1.0 1
+run 200000
+unfix 1
+next i
+jump in.melting loop_heating2
+#fin script reax
+#script edip
+units 		metal
+boundary	p p p
+dimension	3
+atom_style	atomic
+read_data       marks.out
+mass		1 12.0107
+pair_style	cedip
+pair_coeff	* * C
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 10000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+write_data melting.out #Cálculo lento con rampas
+reset_timestep 200000
+variable t equal temp
+variable v equal vol
+variable e equal etotal
+fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
+label loop_heating2
+variable i loop 100 160
+variable Temp equal $i*20
+fix 		1 all npt temp ${Temp} ${Temp} 0.1 iso 1.0 1.0 1
+run 200000
+unfix 1
+next i
+jump in.melting loop_heating2
+#fin script edip
+#script rebo
+units 		metal
+boundary	p p p
+dimension	3
+atom_style	atomic
+read_data       marks.out
+mass		1 12.0107
+pair_style      rebo
+pair_coeff	* *CH.airebo C
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 10000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+write_data melting.out #Cálculo lento con rampas
+reset_timestep 200000
+variable t equal temp
+variable v equal vol
+variable e equal etotal
+fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
+label loop_heating2
+variable i loop 100 160
+variable Temp equal $i*20
+fix 		1 all npt temp ${Temp} ${Temp} 0.1 iso 1.0 1.0 1
+run 200000
+unfix 1
+next i
+jump in.melting loop_heating2
+#fin script rebolj
+#script rebolj
+units 		metal
+boundary	p p p
+dimension	3
+atom_style	atomic
+read_data       marks.out
+mass		1 12.0107
+pair_style	airebo 2.5 0 1 
+pair_coeff	* * CH.airebo C
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 10000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+write_data melting.out #Cálculo lento con rampas
+reset_timestep 200000
+variable t equal temp
+variable v equal vol
+variable e equal etotal
+fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
+label loop_heating2
+variable i loop 100 160
+variable Temp equal $i*20
+fix 		1 all npt temp ${Temp} ${Temp} 0.1 iso 1.0 1.0 1
+run 200000
+unfix 1
+next i
+jump in.melting loop_heating2
+#fin script rebolj
+#script reboljtor
+units 		metal
+boundary	p p p
+dimension	3
+atom_style	atomic
+read_data       marks.out
+mass		1 12.0107
+pair_style	airebo 2.5 1 1 
+pair_coeff	* * CH.airebo C
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 10000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+write_data melting.out #Cálculo lento con rampas
+reset_timestep 200000
+variable t equal temp
+variable v equal vol
+variable e equal etotal
+fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
+label loop_heating2
+variable i loop 100 160
+variable Temp equal $i*20
+fix 		1 all npt temp ${Temp} ${Temp} 0.1 iso 1.0 1.0 1
+run 200000
+unfix 1
+next i
+jump in.melting loop_heating2
+#fin script reboljtor
+#script rebotor
+units 		metal
+boundary	p p p
+dimension	3
+atom_style	atomic
+read_data       marks.out
+mass		1 12.0107
+pair_style	airebo 2.5 1 0
+pair_coeff	* * CH.airebo C
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 10000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+write_data melting.out #Cálculo lento con rampas
+reset_timestep 200000
+variable t equal temp
+variable v equal vol
+variable e equal etotal
+fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
+label loop_heating2
+variable i loop 100 160
+variable Temp equal $i*20
+fix 		1 all npt temp ${Temp} ${Temp} 0.1 iso 1.0 1.0 1
+run 200000
+unfix 1
+next i
+jump in.melting loop_heating2
+#fin script rebotor
+#script tersoff
+pair_style tersoff
+pair_coeff * * BNC.tersoff C
+units 		metal
+boundary	p p p
+dimension	3
+atom_style	atomic
+read_data       marks.out
+mass		1 12.0107
+pair_style	tersoff
+pair_coeff	* * BNC.tersoff C
+timestep        0.001
+compute         msd all msd
+thermo          100
+thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
+dump		mydump all custom 10000 dump.* id type x y z vx vy vz
+velocity        all scale 300.0 
+fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+run              50000
+write_data melting.out #Cálculo lento con rampas
+reset_timestep 200000
+variable t equal temp
+variable v equal vol
+variable e equal etotal
+fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
+label loop_heating2
+variable i loop 100 160
+variable Temp equal $i*20
+fix 		1 all npt temp ${Temp} ${Temp} 0.1 iso 1.0 1.0 1
+run 200000
+unfix 1
+next i
+jump in.melting loop_heating2
+#fin script tersoff
