@@ -46,7 +46,7 @@ unfix vel_scale
 fix nve all nve
 fix vel_scale all temp/rescale 1 300 300 20 1.0
 run 1000 
-write_data marks_airebom.out
+write_data marks.out
 #fin script airebom
 #script bop
 newton on 
@@ -96,7 +96,7 @@ unfix vel_scale
 fix nve all nve
 fix vel_scale all temp/rescale 1 300 300 20 1.0
 run 1000 
-write_data marks_bop.out
+write_data marks.out
 #fin script bop
 #script comb
 newton on 
@@ -146,7 +146,7 @@ unfix vel_scale
 fix nve all nve
 fix vel_scale all temp/rescale 1 300 300 20 1.0
 run 1000 
-write_data marks_comb.out
+write_data marks.out
 #fin script comb
 #script reax
 newton on 
@@ -197,7 +197,7 @@ unfix vel_scale
 fix nve all nve
 fix vel_scale all temp/rescale 1 300 300 20 1.0
 run 1000 
-write_data marks_reax.out
+write_data marks.out
 #fin script reax
 #script edip
 units           metal
@@ -245,7 +245,7 @@ unfix          vel_scale
 fix            nve all nve
 fix            vel_scale all temp/rescale 1 300 300 20 1.0
 run             1000 
-write_data      marks_edip.out
+write_data      marks.out
 #fin script edip
 #script rebo
 newton on 
@@ -295,7 +295,7 @@ unfix vel_scale
 fix nve all nve
 fix vel_scale all temp/rescale 1 300 300 20 1.0
 run 1000 
-write_data marks_rebo.out
+write_data marks.out
 #fin script rebolj
 #script rebolj
 newton on 
@@ -345,7 +345,7 @@ unfix vel_scale
 fix nve all nve
 fix vel_scale all temp/rescale 1 300 300 20 1.0
 run 1000 
-write_data marks_rebolj.out
+write_data marks.out
 #fin script rebolj
 #script reboljtor
 newton on 
@@ -395,7 +395,7 @@ unfix vel_scale
 fix nve all nve
 fix vel_scale all temp/rescale 1 300 300 20 1.0
 run 1000 
-write_data marks_reboljtor.out
+write_data marks.out
 #fin script reboljtor
 #script rebotor
 newton on 
@@ -445,7 +445,7 @@ unfix vel_scale
 fix nve all nve
 fix vel_scale all temp/rescale 1 300 300 20 1.0
 run 1000 
-write_data marks_rebotor.out
+write_data marks.out
 #fin script rebotor
 #script tersoff
 newton on 
@@ -495,7 +495,7 @@ unfix vel_scale
 fix nve all nve
 fix vel_scale all temp/rescale 1 300 300 20 1.0
 run 1000 
-write_data marks_tersoff.out
+write_data marks.out
 #fin script tersoff
 
 

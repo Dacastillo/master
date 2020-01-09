@@ -3,48 +3,25 @@ boundary	p p p
 dimension	3
 atom_style	atomic
 read_data       marks.out
-
 mass		1 12.0107
-
 pair_style	cedip
 pair_coeff	* * C
-
 timestep        0.001
-
 compute         msd all msd
-
-
-
 thermo          100
 thermo_style	custom step temp pe ke etotal vol press lx ly lz c_msd[4]  
 dump		mydump all custom 10000 dump.* id type x y z vx vy vz
-
-#fix             BoxRel all box/relax iso 0.0 vmax 0.001
-#minimize        1.e-10 1.e-3 5000 10000
-#unfix           BoxRel
-
-#reset_timestep  10000
-
 velocity        all scale 300.0 
-
 fix 		1 all npt temp 300 300 0.1 iso 1.0 1.0 1 #0.05 0.5
 run              50000
-
-#Cálculo Rápido
-fix 		1 all npt temp 300 2000 0.1 iso 1.0 1.0 1 #0.05 0.5
+fix 		1 all npt temp 300 5000 0.1 iso 1.0 1.0 1 #0.05 0.5
 run              50000
 write_data melting.out #Cálculo lento con rampas
-
-
-
 reset_timestep 200000
-
 variable t equal temp
 variable v equal vol
 variable e equal etotal
-
 fix ave all ave/time 1 100000 200000 v_t v_v v_e file average.dat
-
 label loop_heating2
 variable i loop 100 160
 variable Temp equal $i*20
