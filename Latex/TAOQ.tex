@@ -1,0 +1,1485 @@
+\documentclass{book}
+\usepackage[spanish]{babel}
+\usepackage[left=1cm,right=1cm,top=1.5cm, bottom=1.5cm]{geometry}
+\usepackage{amsmath,amsthm,amssymb,hyperref,braket,xcolor, graphicx,appendix,empheq,subfig,url}
+\definecolor{fgreen}{HTML}{228B22}
+\begin{document}
+\author{\textcolor{red}{Raúl Coto-Cabrera, Bing He}}
+\title{\textcolor{red}{Tópicos Avanzados de Óptica e Información Cuántica}}
+\vspace{0.05in}
+\everymath{\color{blue}}
+\everydisplay{\color{blue}}
+\maketitle
+\tableofcontents
+\chapter{Cadenas de Espines}
+\section{Modelos de Disposición de Espines}
+
+Para un ejemplo de una cadena de espines $\frac{1}{2}$ y iones atrapados se define el conocido como \textcolor{red}{Hamiltoniano de Heisenberg}.
+\begin{equation}\label{eq7.1} H=\sum_{\alpha=\{x,y,z\}}\sum_{j=1}^N J_\alpha S_\alpha^jS_\alpha^{j+1}\end{equation}
+
+Este podría ser considerado como el caso más general de una cadena de espines, e incluso se le puede agregar campos electromagnéticos, con los que se pueden ver efectos como el Efecto Zeeman.
+
+Un caso particular (que puede ser considerado como otro modelo) es el llamado \textcolor{red}{Modelo XXZ}, que ocurre cuando se impone que las componentes de spin en las direcciones $x$ e $y$ son iguales:
+
+\begin{equation}\label{eq7.2}H=J_\perp \sum_{j=1}^N(S_x^jS_x^{j+1}+S_y^jS_y^{j+1})+J_z\sum_{j=1}^N S_z^jS_z^{j+1}\end{equation}
+
+El modelo de \ref{eq7.2} es llamado \textcolor{red}{Modelo de Ising Clásico} si $J_\perp=0$.  
+    
+\begin{equation}\label{eq7.3}H=J_z\sum_{j=1}^N S_z^jS_z^{j+1}\end{equation}
+
+Si se agrega un campo externo $h$ al Hamiltoniano de \ref{eq7.3}, se obtiene el \textcolor{red}{Modelo de Ising Abierto}
+
+\begin{equation}\label{eq7.4}H=J_z\sum_{j=1}^N S_z^jS_z^{j+1}+h\sum_{j=1}^N S^j_z\end{equation}
+
+Los modelos de \ref{eq7.3} y \ref{eq7.4} serán los que se estudiarán fundamentalmente para estudiar las Cadenas de Spines propiamente tal. 
+
+
+\section{Magnetismo en cadenas de Spines} 
+
+Se comenzará estudiando el modelo de \ref{eq7.3}, por su simplicidad (la que define propiedades, como por ejemplo, la simetría de reflexión($H(z)=H(-z)$)). Su estado fundamental (llamado en literatura \textit{ground state}) depende del signo de $J_z$.
+
+\begin{itemize}
+    \item Si $J_z <0$, se dice que el sistema es \textcolor{red}{Ferromagnético}. Allí el estado fundamental será una combinación lineal de los estados que tengan todos los espines alineados en la misma dirección (por ejemplo $\ket{\uparrow\uparrow\uparrow\uparrow}$. $\ket{\downarrow\downarrow\downarrow\downarrow}$).
+    \item Si $J_z >0$, se dice que el sistema es \textcolor{red}{Antiferromagnético}. Allí el estado fundamental será una combinación lineal de los estados en los que las direcciones de los espines estén intercalados (por ejemplo $\ket{\uparrow\downarrow\uparrow\downarrow}$,$\ket{\downarrow\uparrow\downarrow\uparrow}$).
+\end{itemize}
+    
+Como un ejemplo concreto de lo anterior, considérese una cadena de $2$ spines $\frac{1}{2}$.
+
+\begin{itemize}
+    \item Si $J_z <0$, el estado fundamental será $\ket{\downarrow,\downarrow}$, tal que su energía es: $H\ket{\downarrow\downarrow}=J_z(\frac{-1}{2})(\frac{-1}{2})\ket{\downarrow\downarrow}=\frac{J_z}{4}\ket{\downarrow\downarrow}$
+    \item Si $J_z >0$, el estado fundamental será $\ket{\uparrow,\downarrow}$, tal que su energía es: $H\ket{\uparrow\downarrow}=J_z(\frac{1}{2})(\frac{-1}{2})\ket{\uparrow\downarrow}=\frac{\lvert J_z\rvert}{4}\ket{\uparrow\downarrow}$
+\end{itemize}
+\section{Método de Matriz de Transferencia}
+
+Para estudiar modelos más complicados, se introducirá el siguiente método. Empezando con el Hamiltoniano de \ref{eq7.4}, se busca el espín promedio para los sitios de la cadena:
+\begin{equation}\label{eq7.5} <S_z^k>=Tr(S_z^k\rho)\end{equation}
+Para lo cual es oportuno considerar un ensemble canónico para las muestras, la que comienza considerando como normalización una \textcolor{red}{Función de Partición canónica}
+
+\begin{equation}\label{eq7.6} Z=Tr(e^{\beta H})\end{equation}
+
+Reemplazando \ref{eq7.4} en \ref{eq7.6}
+
+\begin{equation}\label{eq7.7} Z=Tr(\prod_{j=1}^N e^{\beta(J_z S_z^j S_z^{j+1}+hS_z^j)})=Tr(\prod_{j=1}^N e^{\beta(J_z S_z^j S_z^{j+1}+h(S_z^j+S_z^{j+1}))}) \end{equation}
+ 
+El último paso de \ref{eq7.7} se puede hacer porque las siguientes sumatorias son equivalentes para una cadena de espines
+
+\begin{equation}\label{eq7.8}\sum_{j=1}^N S_z^j=\sum_{j=1}^N (S_z^j+S_z^{j+1})\end{equation}
+
+El resultado para el espacio completo de la cadena de \ref{eq7.7} puede escribirse como un producto entre un punto de la cadena y su respectivo vecino para cada uno de los puntos existentes:
+
+\begin{equation}\label{eq7.9}t_{S_z^j,S^{j+1}_z}=e^{\beta(J_z S_z^j S_z^{j+1}+h(S_z^j+S_z^{j+1}))} \textcolor{red}{:} Z=Tr(\prod_{j=1}^N t_{S^j_z,S^{j+1}_z})\end{equation}
+
+Los elementos definidos en \ref{eq7.9} se pueden considerar elementos de la llamada \textcolor{red}{Matriz de Transferencia}, que ordena los posibles productos entre 2 espines dependientes de 2 valores que pueden tener ambos:
+
+\begin{equation}\label{eq7.10} t=\begin{bmatrix}e^{-\beta(J_z+h)} & e^{-\beta(-J_z)}\\ e^{-\beta(-J_z)} & e^{-\beta(J_z-h)}\end{bmatrix}\textcolor{red}{:} Z=Tr(\prod_{j=1}^N \bra{S_z^j}t\ket{S_z^{j+1}})\end{equation}
+
+Por lo tanto, la función particion se puede escribir como la suma de estos elementos de matriz, considerando $S_z^{N+1}=S_z^1$ y aprovechando la completitud de los estados cuánticos:
+
+\begin{equation}\label{eq7.11}Z=\sum_{S^1_z=\{-1,1\}}...\sum_{S^N_z=\{-1,1\}}\bra{S^1_z}t\ket{S^2_z}\bra{S^2_z}t\ket{S^3_z}...\bra{S^N_z}t\ket{S^1_z}=\sum_{S^1_z=\{-1,1\}} \bra{S^1_z}t^N\ket{S^1_z}=Tr(t^N)\end{equation}
+
+El resultado de \ref{eq7.11} es muy interesante. La función partición para una cadena de espines puede calcularse trazando sobre la matriz de transferencia \textcolor{red}{para un solo spin} elevada al número de puntos de la cadena. Además, al ser $t$ una matriz de $2x2$ con valores reales, es muy fácil de diagonalizar. Por lo que el cálculo de la función partición se simplica, quedando definida por la suma de los autovalores de $t$ elevados al número de espines:
+
+\begin{equation}\label{eq7.12}t=\lambda_+\ket{\lambda_+}\bra{\lambda_+}+\lambda_-\ket{\lambda_-}\bra{\lambda_-}\textcolor{red}{\Rightarrow} Z= Tr(t^N)=\lambda_+^N+\lambda_-^N\end{equation}
+
+Con lo que basta hallar los valores propios de $t$ para tener la función partición. En el límite termodinámico (sin perder generalidad se considera $\lambda_+>\lambda_-$
+
+\begin{equation}\label{eq7.13}Z_\infty=\lim_{N\rightarrow\infty}\lambda_+^N(1+\frac{\lambda_-^N}{\lambda_+^N})\simeq \lambda_+^N\end{equation}
+\section{Cálculo de Observables}
+Lo obtenido en \ref{eq7.13}, así como el método usado para obtenerlo, pueden usarse para encontrar valores de observables para la cadena de espines, por definición, y aplicando \ref{eq7.10}:
+
+\begin{equation}\label{eq7.14} <S^k_z>=\frac{Tr(S^k_z e^{-\beta H})}{Z}=\frac{Tr(S^k_z\prod_{j=1}^N \bra{S_z^j}t\ket{S_z^{j+1}})}{Z}\end{equation}
+
+Usando que la matriz de espin entre 2 componentes $S_z^k$ puede descomponerse de la siguiente forma:
+
+\begin{equation}\label{eq7.15} S^k_z= \sum_{S^k_z=\{-1,1\}}S^k_z\ket{S^k_z}\bra{S^k_z}\end{equation}
+
+El cálculo de \ref{eq7.14} puede simplificarse de modo análogo a como se trabajó la sección anterior en \ref{eq7.11}
+
+\begin{equation}\label{eq7.16} <S_z^k> =\frac{1}{Z}(Tr(t^{k-1}S_z^k t^{N-(k-1)}))\end{equation}
+
+Y finalmente, descomponiendo en los autovalores y autovectores de $t$
+
+\begin{equation}\label{eq7.17} <S_z^k> =\frac{1}{Z}(\lambda_+^{k-1}\bra{\lambda_+}S_z^k\ket{\lambda_+}\lambda_+^{N-(k-1)}+\lambda_-^{k-1}\bra{\lambda_-}S_z^k\ket{\lambda_-}\lambda_-^{N-(k-1)})=\frac{1}{Z}(\lambda_+^N\bra{\lambda_+}S_z^k\ket{\lambda_+}+\lambda_-^N\bra{\lambda_-}S_z^k\ket{\lambda_-})\end{equation}
+\section{Función de Correlación}
+
+La función de correlación se define como el efecto entre 2 espines disjuntos en la cadena a distancia $r$ llamados $S_z^k$ y $S_z^{k+r}$. Son de importancia dado que experimentalmente se usan para definir el \textcolor{red}{Entrelazamiento entre estados}. Esta se obtiene análogamente a \ref{eq7.16} y aprovechando que la traza es una función cíclica:
+
+\begin{equation}\label{eq7.18}<S_z^kS_z^{k+r}>=\frac{1}{Z}(Tr(t^{k-1}S_z^kt^{r}S_z^{k+r}t^{N-r-(k+1)}))=\frac{1}{Z}(Tr(S_z^kt^rS_z^{k+r}t^{N-r}))\end{equation}
+
+Como comentario al resultado, se puede decir que en el límite termodinámico se puede evaluar el \textcolor{red}{decaímiento} de las correlaciones a partir del cociente entre los valores propios de $t$.
+
+\begin{equation}\label{eq7.19} (\frac{\lambda_-}{\lambda_+})^r \simeq e^{\frac{-r}{\xi}} \textcolor{red}{\Rightarrow} \xi= -ln(\frac{\lambda_+}{\lambda_-})=-ln(tanh(\beta\lvert J_z\rvert^{-1}))\end{equation}
+\section{Estados de Neel}
+
+Volviendo a las definiciones de magnetismo para cadenas de espines, el Hamiltoniano de \ref{eq7.1} se puede reescribir definiendo combinaciones de los operadores de espín en $x$ e $y$
+
+\begin{equation}\label{eq7.20}S_\pm^k=\frac{1}{2}(S_x^k\pm i S_y^k)\textcolor{red}{\Rightarrow} J_xS_x^k+J_yS_y^k=J_x(S_+^k+S_-^k)+iJ_y(S_-^k-S_+^k)=(J_x-iJ_y)S_+^k+(J_x+iJ_y)S_-^k=J_+S_+^k+J_-S_-^k\end{equation}
+
+Con lo que se pueden sustituir los elementos de $x$ e $y$ en la sumatoria de \ref{eq7.1}
+
+\begin{equation}\begin{aligned}\label{eq7.21}\textcolor{red}{\Rightarrow}J_x(S_x^kS_x^{k+1})+J_y(S_y^kS_y^{k+1})=J_x(S_+^k+S_-^k)(S_+^{k+1}+S_-^{k+1})+iJ_y(S_-^k-S_+^k)(S_-^{k+1}-S_+^{k+1})\\=(J_x+iJ_y)(S_+^kS_+^{k+1}+S_-^kS_-^{k+1})+(J_x-iJ_y)(S_+^kS_-^{k+1}+S_-^kS_+^{k+1})=J_-(S_+^kS_+^{k+1}+S_-^kS_-^{k+1})+J_+(S_+^kS_-^{k+1}+S_-^kS_+^{k+1})\end{aligned}\end{equation}
+
+Si $J_-=0$ y se define $J_\perp=J_+$ se reescribe \ref{eq7.1} como
+
+\begin{equation}\label{eq7.22}H=J_\perp\sum_{j=1}^N (S_+^jS_-^{j+1}+S_-^jS_+^{j+1})+J_z\sum_{j=1}^N S_z^j S_z^{j+1}\end{equation}
+
+Nótese que si $J_\perp=0$, se obtiene el modelo de Ising de \ref{eq7.3} que es simple de resolver a menos que se añada un campo externo como lo observado en \ref{eq7.4}. A continuación: 2 ejemplos de la facilidad de resolución mencionada:
+\begin{itemize}
+    \item Para una cadena de $5$ espines, la mínima energía posible para el modelo de \ref{eq7.3} es $\frac{-5}{4}\lvert J_z \rvert$, que dependiendo del signo de $J_z$ corresponde a combinaciones lineales de $\ket{\uparrow\downarrow\uparrow\downarrow\uparrow}$ y $\ket{\downarrow\uparrow\downarrow\uparrow\downarrow}$ (si es positivo) o de $\ket{\uparrow\uparrow\uparrow\uparrow\uparrow}$ y $\ket{\downarrow\downarrow\downarrow\downarrow\downarrow}$ (si es negativo).
+    \item Para una cadena de $4$ espines, la mínima energía posible para el modelo de \ref{eq7.3} es $\lvert J_z \rvert$, que dependiendo del signo de $J_z$ corresponde a combinaciones lineales de $\ket{\uparrow\downarrow\uparrow\downarrow}$ y $\ket{\downarrow\uparrow\downarrow\uparrow}$ (si es positivo) o de $\ket{\uparrow\uparrow\uparrow\uparrow}$ y $\ket{\downarrow\downarrow\downarrow\downarrow}$ (si es negativo).
+\end{itemize}
+
+Para el Hamiltoniano indicado en \ref{eq7.22} (asumiendo que $J_z >>J\perp>>0$, las energías obtenidas para una cadena de 2 espines no periódica:
+
+\begin{equation}\label{eq7.23} H\ket{\uparrow\downarrow}=\frac{-J_z}{4}\ket{\uparrow\downarrow}+\frac{J_\perp}{2}\ket{\downarrow\uparrow}\end{equation}
+
+Se concluye que $\ket{\uparrow\downarrow}$ \textcolor{red}{no es un autoestado} de $H$. Entonces se definen estados que sí serían autoestados de este Hamiltoniano, conocidos como \textcolor{red}{Estados de Neel}.
+
+\begin{equation}\label{eq7.24}\ket{S}=\frac{1}{\sqrt{2}}(\ket{\uparrow\downarrow}-\ket{\downarrow\uparrow})\textcolor{red}{\Rightarrow}H\ket{S}=\frac{1}{\sqrt{2}}(\frac{-J_z}{4}\ket{\uparrow\downarrow}+\frac{J_\perp}{2}\ket{\downarrow\uparrow}+\frac{J_z}{4}\ket{\downarrow\uparrow}-\frac{J_\perp}{2}\ket{\uparrow\downarrow})=(-\frac{J_z}{4}-\frac{J_\perp}{2})\ket{S}\end{equation}
+
+\begin{equation}\label{eq7.25}\ket{T}=\frac{1}{\sqrt{2}}(\ket{\uparrow\downarrow}+\ket{\downarrow\uparrow})\textcolor{red}{\Rightarrow}H\ket{T}=\frac{1}{\sqrt{2}}(\frac{-J_z}{4}\ket{\uparrow\downarrow}+\frac{J_\perp}{2}\ket{\downarrow\uparrow}+\frac{-J_z}{4}\ket{\downarrow\uparrow}+\frac{J_\perp}{2}\ket{\uparrow\downarrow})=(-\frac{J_z}{4}+\frac{J_\perp}{2})\ket{T}\end{equation}
+
+El estado $\ket{S}$ es llamado \textcolor{red}{Estado Singlete} y $\ket{T}$ \textcolor{red}{Estado Triplete}. En literatura a $\ket{S}$ también se le llama \textcolor{red}{Dark State}, porque no percibe radiación.
+
+Lo siguiente a analizar será lo que ocurre si 2 cadenas de espines se juntan. Resulta de interés estudiar cuando se forman bloques entre cadenas en que los valores de espín son iguales (los que son llamados \textcolor{red}{\textit{domain walls}}. Ahora, un ejemplo de esta formación:
+
+\begin{equation}\label{eq7.26}\ket{\uparrow\downarrow\uparrow\downarrow\uparrow}\otimes\ket{\uparrow\downarrow\uparrow\downarrow}=\ket{\uparrow\downarrow\uparrow\downarrow\textcolor{red}{\uparrow\uparrow}\downarrow\uparrow\downarrow}\end{equation}
+
+Por la propiedad $J_z>>J_\perp$, el \textit{domain wall} contribuye considerablemente a las energías de los estados finales. La dinámica de las velocidades de grupo para estos espines (que se puede ver estudiando los \textit{domain walls} es llamada \textcolor{red}{Magnónica}. Por ejemplo: Para un estado $\ket{\uparrow\downarrow\uparrow\uparrow\downarrow\uparrow}$ se evalúa la energía del sistema mediante el Hamiltoniano \ref{eq7.22}
+
+\begin{equation}\label{eq7.27}H\ket{\uparrow\downarrow\uparrow\uparrow\downarrow\uparrow}\simeq J_z(-\frac{-4}{4}+\frac{+1}{4})\ket{\uparrow\downarrow\uparrow\uparrow\downarrow\uparrow}=-\frac{-3J_z}{4}\ket{\uparrow\downarrow\uparrow\uparrow\downarrow\uparrow}\end{equation}
+
+Lo que equivale a la energía mínima ocurrida para el estado de Neel menos $\frac{J_z}{2}$. Esto es generalizable para cualquier estado que difiere del estado de Neel formando un \textit{domain wall}:
+
+\begin{equation}\label{eq7.28}H_Z\ket{\phi}=(E_{Neel}+\frac{2J_z}{4})\ket{\phi}\end{equation}
+
+Esto se puede asegurar aún si no se sabe en qué lugar de la cadena ocurre el \textit{domain wall}.  Es más, puede escribirse un estado que sea commbinación lineal de todos los posibles estados en los que se produce un par de espines de igual valor (comunmente llamado \textit{kink}). Siendo $\psi_n$ el estado en el que se produce 1 kink en la posición $n$ dicho estado es 
+
+\begin{equation}\label{eq7.29}\ket{\psi}=\sum_nC_n \psi_n\end{equation}
+
+El estado de \ref{eq7.29} tiene energía dada por el Hamiltoniano de \ref{eq7.22} (ahora sí considerando $J_\perp$):
+
+\begin{equation}\label{eq7.30}H\ket{\psi}=(E_{Neel}+\frac{2J_z}{4})\ket{\psi}+\frac{J_\perp}{2}\sum_n(C_n(\psi_{n-2}+\psi_{n+2}))\end{equation}
+
+Esto se hace usando la definición de \ref{eq7.29}, la propiedad \ref{eq7.28} y que al aplicar los operadores del término con $J_z$ solo se puede mover el \textit{kink} 2 puntos en la cadena, hacia adelante o hacia atrás. 
+
+Se busca que $\ket{\psi}$ sea autoestado del operador $H-E_{neel}$ (entendiéndose como el \textit{operador} $E_{neel}$ la matriz identidad multiplicada por $E_{neel}$). Entonces, reescribiendo \ref{eq7.30} con la definición de \ref{eq7.29} se obtiene:
+
+\begin{equation}\label{eq7.31}(H-E_{neel})\ket{\psi}=\sum_n C_n(\frac{J_z}{2}\psi_n+\frac{J_\perp}{2}(\psi_{n-2}+\psi_{n+2}))=\sum_n (\frac{J_z}{2} C_n+\frac{J_\perp}{2}(C_{n-2}+C_{n+2})) \psi_n \end{equation}
+
+Lo último se puede hacer al considerar la sumatoria como cíclica. Ahora, si se llama $\epsilon_{dw}$ a la autoenergía de $H-E_{neel}$ correspondiente a $\ket{\psi}$ y se usa \ref{eq7.29} se obtiene la ecuación para los escalares $C_n$
+
+\begin{equation}\label{eq7.32}\epsilon_{dw}C_n=\frac{1}{2}(J_zC_n+J_\perp (C_{n-2}+C_{n+2}))\end{equation}
+
+Esto se puede resolver considerando un \textcolor{red}{Anszats}, que es en lo que se ahondará en la siguente sección.
+\section{Anszats de Bethe}
+
+Si se asume que los escalares $C_n$ tiene forma de onda, la ecuación de \ref{eq7.32} da una solución para $\epsilon_{dw}$:
+
+\begin{equation}\label{eq7.33}C_n=\frac{e^{ikn}}{\sqrt{N}}\textcolor{red}{\Rightarrow} \epsilon_{dw}C_n=\frac{1}{2}(J_zC_n+J_\perp (C_{n}e^{-2ik}+C_{n}e^{2ik}))\textcolor{red}{\Rightarrow}\epsilon_{dw}=\frac{J_z+J_\perp 2cos(2k) }{2}\end{equation}
+
+Con lo que se resuelven las energías para el sistema planteado desde \ref{eq7.29}. Se usa el mismo planteamiento para estudiar una situación similar. Sea una cadena de $N$ espines en las que todos los puntos tienen igual orientación excepto 1, para el estado en que todos están alineados:
+
+\begin{equation}\label{eq7.34}\phi_0=\ket{\uparrow\uparrow\uparrow\uparrow...\uparrow\uparrow}\textcolor{red}{:} H\phi_0=\frac{J_zN}{4}\phi_0\end{equation}
+
+Los estados en donde un estado posicionado en $N$ tiene su orientación opuesta a todas las demás son llamados $\phi_N$, y análogamente a \ref{eq7.28}, su energía es $\frac{J_z N}{4}-J_z=\frac{J_z(N-4)}{4}$. Resolviendo el Hamiltoniano \ref{eq7.22} para el estado combinación lineal $\ket{\phi}$ (análogo a \ref{eq7.30}):
+
+\begin{equation}\label{eq7.35}\ket{\phi}=\sum_n C_n \phi_n\textcolor{red}{\Rightarrow} H\ket{\phi}= \sum_n \phi_n(\frac{J_z(N-4)}{4}C_n+\frac{J_\perp}{2}(C_{n-1}+C_{n+1})) \end{equation}
+Por lo que las autoenergías para el estado $\ket{\phi}$ son (definiendo $E_0=\frac{J_zN}{4}$):
+
+\begin{equation}\label{eq7.36}EC_n=(E_0-J_z)C_n+\frac{J_\perp}{2}(C_{n+1}+C_{n-1})\textcolor{red}{\Rightarrow}(E-E_0)C_n=\epsilon C_n=\frac{J_\perp}{2}(C_{n+1}+C_{n-1})-J_zC_n\end{equation}
+
+Asumiendo la misma forma de $C_n$ definida en \ref{eq7.33}, se soluciona $\epsilon$ como
+
+\begin{equation}\label{eq7.37}\epsilon=J_\perp cos(k)-J_z\end{equation}
+
+Si se impone que la cadena de espines es periódica, esto impone condiciones al ángulo k, que debe ser \textcolor{red}{cuantizado}:
+
+\begin{equation}\label{eq7.38}C_n=C_{N+n}\textcolor{red}{\Rightarrow} e^{ikN}=1 \textcolor{red}{\Rightarrow} k=\frac{2\pi m}{N} \end{equation}
+
+Se puede, a partir de \ref{eq7.37}, hacer un análisis sobre el magnetismo de la cadena.
+\begin{itemize}
+    \item Si $J_z>0$, el material es ferromagnético, y para que la energía $\epsilon$ sea positiva, debe cumplirse $\lvert J_z\rvert << \lvert J_\perp\rvert$:
+    \item Si $J_z>0$, el material es antiferromagnético, y para que la energía $\epsilon$ sea positiva, debe cumplirse $\lvert J_z\rvert >> \lvert J_\perp\rvert$:
+\end{itemize}
+
+Otro sistema que puede analizarse es el sistema en que todos los espines están alineados en la misma dirección \textcolor{red}{excepto 2} que son llamados $C_{n_1}$ y $C_{n_2}$. Estos espines pueden estar juntos ($C_{n_2}=C_{n_1+1}$) o no ($C_2\neq C_{n_1+1}$).
+
+Para un estado en que los estados si están juntos se puede escribir la combinación lineal de esos estados posibles y su evolución temporal análogo a \ref{eq7.30} y \ref{eq7.35}
+
+\begin{equation}\label{eq7.39} \ket{\varphi}=\sum_{n_2>n_1}C_{n_1,n_2}\varphi_{n_1,n_2}\textcolor{red}{\Rightarrow}H\ket{\varphi}= \sum_{n_2>n_1} \varphi_{n_1,n_2}(\frac{J_z(N-4)}{4}C_{n_1,n_2}+\frac{J_\perp}{2}(C_{n_1-1,n_2}+C_{n_1,n_2+1}))\end{equation}
+
+Con lo que se obtiene el resultado para las energías del sistema (asumiendo $n_1=n$ y $n_2=n_1+1$):
+
+\begin{equation}\label{eq7.40}(E-E_0)C_{n,n+1}=\epsilon C_{n,n+1}=-J_zC_{n,n+1}+\frac{J_\perp}{2}(C_{n-1,n+1}+C_{n,n+2})\end{equation}
+
+Si los estados no están juntos. se puede escribir una ecuacion de la misma forma de \ref{eq7.39}
+
+\begin{equation}\label{eq7.41} \ket{\varphi}=\sum_{n_2>n_1}C_{n_1,n_2}\varphi_{n_1,n_2}\textcolor{red}{\Rightarrow}H\ket{\varphi}= \sum_{n_2>n_1} \varphi_{n_1,n_2}(\frac{J_z(N-8)}{4}C_{n_1,n_2}+\frac{J_\perp}{2}(C_{n_1-1,n_2}+C_{n_1,n_2+1}))\end{equation}
+
+Con lo que se obtiene el resultado para las energías del sistema:
+
+\begin{equation}\label{eq7.42}(E-E_0)C_{n_1,n_2}=\epsilon C_{n_1,n_2}=-2J_zC_{n_1,n_2}+\frac{J_\perp}{2}(C_{n_1-1,n_2}+C_{n_1+1,n_2}+C_{n_1,n_2-1}+C_{n_1,n_2+1})\end{equation}
+
+Para los 2 problemas se asume un \textit{anszats} para $n_2>n_1$ que asume 2 ondas en movimiento a lo largo de la cadena:
+
+\begin{equation}\label{eq7.43}C_{n_1,n_2}=C_1e^{i(k_1n_1+k_2n_2)}+C_2e^{i(k_2n_1+k_2n_2)}\end{equation}
+
+Este es el que se llama finalmente \textcolor{red}{Anszats de Behte}. Para que el sistema de cadenas de espines sea consistente se necesita que para $n_2=n_1+1$ \ref{eq7.42} de lo mismo que \ref{eq7.40}. Reemplazando $n_1=n$ y $n_2=n_1+1$ en \ref{eq7.42}:
+
+\begin{equation}\label{eq7.44}\epsilon C_{n,n+1}=-2J_zC_{n,n+1}+\frac{J_\perp}{2}(C_{n-1,n+1}+C_{n+1,n+1}+C_{n,n}+C_{n,n+2})\end{equation}
+
+Para que \ref{eq7.44} sea igual \ref{eq7.40} debe cumplirse que:
+
+\begin{equation}\label{eq7.45}\frac{J_\perp}{2}(C_{n,n}+C_{n+1,n+1})-J_zC_{n,n+1}=0\end{equation}
+
+Si evalúa \ref{eq7.45} usando \ref{eq7.43}
+
+\begin{equation}\label{eq7.46}\frac{J_\perp}{2}(C_1+C_2)(1+e^{ik_1}e^{ik_2})-J_z(C_1e^{ik_2}+C_2e^{ik_1})=0\textcolor{red}{\Rightarrow}C_1(\frac{J_\perp}{2}(1+e^{i(k_1+k_2)})-J_ze^{ik_2})=-C_2(\frac{J_\perp}{2}(1+e^{i(k_1+k_2)})-J_ze^{ik_1})\end{equation}
+
+Reordenando lo obtenido en \ref{eq7.46}, se obtiene una proporción entre $C_1$ y $C_2$ que debe cumplirse:
+
+\begin{equation}\label{eq7.47} \frac{C_1}{C_2}=-\frac{J_ze^{\frac{i(k_1-k_2)}{2}}-J_\perp cos(\frac{k_1+k_2}{2})}{J_ze^{-\frac{i(k_1+k_2)}{2}}-J_\perp cos(\frac{k_1+k_2}{2})}=\frac{C_1}{C_1^*}\textcolor{red}{\Rightarrow} \lvert C_1\rvert = \lvert C_2\rvert \end{equation}
+
+Entonces, al tener igual módulo, se puede hacer el siguiente análisis que le da sentido físico a la exigencia requerida para que la solución sea consistente. Asumiendo sin perder generalidad que $C_1$ y $C_2$ tienen módulo uno, pueden representarse como las fases $e^{\frac{i\phi}{2}}$ y $e^{-\frac{i\phi}{2}}$ respectivamente. Si $J_z=J_\perp=J$ Se puede evaluar:
+
+\begin{equation}\label{eq7.48}cot(\frac{\phi}{2})=\frac{e^{i\frac{\phi}{2}}+e^{-i\frac{\phi}{2}}}{i(e^{i\frac{\phi}{2}}-e^{-i\frac{\phi}{2}})}=\frac{J(e^{\frac{i(k_1-k_2)}{2}}-e^{-\frac{i(k_1-k_2)}{2}})}{iJ(2cos(\frac{k_1+k_2}{2})-e^{\frac{i(k_1-k_2)}{2}}+e^{-\frac{i(k_1-k_2)}{2}}))}=\frac{sin(\frac{k_1-k_2}{2})}{cos(\frac{k_1+k_2}{2})-cos(\frac{k_1-k_2}{2})}\end{equation}
+
+Resolviendo con identidades trigonométricas se obtiene finalmente:
+
+\begin{equation}\label{eq7.49}cot(\frac{\phi}{2})=\frac{sin(\frac{k_1}{2})cos(\frac{k_2}{2})-cos(\frac{k_1}{2})sin(\frac{k_2}{2})}{-2sin(\frac{k_1}{2})sin(\frac{k_2}{2})}=\frac{1}{2}(cot(\frac{k_1}{2})-cot(\frac{k_2}{2}))\end{equation}
+
+Esto implica que para que las soluciones de \ref{eq7.44} y \ref{eq7.40} sean consistentes, $k_1$ y $k_2$ \textcolor{red}{deben estar desacoplados}.
+
+Otra situación que puede estudiarse es qué pasa si se impone periodicidad en la solución, lo    que se convierte en otra imposición sobre $k_1$ y $k_2$, con lo que combinándolo con \ref{eq7.49}, permite \textcolor{red}{resolver los valores de $k_1$ y $k_2$.}
+
+\begin{equation}\label{eq7.50} C_{n_1,n_2}=C_{n_2,n_1+N} \textcolor{red}{\Rightarrow} \begin{bmatrix} e^{i\frac{\phi}{2}} \\ e^{-i\frac{\phi}{2}} \end{bmatrix} = \begin{bmatrix} e^{i(k_1 N-\frac{\phi}{2})} \\ e^{i(k_2N+\frac{\phi}{2})} \end{bmatrix}\textcolor{red}{\Rightarrow} \begin{bmatrix} k_1 \\ k_2 \end{bmatrix} = \frac{1}{N}(\begin{bmatrix} \phi \\ -\phi \end{bmatrix}+2\pi \begin{bmatrix} m_1 \\ m_2 \end{bmatrix}) \end{equation}
+
+Lo que implica que $k_1$ y $k_2$ tendrán una variación de fase de órden de $\pm\frac{\phi}{N}$, que es llamada en literatura \textcolor{red}{phase shift}. Esto da origen a oscilaciones que pueden ser estudiadas como seudopartículas, que son llamadas \textcolor{red}{Magnones}.
+
+Otro caso a estudiar sería la generalización de los 2 sistemas anteriores, que consiste en una cadena de $N$ espines en que $r$ están en una dirección y, por lo tanto, $N-r$ están en la otra dirección:
+Haciendo una combinación lineal de los estados posibles:
+
+\begin{equation}\label{eq7.51}\ket{\Psi}=\sum_{n_r>...>n_1} C_{n_1,...,n_r}\Psi_{n_1...n_r}\end{equation}
+
+Análogamente a \ref{eq7.42}, se obtiene una ecuación para las constantes $C_{n_1,...,n_r}$ que tiene como resultado (Asumiendo como $\hat{P}$ los operadores permutación entre todos los índices posibles):
+
+\begin{equation}\label{eq7.52}C_{n_1,...,n_r}=\sum_{\hat{P}}e^{i(\sum_{j=1}^r k_{p_j}n_j+\frac{1}{2}\sum_{j<k}\phi_{p_j,p_k})}\end{equation}
+
+Nótese que para $r=2$, \ref{eq7.52} equivale a lo obtenido en \ref{eq7.46}. Generalizando lo obtenido en \ref{eq7.46}, se obtiene la relación para las energías de la cadena si $J_z=J_\perp$:
+
+\begin{equation}\label{eq7.53}E=E_0+J\sum_j cos(k_i)\end{equation}
+
+Al igual que lo demostrado anteriormente, los $k_i$ deban estar desacoplados. 
+
+\section{Cadenas de Espines fuera del Equilibrio}
+
+Con Mecánica Estádistica pueden estudiarse \textcolor{red}{transiciones de fase} poniendo fuera del equilbrio modelos tan simples como los modelos de Ising. Las transiciones más conocidas corresponden a los llamados \textit{Cambios de Estado}, dado que la Termodinámica Clásica se puede obtener usando Mecánica Estadística.
+
+En una Transición de Fase siempre debe haber una \textcolor{red}{Variable de control} (que es la que se mantiene constante durante el cambio) y una \textcolor{red}{Variable de órden} (que va variando durante el cambio). El punto para las 2 variables en las que se produce el cambio de fase es llamado \textcolor{red}{punto crítico}. Si en un punto el material estudiado puede encontrarse en 3 fases el punto es llamado \textcolor{red}{Punto Triple}. Se pueden realizar también \textcolor{red}{Diagramas de Fase} que permiten ver cuándo suceden los cambios y su estabilidad. Por ende, son como una película para observarlos. 
+
+Es importante señalar que muchas veces, más que puntos críticos, ocurren \textcolor{red}{Ventanas Críticas}. Esto ocurre cuando en la variable que se usa para el órden los cambios no ocurren de un valor a otro, sino a lo largo de un intervalo.
+
+Para el Modelo de Ising abierto dado por \ref{eq7.4} se puede obtener su función de partición:
+
+\begin{equation}\label{eq7.54}Z_N=e^{\beta H}=\sum_{S_1...S_N}e^{\beta(J_z\sum_{j=1}^N S_z^jS_z^{j+1}+h\sum_{j=1}^N S^j_z)}=\sum_{S_1...S_N}\prod_{j=1}^N e^{\beta (J_z S_z^j S_z^{j+1}+hS_z^j)}=\sum_{S_1...S_N}\prod_{j=1}^N e^{\beta (J_z S_z^j S_z^{j+1}+\frac{h}{2}(S_z^j+S_z^{j+1}))}\end{equation}
+
+Lo último de \ref{eq7.54} se hace al asumir que la cadena es simétrica y cambiar el término de la suma en el campo externo. La función partición vale:
+
+\begin{equation}\label{eq7.55}Z_N=e^{N\beta J}(cosh(\beta h)+\sqrt{sinh^2(\beta h)}+e^{-4\beta J})^N\end{equation}
+
+De la función partición se puede calcular la \textcolor{red}{Energía Libre de Helmholtz}, y de esta se puede derivar la \textcolor{red}{Magnetización} de la cadena:
+
+\begin{equation}\label{eq7.56}E=-\frac{ln(Z)}{\beta}\textcolor{red}{\Rightarrow} m=-\frac{\partial f}{\partial h}\textcolor{red}{\Rightarrow} m=\frac{sinh(\beta h)}{\sqrt{sinh^2(\beta h)+e^{-\beta J}}}\end{equation}
+
+Lo que implica que, sin un campo magnético, el modelo de cadena de espines debería tender a una orientación. Y que el modelo de Ising abierto en 1 Dimensión no genera cambios de fase. Ahora bien, para un modelo de 2 dimensiones la situación es diferente. A partir del siguiente Hamiltoniano se obtiene como Magnetización:
+
+\begin{equation}\label{eq7.57}H=-J\sum_{<i,j>}S_iS_j \textcolor{red}{\Rightarrow} M(B)=N(1-\frac{1}{sinh^4(2\beta)})^{\frac{1}{8}}\end{equation}
+
+De acuerdo al análisis de Yang, el modelo puede ser ferromagnético o paramagnético, lo que serán las 2 fases posibles que puede tener la red. Para estudiar cuándo ocurren ambos estados y la transición entre ellos se estudia un \textcolor{red}{Modelo de Renormalización} que define una \textcolor{red}{Temperatura Crítica} $T_c$ bajo la cual el sistema es ferromagnético y sobre la cual sería paramagnético. De acuerdo a la \textcolor{red}{Teoría de Landau}, se pueden determinar las fases mediante la expansión de $F$ tal y como se definió en \ref{eq7.56} (Tomar el Hamiltoniano, Derivar la Función Partición, de ella obtener la Energía de Helmholtz y expandirla).
+
+Un concepto clave es el de \textcolor{red}{Magnetización Espontánea}, que es un cambio de espín colectivo dependiente de la temperatura que ocurre \textcolor{red}{sin un campo magnético externo}. Luego de definirse una \textcolor{red}{Función de Distribución para el sistema} sus peaks muestran sus fases ferromagnéticas. 
+
+Algo importante es que en Mecánica Clásica el material debe estar \textcolor{red}{solo en una fase}. A nivel cuántico si pueden ocurrir \textcolor{red}{Superposiciones entre fases}. Relacionada con esta superposición se encuentra la \textcolor{red}{Temperatura de Curie}, para la cual el sistema si indetermina y puede estar en varias fases a la vez. Entonces se estudian las zonas de propagación del cambio de fase.
+
+Para un número $N$ grande que puede ser considerado como infinito, una cadena de espines se puede entender como un \textcolor{red}{Toroide}, cuyos cambios de fase pueden ser observados experimentalmente.
+
+El modelo de Ising sirve para evaluar modelos físicos, sociales y hasta económicos donde haya propagación. Sin embargo existen otros modelos como un \textcolor{red}{Modelo de Potts} que tiene 3 estados posibles, el \textcolor{red}{Modelo de Schelling} (también fue llamado Modelo de Segregación) o los \textcolor{red}{Autómatas Celulares}. En todos estos modelos se usan técnicas similares a las anteriormente expuestas, encontrando \textcolor{red}{transiciones de fase} (de primer o segundo órden) o ocupar \textcolor{red}{regla de mayoría} para hallar su dinámica y sus valores probabilistas de energía.
+
+
+
+
+
+
+\chapter{Centros de Color en Diamante}
+\section{Centros NV}
+
+Por lo visto en el capítulo anterior, el \textcolor{red}{baño} que define el ambiente es muy importante, ya que influye en propiedades como la no markovialidad y las correlaciones. Un ejemplo de Centro de Color posible es el \textcolor{red}{Centro NV}, que consiste en insertar en una red de diamante una vacancia y un Nitrógeno sustitucional. Como ventajas de este centro para su estudio se puede considerar que el Centro NV está \textcolor{red}{fijo en el espacio}, y carece de grados de libertad rotacional ya que sus ejes de simetría de cuantización están \textcolor{red}{fijos}.
+
+En cuanto a la \textcolor{red}{Configuración Electrónica} de los Centros NV se pueden considerar los \textcolor{red}{Centros $NV^-$} (Con carga neta negativa) y \textcolor{red}{Centros $NV^0$} (Con carga neta neutra). Estos niveles de espín son estables incluso \textcolor{red}{a temperatura ambiente}. Definidos los estados para el espín manipulable en $NV^0$ llamados ${}^3E$ y ${}^3A_2$, la distancia entre ambos estados es de $2eV$, lo que coincide con el espectro de color verde, lo que implica que el resonar el Centro NV con luz laser verde \textcolor{red}{no habrá fluorescencia}. Y también que en el espectro de radiación correspondiente a la luz roja, el centro decae. Experimentalmente, el Centro NV se puede detectar ópticamente con \textcolor{red}{AFM}.
+
+Se define la \textcolor{red}{Línea de Cero Fonones (ZPL)} (sigla en inglés, por \textit{Zero Phonon Line}), que es la distancia entre energías desde el estado fundamental y el estado excitado en sus respectivos estados de menor energía (con cero fonones en la red, de ahí su definición). Lo que implica que \textcolor{red}{No hay emisión a una sola frecuencia}.
+
+Se puede estudiar la intensidad de  luminiscencia producto de incidir un laser respecto a la longitud de onda de este. A partir de ese estudio se puede hallar la correlación $g^2(\tau)$, lo que lleva a encontrar \textcolor{red}{antibunching}, que significa que entre la detección en un electrón y otro hay un retraso temporal, ya que la red requiere un tiempo de relajación luego de haber sido retirado un fotón.
+
+Se pueden definir los \textcolor{red}{Grados de Libertad} del sistema a partir de las siguientes transiciones:
+\begin{itemize}
+    \item Una  excitación de ${}^3A_2$ a ${}^3E$  (del estado fundamental al excitado.
+    \item Una transición de ${}^1A_1$ a ${}^3A_2$ de tipo no radiativa (que emite luz verde) en $10-30 ns$.
+    \item Una transición Zeeman mediante microondas en $1\mu s$ que permite hacer transiciones entre los estados $\ket{-1}$, $\ket{1} $ y $\ket{0}$.
+\end{itemize}
+
+Lo que implica que el sistema se puede polarizar para tener aplicación limpia. Entonces \textcolor{red}{se puede preparar estados} para su uso. Esto se puede porque ${}^1A_1$ es un estado metaestable, por cristalografía. El espín no se lee por el estado fundamental (ya que existen transiciones no radiativas y no fluorescentes de acuerdo a lo anterior), sino por una lectura de espín óptica. Se concluye que la fluorescencia es \textcolor{red}{directamente dependiente} del $m_s$ (que puede ser $-1$, $0$ o $1$), lo que se observa en tiempos cortos, dado que para tiempos largos la fluorescencia es la misma y se vuelven indistinguibles.
+
+Existe también la teoría desarrollada por Hussein, que consiste en hacer una \textcolor{red}{Lectura Bayesiana}, es decir, en condicionar un resultado a partir de la capacidad del centro de preparar un estado, con lo que se puede hacer un \textcolor{red}{control de espín coherente} con pulsos de microondas de valores cercanos a $3 GHz$, donde se puede ver \textcolor{red}{Oscilaciones de Rabi}, que se puede entender como oscilaciones de $\ket{0}$ a $\ket{1}$ que van decayendo en tiempos cortos a $\ket{\pm X}=\frac{1}{\sqrt{2}}(\ket{0}\pm\ket{1})$. Luego en tiempos largos, se produce la decoherencia hacia un estado termal, en el proceso llamado \textit{\textcolor{red}{Phase Dephasing}}:
+
+A la red de diamante con centro NV se le puede aplicar la técnica experimental de \textcolor{red}{Resonancia Magnética Detectada Ópticamente (ODMR)}, lo que permite detectar un \textcolor{red}{eje de cuantización fijo} producto de un campo magnético que puede aplicarse \textcolor{red}{paralelo a dicho eje} y de valor $2\gamma_e B$. Esto permite separar los estados $\ket{-1}$ y $\ket{1}$, observando 2 transiciones dadas por el hamiltoniano:
+
+\begin{equation}\label{eq8.1}H=DS_z^+\gamma_e \vec{S}\cdot\vec{B}\end{equation}
+
+Lo que implica algo interesante: Que se pueden hacer \textcolor{red}{mediciones de campo magnético} desde las diferencias entre antipeaks de la fluorescencia, con la salvedad que sirve siempre y cuando los campos no oscilen.
+
+También se puede hacer una \textcolor{red}{Medición de Ruido Magnético} por la  resonancia del campo. De acuerdo a Ramsey, para un sistema de niveles.
+
+\begin{equation}\label{eq8.2}\ket{\varphi}=cos\frac{\theta}{2}\ket{0}+e^{i\phi}sin\frac{\theta}{2}\ket{1}\end{equation}
+
+Se aplica el siguiente ciclo que cambia los estados:
+
+\begin{itemize}
+    \item Se aplica \textcolor{red}{Un pulso de Microondas} un tiempo corto para que el estado se mantenga puro: $\ket{0}\textcolor{red}{\rightarrow}\ket{+X}$ 
+    \item Se aplica un tiempo de espera, lo que por \textcolor{red}{Efecto Zeeman} aplica una fase al estado: $\ket{+X}\textcolor{red}{\rightarrow}\delta\ket{+X}$ 
+    \item Se aplica un \textcolor{red}{Segundo pulso de Microondas} que devuelve al estado origjnal: $\delta\ket{+X}\textcolor{red}{\rightarrow}\ket{0}$
+\end{itemize}
+
+En el tercer paso se logra convertir la \textcolor{red}{diferencia de fase} en una \textcolor{red}{diferencia de probabilidad}, la que queda definida por la \textcolor{red}{Probabilidad de Ramsey}, que es la probabilidad de empezar y terminar el ciclo en $\ket{0}$
+
+\begin{equation}\label{eq8.3}P_{ramsey}=sin^2(\frac{\delta\tau}{2})\textcolor{red}{(}\delta=\omega-(D+\frac{\gamma_e B}{2})\textcolor{red}{)}\end{equation}
+
+Siendo  $\omega$ la frecuencia del microondas y $D$ la distancia entre los estados. A la frecuencia $\varphi$ se le pueden añadir efectos no coherentes. La diferencias entre una situación con ruido a una que no lo tiene es que el ruido añade a la función de probabilidad de \ref{eq8.3} un elemento de decaímiento respecto al tiempo. De esta manera es posible medir el ruido.
+
+También se puede medir el \textcolor{red}{Eco de Espin de Neutrones (NSE)}, a través del ancho de la transición de $\ket{0}$ y $\ket{\pm 1}$. A través del decaimiento del último estado se puede obtener el tiempo de decaímiento $\tau_2 \sim \frac{1}{\Gamma_2^*}$. Lo que lleva a la conclusión de que \textcolor{red}{Los Nitrógenos no acoplados producen ruido}, así como los isótopos anómalos ${}^{13}C$ y ${}^{14}N$. Por lo tanto, para describir la dinámica del espín del Centro NV \textcolor{red}{se debe incluir la interacción del espín con impurezas de la red}.
+
+Lo anterior lleva a la definición de  la \textcolor{red}{Interacción Hiperfina}, que consiste en el Hamiltoniano en un operador con la siguiente forma:
+
+\begin{equation}\label{eq8.4}S\cdot A\cdot I_n=\frac{\mu_0\mu_S\mu_C}{4\pi}\frac{8\pi}{3}\lvert\psi(\vec{R}_n)\rvert^2\vec{S}\cdot\vec{I}_n +<\frac{\vec{S}\cdot\vec{I}_n-3(\vec{S}\cdot\hat{n})(\vec{I}_n\cdot \hat{n})}{\lvert \vec{r}-{R}_n\rvert^3}>\end{equation}
+
+El primer sumando de \ref{eq8.4} es llamado \textcolor{red}{Contacto de Pauli} y el segundo es llamado \textcolor{red}{Término Dipolar}. Estas interacciones dipolares \textit{compiten} con la interacción del centro con los isótopos antes mencionados. La interacción de \ref{eq8.4} puede calcularse para $\lvert\vec{r}-\vec{R}_n\rvert$ pequeño se obtiene:
+
+ \begin{equation}\label{eq8.5}I_n\cdot C_{nm}\cdot I_m=2,1(\frac{a_{nn}}{R_{n,m}})^3(3(\vec{I}_n\cdot\vec{n})(\vec{I}_m\cdot\vec{n})-\vec{I}_n\cdot\vec{I}_m) [KHz]\end{equation}
+ 
+ Todo esto define el Hamiltoniano completo para el centro NV:
+ 
+\begin{equation}\label{eq8.6}H=\Delta S_Z^2+\gamma_e S_z\cdot(B_x+B)+Q(I_n^z)^2 +\sum_n(\gamma_n I_n\cdot(B_z+B)+S_z\cdot A_{zz}^n \cdot I_n)\end{equation}
+
+Si se aproxima $B_z+B\simeq B$ y se escribe el tercer sumando respecto a elementos de matriz, se reescribe \ref{eq8.6}
+
+\begin{equation}\label{eq8.7}H=\Delta S_Z^2+\gamma_e S_z\cdot B+\sum_n \gamma_n I_n\cdot B+\sum_n S_z\cdot A_{zz}^n\cdot I_n+\sum_{mn}I_m\cdot C_{mn}\cdot I_n\end{equation}
+
+Los 5 términos del Hamiltoniano de \ref{eq8.7} son:
+
+\begin{itemize}
+    \item Término de \textcolor{red}{Cero Campo}: Del órden de $GHz$.
+    \item Término de \textcolor{red}{Efecto Zeeman}: Del órden de $100MHz$.
+    \item Término de \textcolor{red}{Espín Nuclear}: Del órden de $100KHz$.
+    \item Término \textcolor{red}{Hiperfino} entre el Centro NV y los isótopos ${}^{13}C$: Del órden de $1\sim 100KHz$
+    \item Término \textcolor{red}{Hiperfino} entre isótopos ${}^{13}C$: Del órden de $KHz$
+\end{itemize}
+
+Dependiento del detalle que se quiera tener de la dinámica, se pueden considerar u omitir términos, se puede asumir una \textcolor{red}{Aproximación Secular} si $S=S_z$. Entonces, los espines nucleares \textcolor{red}{pueden usarse como memoria}.
+
+Si se describe el mismo hamiltoniano de \ref{eq8.7} para un Marco Rotante en torno a los 2 primeros términos, se puede simplificar:
+
+\begin{equation}\label{eq8.8}H(m_s)=\sum_n \Omega_n(m_s)\cdot I_n +\sum_{mn} I_n\cdot c_{mn}(m_s)I_m\end{equation}
+
+Para el Hamiltoniano de \ref{eq8.8} se puede definir su respectivo operadore de evolución temporal que se puede usar para ver la evolución de un estado bipartito inicialmente separable:
+
+\begin{equation}\label{eq8.9}U_{m_s}(t)=e^{-\frac{i}{\hslash}H(m_s)t}\textcolor{red}{:}\rho_0=\rho_{e^{-}}\otimes \rho_{nuclear}\textcolor{red}{\Rightarrow} \rho(t)=U(t)\rho_0U^\dag(t)\end{equation}
+
+Con esto se puede hallar la probabilidad de tener el estado inicial en una situación de eco de espín. Esto se puede hacer definiendo la siguiente probabilidad:
+
+\begin{equation}\label{eq8.10}P_0=\frac{1+S(t)}{2}\textcolor{red}{,} S(t)=Tr_{nuclear}(\rho_{nuclear}U(t)U_0(t)U_0^\dag(t)U^\dag(t))\end{equation}.
+
+Acá se aprovecha la traza cíclica y que $U_0$ es el operador evolución temporal que define el paso de marco de Schr\"odinger a marco rotante. En una versión simplificada de este sistema, considerando la parte de electrón libre y su interacción de espín nuclear:
+
+\begin{equation}\label{eq8.11}i\hslash(\ket{m_s}_e\ket{m_n}_n)=(DS_Z^2+AS_ZI_Z)(\ket{m_s}_e\ket{m_n}_n)\end{equation}
+
+Consiguiendo una separación suficiente entre los estados para que los pulsos sean selectivos, se puede construir una \textcolor{red}{compuerta de 2 qubits análogo} a una compuerta $C-NOT$:
+
+\begin{equation}\label{eq8.12}C-NOT\begin{bmatrix} \ket{0,\uparrow}\\\ket{1,\uparrow}\\\ket{0,\downarrow}\\\ket{1,\downarrow}\end{bmatrix}=\begin{bmatrix} 1&0&0&0\\0&1&0&0\\0&0&0&1\\0&0&1&0\end{bmatrix}\begin{bmatrix} \ket{0,\uparrow}\\\ket{1,\uparrow}\\\ket{0,\downarrow}\\\ket{1,\downarrow}\end{bmatrix}=\begin{bmatrix} \ket{0,\uparrow}\\\ket{1,\uparrow}\\\ket{1,\downarrow}\\\ket{0,\downarrow}\end{bmatrix}\end{equation}
+
+Como un ejemplo de la Aplicación de Microondas en el centro NV se puede señalar la \textcolor{red}{Polarización de Espín Nuclear}, la que es útil para evaluar los \textcolor{red}{Efectos de la Temperatura en la Mecánica de Espín}, como se explica en los trabajos de Coto, Orszag y Emereev, entre otros. En un diamante con Centro NV e isótopos ${}^{13}C$ se puede hacer \textcolor{red}{Control Adiabático Estimulado}, el que está denominado como \textcolor{red}{STIRAP} (\textit{Stimulated Raman Adiabatic Passage}).
+
+En términos prácticos, para manipular el decaímiento de los estados dado por el baño se puede ocupar una \textcolor{red}{microonda selectiva}. Para manipular el espín $\frac{1}{2}$ del Centro NV de debe, en cambio, usar una \textcolor{red}{onda de radio}, que calientan la muestra y hasta la pueden quebrar levemente. Por reglas de selección dadas por el producto de operadores $\vec{S}\cdot\vec{A}\cdot\vec{I}$ los espines deben mantenerse en su lugar. Por esta razón se pueden aíslar $\ket{-1}$ y $\ket{0}$ y queda prohibido el paso de $\ket{1\uparrow}$ a $\ket{0\downarrow}$. Entonces, sin contar la \textcolor{red}{Precesión de Larmor}, el paso de $\ket{0\uparrow}$ a $\ket{0\downarrow}$ se hace con Microondas u ondas de radio. Entonces, los estados excitados tienden a caer hasta ir al fundamental, lo que \textcolor{red}{produce decoherencia}.
+
+La pregunta que surge es: Al usar Radiofrecuenncia (que es más lenta) ¿Se produce más decoherencia? esto se responde definiendo la \textcolor{red}{Anisotropía}, que viene dado por una simplificación del Hamiltoniano definido por \ref{eq8.11} (aprovechado por Coto y Maze), definiendo una solución \textit{positiva} y otra \textit{negativa}
+
+\begin{equation}\label{eq8.13}H_{Sn}=\vec{S}\cdot\vec{A}\cdot\vec{I} \textcolor{red}{\Rightarrow} S_zA_{zz}I_z+\frac{A_{ani}}{2}S_z(I_+e^{i\varphi}+I_-e^{-i\varphi})\end{equation}
+
+Al no haber operador $S_x$ ni $S_y$ en \ref{eq8.13} el espín original $\ket{0}_S$ no cambiará. El espín que podría cambiar sería el tipo $\ket{\pm 1}_S$, que cambiaría de signo. La aplicación del Hamiltoniano \ref{eq8.13} define un estado útil para manipular espín nuclear.
+
+\begin{equation}\label{eq8.14}\ket{\psi_3}=cos(\frac{\theta}{2})\ket{\uparrow, -1}+sin(\frac{\theta}{2})e^{i\phi}\ket{\downarrow, -1}\end{equation}
+
+Los resultados publicados sobre centros NV llevan más hacia aplicaciones de, por ejemplo, qubits superconductores, más que en nueva física posible de encontrar. A continuación, se mostrarán brevemente algunas de estas aplicaciones que demuestran que el Centro NV \textcolor{red}{Es sumamente versátil para implementar} teorías de Óptica e Información Cuántica.
+
+\begin{itemize}
+    \item \textcolor{red}{Entrampado Coherente}: Si se encienden 2 pulsos $\Omega_s$ y $\Omega_p$, se puede atrapar el espín en un estado coherente \textcolor{red}{sin ir al estado excitado} (lo que es llamado un proceso \textcolor{red}{adiabático}. Esto se puede hacer en un tiempo $T_n=817 \mu s$ y una frecuencia $\gamma_n=2\pi*1,07\frac{kHz}{G}$. Si la frecuencia cambia a $\gamma_e=2\pi 2.8\frac{Khz}{G}$, $T_n$ cambia a $1\mu s$ con fidelidad de $97\%$. $\gamma_n$ y $\gamma_e$ son llamados \textcolor{red}{razones giromagnéticas}.
+    \item \textcolor{red}{Transparencia Inducida Electromagnética (EIT)}: Preparando los estados  $\ket{0}_e\ket{\uparrow}_n$ y $\ket{0}_e\ket{\downarrow}_n$, se pueden hacer combinaciones lineales de ambos para definir los estados \textcolor{red}{\textit{dark}} y \textcolor{red}{\textit{bright}}, que no sienten la radiación.
+    
+    \begin{equation}\label{eq8.15}\begin{bmatrix}\ket{d}_{en}\\\ket{b}_{en}\end{bmatrix}=\frac{1}{\sqrt{2}}\begin{bmatrix} 1&-1 \\ 1&1 \end{bmatrix} \begin{bmatrix}\ket{0}_e\ket{\uparrow}_n\\\ket{0}_e\ket{\downarrow}_n\end{bmatrix}\end{equation}
+    
+    Se ha demostrado que \textcolor{red}{se puede preparar} $\ket{d}_{en}$ induciendo pulsos de excitación $\Omega$ y decaímiento $\gamma$ repetidos varias veces. Esto se hace con un procedimiento de Langevin con operador de pérdida $I(\sigma_{13})=<\sigma_z>$. 
+    
+    Cerca del 0, en el detuning de $2\gamma$, su espectro se ve muy parecido al efecto buscado de EIT. De todas formas aparecen múltiples peaks de transmisión por bombeo estroboscópico, aumentando la transmisión y disminuyendo el ancho si el número de pasos aumenta, lo que en literatura es llamado \textcolor{red}{\textit{stirring up}}. Lo que muestra que en Centros NV \textcolor{red}{se puede obtener EIT}, aún no habiendo una configuración $\lambda$ como en sistemas atómicos. La EIT puede usarse para diseñarse \textcolor{red}{relojes atómicos} a temperatura ambiente. 
+    \item \textcolor{red}{No Markovialidad por fonones}:
+    Investigaciones plantean que, (Coto, Norambuena y Maze) dado que se puede obtener fotones a tiempos rápidos, podría obtenerse con una dinámica rápida. Esto se haría considerando que la \textcolor{red}{Densidad Espectral} es el módulo del acoplamiento fonón-fonón multiplicado por una Delta de Dirac. Esta densidad se puede obtener numéricamente usando técnicas \textit{ab initio}. Como ejemplo de dicha Densidad Espectral. se puede señalar que mientras la densidad de los Centros NV tiene un ancho que impide emitir un fotón en una frecuencia bien definida, los \textcolor{red}{Centros SiV} (que se estudiarán en detalle en la siguiente sección) si exhiben un ancho de Densidad Suficiente para ello. A estos materiales se les llama \textcolor{red}{\textit{Single Photon Emitter (SPE)}}. Para el Centro NV se puede medir la \textcolor{red}{negatividad} que depende de las tasas de decaímiento y que a su vez depende de la frecuencia:
+    
+    \begin{equation}\label{eq8.16} N_\gamma=\frac{1}{2} \int_t^{t^\prime} \lvert\gamma^C(\tau)\rvert(-\gamma^C(\tau))d\tau\end{equation}
+    
+    La negatividad definida por $N_\gamma$ permite hallar \textcolor{red}{No Markovialidad} dada por el baño de fonones, la que podría estar asociada a la temperatura. Si hay oscilaciones en la coherencia, el sistema se clasifica como  \textcolor{red}{No Markoviano}. Lo que físicamente se puede explicar como un proceso de \textcolor{red}{interacciones en ambas direcciones entre el sistema y el baño}. De acuerdo a esta definición, la No Markovialidad sería menor a altas temperaturas.
+    
+    \begin{equation}\label{eq8.17}\gamma^n(t)\simeq \int_0^\infty \frac{J(\omega)}{(\hslash\omega)^2}sin(\omega t)d\omega \textcolor{red}{\Rightarrow} N_\omega \propto T \textcolor{red}{\Rightarrow} N_C\propto e^{-\frac{-\pi J_o}{n}}\end{equation}
+    
+    Si $N_\gamma$ mide divisibilidad, se puede definir $N_C$ que mide el flujo entre el sistema y el baño, lo que lo hace tener más sentido físico, aún teniendo ambas expresiones igual validez.
+    \item \textcolor{red}{Sensado Magnético}: Se le llama así a la obtención experimental del campo magnético. Para sensar en Centros NV, se pueden usar pulsos de Rabi, aunque se han estudiado métodos más complejos para hacerlo como por ejemplo medidas débiles.
+    \item\textcolor{red}{Preparación de Espín No Clásica}: Este ejemplo de mecánica de espín se puede hacer en un centro NV poniéndolo dentro de un \textit{cantilever} y haciéndolo oscilar. Se puede estudiar la gradiente del campo y la interacción entre imanes. 
+    \item\textcolor{red}{Aplicaciones Optomecánicas}: Lo anterior muestra que también se pueden hacer aplicaciones de los Centros NV en optomecánica, dado con son sistemas confiables, se pueden sacar excitaciones midiendo, entre otras propiedades interesantes. 
+\end{itemize}
+
+Con todo lo anterior, se demuestra finalmente que los centros NV tienen un alto nivel de aplicaciones posibles.
+
+
+\section{Centros SiV}
+
+En una red periódica hay enlaces covalentes con simetría. Al sacar un átomo, su ausencia hace que los electrones vecinos no tengan como enlazarse. Se busca entonces, la configuración que \textcolor{red}{minimiza la energía}. Entonces, una red con defectos tiene una configuración que le hace estable y debe ser estudiada.
+
+Los defectos puntuales pueden ser \textcolor{red}{vacancias} (quitar un átomo), \textcolor{red}{intersicial} (Ágregar un átomo no existente en la red original en un espacio donde en la red cristalina orginal no hay átomos) o \textcolor{red}{sustitucional} (Reemplazar un átomo en la red por un átomo que no está originalmente en ella). Los últimos 2 defectos son llamados \textcolor{red}{defectos extrínsecos}. 
+
+Se le llama \textcolor{red}{Centro de Color} a los defectos capaces de absorber y emitir radiación electromagnética en el rango de luz visible. Estos centros son sensibles a campos electromagnéticos, tensión y fonones. La principal motivación para estudiarlos es su utilidad para sensado cuántico a temperatura ambiente, emisión de fotones individuales, información cuántica y enfriado optomecánico, entre otras aplicaciones posibles.
+
+En un diamante los átomos de carbono forman triángulos equiláteros formando una \textcolor{red}{simetría trigonal}. Un Centro SiV es formado al \textcolor{red}{añadir un Silicio intersicial en un espacio con 2 vacancias adyacente}. Este tiene simetría trigonal e inversión ($D_3+i$) lo que define \textcolor{red}{un espectro de luminiscencia distinto} al Centro NV.
+
+Los centros de color tienen propiedades ópticas increíbles. En materia condensada se tiende a evitar pasar a la banda de conducción para no perder el electrón que se encuentra en un defecto. Entonces, los centros de color son útiles porque entre ambas bandas se pueden tener varios niveles de energía para fotones, pudiendo observarse definiendo \textcolor{red}{fluorescencia}.
+
+Los orbitales de un defecto se pueden obtener aproximadamente con funciones gaussianas. Los acoplamientos internos son por \textcolor{red}{grados electrónicos} (definidos por electrones), \textcolor{red}{grados de red} (definidos por fonones) o \textcolor{red}{grados de espín}, los que se pueden varian induciendo radiación laser y/o campos magnéticos en la red de diamante defectuoso. Preguntas abiertas dadas por dicha aplicación son sus efectos en redes con impurezas magnéticas, las fluctuaciones del Campo Electromagnético medido y la relajación de los fonones de la red. 
+
+Al igual que en los Centros NV, los Centros SiV \textcolor{red}{pueden presentarse como defectos neutros o cargados} (denominados como $SiV^0$ o $SiV^-$, para el espín $\frac{1}{2}$ presente en el defecto). Se pueden observar en estos defectos doble degeneración, efecto Jahn-Teller y acoplamiento espín-órbita , entre otros defectos. Algo interesante de estos centros es que la dinámica de 1 electrón en ellas puede reducirse a la de 1 hueco. Su dinámica queda definida por el Hamiltoniano:
+
+\begin{equation}\label{eq8.18}H_{g,e}=H_{g,e}^0+\lambda_{g,e}\vec{L}\cdot\vec{S}+H_{ge}^{JT}+\gamma_L\vec{L}\cdot\vec{B}+\gamma_S\vec{S}\cdot\vec{B}\end{equation}
+
+Los elementos del Hamiltoniano corresponden al \textcolor{red}{campo libre}, \textcolor{red}{acoplamiento espín-órbita}, \textcolor{red}{efecto Jahn-Teller}, \textcolor{red}{efecto Zeeman del orbital} y \textcolor{red}{efecto Zeeman del espín} respectivamente. Para estudiar la fluorescencia de emisión de campo se puede trabajar por grupos. Si $\vec{L}\cdot\vec{S}=L_zS_z$ y $\vec{L}\cdot\vec{B}=L_zB_z$ la parte de Jahn-Teller de \ref{eq8.19} tiene la forma:
+
+\begin{equation}\label{eq8.19}H_{g,e}^{JT}=\gamma_{g,e}^x\sigma_x+\gamma_{g,e}^z\sigma_z\end{equation}
+
+Si el campo magnético $B=0$, por el espectro de fotoluminiscencia se ven los 4 estados posibles (que serán rotulado como $\ket{A}$, $\ket{B}$, $\ket{C}$ y $\ket{D}$, todos degenerados). Se observa entonces que el considerando solo efecto Zeeman o Zeeman con Jahn-Teller los estados se cruzan, pero no lo hacen al considerar efecto Zeeman con acoplamiento espín órbita. El estado fundamental del Centro SiV tiene 4 niveles y 2 orbitales degenerados. 
+
+Los operadores orbitales vienen dados por las matrices de Pauli $\sigma_x$, $\sigma_y$ y $\sigma_z$ escritos en la base $\{\ket{e_{gx}},\ket{e_{gy}}\}$: El Hamiltoniano entonces se puede escribir como:
+
+\begin{equation}\label{eq8.20}H_{g,e}=-\frac{\lambda}{2}\sigma_y\otimes\sigma_z=-\frac{\lambda}{2}\begin{bmatrix}0&0&-i&0\\0&0&0&i\\i&0&0&0\\0&-i&0&0\end{bmatrix}\end{equation}
+
+Si se definen los estados $\ket{e_\pm}=\frac{1}{\sqrt{2}}(\ket{e_{gx}}\pm i\ket{e_{gy}})$ se pueden escribir los \textcolor{red}{autoestados} para este Hamiltoniano:
+
+\begin{equation}\label{eq8.21}\begin{bmatrix}\ket{1}\\\ket{2}\\\ket{3}\\\ket{4}\end{bmatrix}=\begin{bmatrix}\ket{e_-,\downarrow}\\\ket{e_+,\downarrow}\\\ket{e_+,\uparrow}\\\ket{e_+,\downarrow}\end{bmatrix}\end{equation}
+
+Dado que $B_z\simeq\mathbb{I}_Z$, si no hay acoplamiento Jahn-Teller $[H_g,H_{so}]=0$. Entonces, si se desprecia dicho acoplamiento los autoestados de $H_{so}$ definidos en \ref{eq8.21} \textcolor{red}{también lo serán de} $H_g$. Si se agrega $H_{JT}$ los valores de autoenergía pasan de $\lambda_g$ a $\sqrt{\lambda_g^2+4\gamma_g^2}$ con los autoestados $\ket{1^\prime}$, $\ket{2^\prime}$, $\ket{3^\prime}$ y $\ket{4^\prime}$ que varían levemente respecto a los originales. Si $\gamma_g^2=(\gamma_g^x)^2+(\gamma_g^y)^2$, al aumentar el campo \textcolor{red}{se empiezan a separar los estados sin cruzarse}, lo que permite definir una \textcolor{red}{dinámica} de los 4 niveles de energía. Por lo tanto, para observar fluorescencia es mejor usar acoplamiento espín-órbita que efecto Jahn-Teller.
+
+Una simulación de un modelo teórico \textcolor{red}{debe coincidir con resultados experimentales}. Para lo expuesto anteriormente, se ha medido la interacción de un fonón entre pares de fonones en un Centro SiV y se mantiene la dinámica entre $\ket{1}$ y $\ket{2}$ y entre $\ket{3}$ y $\ket{4}$. Esto a temperatura abierta \textcolor{red}{no es tan simple} porque no se pueden considerar efectos de un solo fonón, viéndose más bien efectos de \textcolor{red}{emisión tipo Raman}, lo que se puede modelar usando un potencial de la siguiente forma:
+
+\begin{equation}\label{eq8.22}V_E=\sum_k x_k[\sigma_+(a_{-1,k}+a^\dag_{-1,k})+\sigma_-(a_{1,k}+a^\dag_{1,k})]\end{equation}  
+
+Así se obtienen las tasas de transición que están en el márgen de $250 GHz$. En los centros de color se obtienen espectros de luminiscencia que cambian mucho dependiendo de la composición del Centro. Para el Centro SiV, se obtiene un \textcolor{red}{espectro muy angosto}, que le da al Centro su característica de emisión de fotón singular.
+
+De acuerdo al trabajo de Norambuena, Reyes, Mejía, Gali y Maze. se puede escribir un Hamiltoniano para la base $\{\ket{g},\ket{e}\}$
+
+\begin{equation}\label{eq8.23}H=\sum_{i=\{e,g\}}\epsilon_i\ket{i}\bra{i}+\sum_k\hslash\omega_k b^\dag_k b_k+\sum_{i,k}\ket{i}\bra{i}(b_k^\dag+b_k)=\frac{1}{2}\hslash\omega_{eg}\sigma_z+\sum_k\hslash\omega_k b_k^\dag b_k+\frac{1}{2}\sigma_z\sum_k g_z(b_k^\dag+b_k)\end{equation}
+
+Se puede obtener acoplamiento efectivo si $g_k=(\lambda_{e,k}-\lambda_{g,k})$. Por lo que $\lambda_{e,k}$ y $\lambda_{g,k}$ definen un \textcolor{red}{acoplamiento efectivo débil}.
+
+Los estados $\ket{g}$ y $\ket{e}$ tienen similares densidades electrónicas, lo que solo ocurre cuando los defectos tienen simetría de inversión. Dicha densidad espectral tiene una forma resultado de la mezcla de funciones de onda.
+
+\begin{equation}\label{eq8.24}J(\omega)=\sum_k \lvert g_k \rvert^2\delta(\omega-\omega_k)=J_0(\omega)+\gamma\epsilon^2 J_{eg}(\omega)\sim J_{eq}(\omega)\end{equation}
+
+Por lo tanto, el peak alto está asociado a que el átomo de Silicio se mueve a lo largo del eje de simetría, lo que implica que los fonones pueden afectar la dinámica y espectro de la red cristalina. En otras palabras, el ancho de \textcolor{red}{la fotoluminiscencia depende de manera no trivial del espectro de fonones} en un proceso llamado \textcolor{red}{acoplamiento de fonones}. Otra conclusión posible es que la principal diferencia entre el Centro SiV y el NV es que al existir simetría de inversión en el primero, \textcolor{red}{los átomos se mueven menos y hay menos fonones}.
+
+A partir de lo anterior se pueden estudiar las dinámicas markovianas inducidas por fonones. Sea un sistema de 2 niveles $\ket{e}$ y $\ket{g}$ definido por el siguiente hamiltoniano compuesto de partes libres y de interacción.
+
+\begin{equation}\label{eq8.25}H=H_{TLS}+H_{ph}+H_{TLS-ph}=\frac{1}{2}\omega_{eg}\sigma_z+\sum_k\omega_kc_k^\dag c_k+\sum_k (g_k \sigma_+ c_k^\dag+g_k^* \sigma_-c_k)\end{equation}
+
+Para el Hamiltoniano \ref{eq8.25}, si se hace una aproximación débil y secular se obtiene como Ecuación Maestra:
+
+\begin{equation}\label{eq8.26}\dot{\rho}=-i[H_{TLS},\rho]+\sum_{\eta=\pm}\gamma_n[\sigma_\eta\rho\sigma_\eta^\dag-\frac{1}{2}\{\sigma^\dag_\eta\sigma_\eta,\rho\}]\end{equation}
+
+En equilibrio térmico $\gamma_+=2\pi J(\omega_{eg})n(\omega_{eq})$ y $\gamma_-=2\pi J(\omega_{eg})[n(\omega_{eq})+1]$. Si la temperatura es 0 entonces $\gamma_+=0$ $\gamma_-=2\pi J(\omega_{eg})$, lo que establece una \textcolor{red}{relajación} para la red. Entonces, incluso \textcolor{red}{a temperatura cero aparecen fonones} por emisión espontánea. 
+
+Según Breuer y Petrucciones, la intensidad del acoplamiento entre el Centro y la red de fonones es proporcional al acoplamiento espectral de la frecuencia de resonancia.
+
+\begin{equation}\label{eq8.27}\gamma_0=2\pi J(\omega_{eg})-2\pi\sum_k \lvert g_k\rvert^2 \delta(\omega-\omega_k)\end{equation}
+
+Todo lo anterior confirma que las tasas de absorción y emisión \textcolor{red}{deben ser dependientes de la temperatura}. Entonces pueden ocurrir 2 casos: O la temperatura es 0 y $n(\omega_{eg})=0$ o es mayor y $n(\omega_{eg})\propto T$. Entonces surge la pregunta: \textcolor{red}{¿Cómo saber la función espectral para un defecto en diamante?} Se puede empezar evaluando la \textcolor{red}{dinámica de poblaciones}:
+
+\begin{equation}\label{eq8.28}\begin{bmatrix} p_e\\p_g \end{bmatrix}=\begin{bmatrix} \bra{e}\rho(t)\ket{e}\\ \bra{g}\rho(t)\ket{e}\end{bmatrix}\textcolor{red}{\Rightarrow} \begin{bmatrix} \dot{p}_e\\\dot{p}_g \end{bmatrix}=\begin{bmatrix}-\gamma_-p_e+\gamma_+ p_g\\-\gamma_+p_g+\gamma_-p_e\end{bmatrix}\end{equation}
+
+Estos procesos pueden ocurrir en \textcolor{red}{cualquier sistema dinámico}. Poniendo las condiciones $p_e+p_g=1 \textcolor{red}{\rightarrow} \dot{p}_e+\dot{p}_g=0$ y $\Gamma=\gamma_++\gamma_-=2\pi J(\omega_{eg})coth(2\beta\hslash\omega_{eg})$
+
+\begin{equation}\label{eq8.29}\dot{p}_e=-\Gamma p_e+\gamma_+\textcolor{red}{\Rightarrow}p_e(t)=p_e^{ss}+(p_e(0)-p_e^{ss})e^{-\Gamma t}\end{equation}
+
+Por lo que la solución de \ref{eq8.29} depende de la solución estacionaria $p_e^{ss}$ que tiene la forma:
+
+\begin{equation}\label{eq8.30}p_e^{ss}=\frac{\gamma^+}{\Gamma}=\frac{n(\omega_{eg})+1}{2n(\omega_{eg})+1}\leq 1\end{equation}
+
+A partir de esta dinámica se pueden evaluar los observables, obteniendo de allí el \textcolor{red}{tiempo de relajación longitudinal} $\Gamma$, que es medible experimentalmente. Por ende, para transiciones de un fonón $\Gamma$ es constante a temperatura baja, pero al subir esta empieza un escalamento lineal de $\Gamma$. Por extraño que parezca el fenómeno, \textcolor{red}{si se ha obtenido en experimentos con Centros SiV}. Esto implica que para que la teoría sea correcta, al aumentar la temperatura los procesos Raman empiezan a ser relevantes. A partir de la ecuación maestra de \ref{eq8.26} se puede definir $\gamma_n=\gamma_n^{1ph}+\gamma_n^{2ph}$ y agregando con Regla de Oro de Fermi a mano:
+
+\begin{equation}\label{eq8.31}\dot{\rho}=-i[H_{TLS},\rho]+\mathcal{L}_{1Ph}[\rho]+\mathcal{L}_{2Ph}[\rho]\end{equation}
+
+Se puede definir la \textcolor{red}{Relajación Longitudinal} del Centro de Color:
+
+\begin{equation}\label{eq8.32}<S_z(\tau)>=<s_z>_{ss}-(s_z)_{ss}-<s_z(0)>)e^{-\frac{\tau}{t_1}}\end{equation}
+
+Una propiedad intersante de lo definido en \ref{eq8.32} es que independiente de la muestra, a temperaturas menores a $100K$ dichas tazas \textcolor{red}{convergen a} un valor fijo proporcional a $T^5$. Esto fue probado teóricamente en 2012 y comprobado experimentalmente en 2017. 
+
+La separación de estados para el Centro SiV produce un sistema de 3 ecuaciones para $p_1$, $p_2$ y $p_3$ que son reductibles a 2 ecuaciones usando que $p_1+p_2+p_3=1$ (ya que son probabilidades), definiendo con dicho sistema un \textcolor{red}{modelo de disipación} que permite representar observables físicos válidos entre $0K$ y $500K$
+
+\begin{equation}\label{eq8.33} \frac{1}{T_1}\simeq \Gamma_{mag}+\sum_{i=1}^3 A_icoth(\beta\hslash\omega_i)+\frac{A_4}{e^{\beta\hslash\omega_{loc}}-1}+A_5T^5+A_6T6+A_7T^7\end{equation}
+
+También se puede medir el \textcolor{red}{Ruido Magnético} para una red de diamante con Centro SiV. Esto se puede hacer definiendo teóricamente \textcolor{red}{impurezas aleatorias} de spin que llevan a una tasa $\Gamma_{mag}$. Para un análisis teórico, existen simetrías escondidas en las interacciones de estas impurezas con los fonones. Con todo lo anterior, se puede empezar a definir la \textcolor{red}{Dinámica del Estado Fundamental para el centro SiV}.
+
+A partir de la ecuación maestra de \ref{eq8.26} se deben encontrar los valores de $\gamma$ que definen la interacción entre el centro y el baño dado por el resto de muestra (diamante con o sin impurezas extra). Esto a su vez obliga a definir las funciones espectrales $J(\omega)$ para dicha red. Se puede estudiar, por ejemplo \textcolor{red}{poniendo un diamante con Centro SiV en un \textit{cantilever} de Diamante} (estudiado por Rabl, Maze y Norambuena). Por la forma larga de dicho \textit{cantilever}, la luz tiende a oscilar. También el eje de simetría del campo de espín \textcolor{red}{debe ser el mismo} eje de simetría del Centro SiV, lo que es difícil de generar. Los fonones entonces pueden interactuar con los orbitales por el Hamiltoniano:
+
+\begin{equation}\label{eq8.34}H=H_{SiV}+H_{ph}+H_{mag}+H_{strain}=-\lambda_{so}\sigma_yS_z+\gamma_x \sigma_x+\gamma_y\sigma_z+\gamma_L\sigma_yB_z+\gamma_SS_zB_z+\sum_k\omega_ka_k^\dag a_k+g_m(b+b^\dag)S_z+H_{strain}\end{equation}
+
+Este Hamiltoniano es para el sistema llamado \textcolor{red}{\textit{bending mode}}. En el que el campo para el Centro SiV no es constante, por lo que se debe considerar la derivada de $B$ en la dirección $z$, lo que lleva a las aproximaciones $g_m\sim\frac{\partial B}{\partial z}$ y $b+b^\dag\sim\Delta x$. Lo que queda por definir es \textcolor{red}{¿Qué es es el \textit{strain} y cómo se representa en el Hamiltoniano?}
+
+Los átomos se pueden distorsionar por el movimiento. El efecto de los átomos en el sistema molecular analizado teóricamente al moverse en su configuración electrónica es lo que finalmente se llama \textcolor{red}{strain}. Este movimiento, en los Centros SiV provoca fundamentalmente \textcolor{red}{oscilaciones de fonones}. Maze y Norambuena encontraron la forma de definir $H_{strain}$, comenzando por el \textcolor{red}{potencial de interacción entre nubes electrónicas y núcleos}, al que se aproxima en torno a cambios pequeños $\delta R_i$ respecto a  $\vec{R}_n^0$, es decir, cuando los núcleos están fijos.
+
+\begin{equation}\label{eq8.35}V_{e-ion}(\vec{r},\{\vec{R}_n\})=V_{e-ion}(\vec{r},\{\vec{R}_n^{(0)}\})+\sum_{n=1}^N\sum_{i=x,y,z}\frac{\partial V_{e-ion}(\vec{r},\{\vec{R}_n\})}{\partial R_{ni}}|_0 \delta R_i+\mathcal{O}(\delta R_i^2)\end{equation}
+ 
+Por regla de la cadena, se puede definir la derivada obtenida con \ref{eq8.35} como una suma dependiente de valores adimensionales que indican la \textcolor{red}{tasa de cambio proporcional sobre una distorsión}.
+
+\begin{equation}\label{eq8.36}\frac{\partial V_{e-ion}(\vec{r},\{\vec{R}\})}{\partial R_{ni}}|_0=\sum_{j=x,y,z}\frac{\partial V_{e-ion}(\vec{r},\{\vec{R}\})}{\partial (\delta R_{nj})}|_0\frac{\partial(\delta R_{nj})}{\partial R_{ni}}|_0\end{equation}
+
+Despreciando la parte dependiente solo de las posiciones iniciales y considerando que el potencial \textcolor{red}{no depende del número y tipo de partículas, sino solo de las distancias nube electrónica-núcleo}, insertando \ref{eq8.36} en \ref{eq8.35} se obtiene:
+
+\begin{equation}\label{eq8.37}V_{e-ion}=(\vec{r},\{\\vec{R}_n\})\simeq \sum_{i=x,y,z}\sum_{j=x,y,z} \gamma_{i,j}V_{i,j}\end{equation}
+
+Definiéndose entonces el \textcolor{red}{Tensor de Strain} $\gamma_{ij}$. Por aproximación Born-Oppenheimer, si el núcleo se mueve, la función de onda de la parte electrónica $\phi(u)$ también se moverá. Por lo que el tensor de Strain también se puede escribir como
+
+\begin{equation}\label{eq8.38}\gamma_{ij}=\frac{\partial(\delta R_j)}{\partial R_i}=\frac{\partial u_j}{\partial x_i}\end{equation}
+
+La ecuación \ref{eq8.38} es válido porque la nube electrónica tiene una masa mucho menor. El tensor de Strain se puede descomponer en partes simétrica y antisimética:
+
+\begin{equation}\label{eq8.39}\gamma_{ij}=\frac{1}{2}( \gamma_{ij}+\gamma_{ji})+\frac{1}{2}(\gamma_{ij}-\gamma_{ji})=e_{ij}+a_{ij} \textcolor{red}{(}e_{ij}=e_{ij}\textcolor{red}{)}\textcolor{red}{(}a_{ij}=-a{ji}\textcolor{red}{)}\end{equation}
+
+Por teoría de elasticidad, $a_{ij}$ está asociado a rotaciones y $e_{ij}$ a traslaciones del sistema. Por lo que, dado a que se están estudiando traslaciones, se puede aproximar el tensor $\gamma_{ij}$ como un tensor \textcolor{red}{simétrico}, con $6$ parámetros para un espacio tridimensional, usando \ref{eq8.38} se define este tensor, que a su vez define la forma analítica que tendrá $H_{strain}$
+
+\begin{equation}\label{eq8.40}\gamma_{ij}=\frac{1}{2}(\frac{\partial u_i}{\partial x_j}+\frac{\partial u_j}{\partial x_i})\textcolor{red}{\Rightarrow} H_{strain}=\sum_{i,j}\sum_{\alpha,\beta}\gamma_{i,j}\bra{\alpha}V_{ij}\ket{\beta} \ket{\alpha}\bra{\beta}=\begin{bmatrix} \delta+\alpha && \beta \\ \beta && \delta-\alpha\end{bmatrix}\end{equation}
+
+La última igualdad de \ref{eq8.40} se obtiene al usar la base $\{\ket{e_{g,x}},\ket{e_{g,y}}\}$ Si el eje de simetría es el eje $z$, entonces $\ket{\alpha}V_{iz}\ket{\beta}=\ket{\alpha}V_{zz}\ket{\beta}=0$. Además se define $\alpha=g_0(\gamma_{xx}+\gamma_{yy}$, $\beta=g_1(\gamma_{xx}-\gamma_{yy})$ y $\delta=g_{22}\gamma_{xy}$. Entonces, escribiendo en la base completa para agregar a \ref{eq8.34}, se definen los operadores:
+
+\begin{equation}\label{eq8.41}\begin{bmatrix}L_+\\L_-\end{bmatrix}=\begin{bmatrix}\ket{3}\bra{1}+\ket{2}\bra{4}\\\ket{1}\bra{3}+\ket{4}\bra{2}\end{bmatrix}\textcolor{red}{\Rightarrow} H_{strain}=g_1(\gamma_{xx}-\gamma_{yy})(L_-+L_+)-ig_2\gamma_{xy}(L_--L_+)\end{equation}
+
+Entonces, las transiciones cambiarán la órbita del estado, pero no su espín, por lo que son \textcolor{red}{fáciles de llevar a fonones}.
+
+A continuación se mostraran algunas aplicaciones para los Centros SiV:
+
+\begin{itemize}
+    \item Si para un bulto de diamante dopado con Centros SiV a temperatura mayor a 0 se le induce un campo externo, se puede absorber datos de fonones en el espín. Por lo tanto, se puede \textcolor{red}{introducir una microonda}, llevando del estado $\ket{1}$ al $\ket{4}$, entonces los fonones hacen que decaiga a $\ket{2}$, disipando a \textcolor{red}{fonones acústicos}. Esto es llamado \textcolor{red}{enfríamiento de fonones} usando los mismos fonones de la red.
+    \item También se puede definir una \textcolor{red}{dinámica cuántica abierta}. Para una red con temperatura mayor que cero:
+    
+    \begin{equation}\label{eq8.42}H=H_{SiV}+H_{Ph}+H_{SiV-Ph}=\sum_i E_i\ket{i}\bra{i}+\sum_k \hslash \omega_k b_k^\dag b_k+\sum_{i,j}\sum_k\lambda_{ijk}\ket{i}\bra{j}(b_k^\dag+b_k)\end{equation}.
+    
+    Se definen como \textcolor{red}{propiedades locales}: Distancia electrónica, grados de libertad de espín, nodos vibracionales locales y simetría del defecto. Se definen como \textcolor{red}{propiedades del bulto} los $3N-6$ modos vibracionales para los $N$ átomos de una red en $3$ dimensiones y sus espines nucleares aleatorios. 
+    
+    Definiendo los operadores $J_\pm$ se puede construir un \textcolor{red}{operador hamiltoniano no markoviano}:
+    
+    \begin{equation}\label{eq8.43}J_-=J_+^\dag=\ket{1}\bra{3}+\ket{2}\bra{4}\textcolor{red}{\Rightarrow}H_{NM}=\sum_n(c_n+c_n^\dag)(\lambda_nJ_-+\lambda_n^*J_+)\end{equation}
+    
+    Si se separa el problemas de los estados del centro en 2 problemas (el par de estados $\ket{1}\textcolor{red}{\leftrightarrow}\ket{3}$ y $\ket{2}\textcolor{red}{\leftrightarrow}\ket{4}$) se pueden ver ambos problemas como \textcolor{red}{2 sistemas de 2 niveles desacoplados}. Esto simplifica la escritura de la ecuación maestra:
+    
+    \begin{equation}\label{eq8.44}\dot{\rho}=\sum_{i,j\in\Omega}\gamma_{i,j}(t)\mathcal{L}(\sigma_{ij})[\rho] \textcolor{red}{(}\sigma_{ij}=\ket{i}\bra{j}\textcolor{red}{)}\textcolor{red}{(}\Omega=\{\ket{1}\bra{3},\ket{3}\bra{1},\ket{2}\bra{4},\ket{4}\bra{2}\}\textcolor{red}{)}\end{equation}
+    
+    Esta, sería una evolución temporal \textcolor{red}{no markoviana}. La evolución será markoviana si los coeficientes $\gamma_{i,j}(t)$ son independientes del tiempo. Los coeficientes entonces, para el Centro SiV son funciones dependientes de funciones $F_{ij}$ que concentra el resultado para un condensado de Bose-Einstein:
+    
+    \begin{equation}\label{eq8.45} F_{ij}^\pm (t)=\frac{sin((\omega\pm\omega_{ij})t)}{\omega\pm\omega_{ji}}\textcolor{red}{\Rightarrow}\gamma_{ij}(t)=2\int_0^t d\tau J(\omega)(n(\omega) F_{ij}^+(\tau)+(n(\omega)+1)F_{ij}^-(\tau))
+    \end{equation}
+     Las funciones $F_{ij}^\pm(t)$ son altamente oscilantes cuando $\omega=\omega_{ij}$. Si $t\textcolor{red}{\rightarrow}\infty$, la funcion se aproxima a una delta de Dirac que puede ser $\delta(\omega-\omega_{ij})$ o $\delta(\omega+\omega_{ij})$, dependiendo de dónde se den las frecuencias positivas. Siguiendo el formalismo para el Centro el SiV, la función espectral $J(\omega)$ tiene la siguiente forma
+     
+     \begin{equation}\label{eq8.46}J(\omega)=J_{bulk}(\omega)+J_{loc1}(\omega)+J_{loc2}(\omega)=2\alpha\frac{\omega^3}{\omega_C^2}e^{-\frac{\omega}{\omega_C}}+\frac{J_0}{(\frac{\omega}{\omega_{loc}}+1)^2}\frac{\Gamma}{2((\omega-\omega_{loc})^2+(\frac{\Gamma}{2})^2)}+J_1\frac{\omega^3e^{-(\omega-\omega_0)^2}}{2(\omega-\omega_0^2)}\end{equation}
+    \item También se puede estudiar la evolución de la coherencia para el bulto de diamante defectuoso:
+    
+    \begin{equation}\label{eq8.47}C(t)=\sum_{i\neq j}\lvert\rho_{ij}(t)\rvert=\sqrt{<\sigma_x>^2+<\sigma-y>^2}=2\lvert\rho_{eg}(0)\rvert e^{\int_0^t \gamma(\tau)d\tau}\end{equation}
+    
+    De la función de \ref{eq8.47} se obtiene que para un sistema tanto Markoviano como No Markoviano (al menos hasta la temperatura ambiente) se obtiene \textcolor{red}{decoherencia}. Se infiere entonces que \textcolor{red}{la no markovialidad dependiente de la temperatura depende de la función espectral}. La oscilación observable cuando se coloca no markovialidad se explica físicamente porque a temperatura baja no se pueden excitar fonones, pero se produce acoplamiento fuerte con un modo. 
+\end{itemize}
+
+Dentro del estudios de los Centros SiV, existen los siguientes problemas pendientes.
+
+\begin{itemize}
+    \item Obtener la dinámica del estado fundamental para un sistema No Markoviano.
+    \item Modelar microscópicamente el espectro de absorción de $ESR$.
+    \item Evaluar la dependencia de las tasas de relajación inducidas por fonones respecto a la temperatura. 
+    \item Lograr un mayor entendimiento del Efecto Jahn-Teller. 
+    \item Aprender a manipular el grado de libertad de espín del Centro SiV.
+    \item Obtener nuevos tipos de No Markovialidad al inducir efectos de 2 fonones, obteniendo diferencias en los tiempos y efectos en tasas.
+    \item Probar la esperada convergencia del modelo lorentziano a fonones acústicos.
+    \item Evaluar el efecto en la dinámica de agregar isótopos de Silicio como ${}^{28}Si$, ${}^{29}Si$ y ${}^{30}Si$.
+\end{itemize}
+
+\chapter{Optomecánica}
+\section{Sistemas Optomecánicos}
+Se comienza definiendo qué es una cavidad. Una \textcolor{red}{Cavidad} es un sistema compuesto de muestras atómicas y espejos, buscando \textcolor{red}{confinar modos de luz}. Un ejemplo de cavidad sería un medio entre 2 espejos fijos, o un arreglo de espejos que se usa para capturar un haz de luz, pudiendo ser este medio incluso un condensado de Bose-Einstein.
+
+El modelo más simple para representar matemáticamente una cavidad es el \textcolor{red}{Modelo de Jaynes-Cumming}. Sea un átomo de 2 niveles (llamados $\ket{g}$ y $\ket{e}$, en los que un campo externo induce oscilaciones entre ambos estados, las que pueden definirse usando las \textcolor{red}{Matrices de Pauli}.
+
+ \begin{equation}\label{eq9.1} \sigma_z\begin{bmatrix}\ket{e}\\\ket{g}\end{bmatrix}=\begin{bmatrix}\ket{e}\\-\ket{g}\end{bmatrix}\textcolor{red}{\Rightarrow} \sigma_\pm=\sigma_x\pm i\sigma_y\textcolor{red}{:}\begin{bmatrix}\ket{g}\\\ket{e}\end{bmatrix}=\begin{bmatrix}\sigma_-\ket{e}\\\sigma_+\ket{g}\end{bmatrix}\end{equation}
+ 
+El Hamiltoniano que define la dinámica del sistema es:
+
+\begin{equation}\label{eq9.2}H=\hslash \omega a^\dag a+\frac{1}{2}\hslash\omega_A\sigma_z-\hslash g (a\sigma^++a^\dag \sigma^-)\end{equation}
+
+Donde $a$ es el operador del campo (considerado de un modo), $\sigma_z$ y $\sigma_\pm$ los operadores del átomo definidos en \ref{eq9.1}, $\omega$ la \textcolor{red}{frecuencia de átomo libre}, $\omega_A$, la \textcolor{red}{frecuencia de campo libre} y $g$ la \textcolor{red}{constante de interacción}.
+
+El espacio de Hilbert del sistema se expande en la base $\ket{m,n}=\{\ket{g,n},\ket{e,n}\}$, es decir, el producto tensorial entre el átomo de 2 niveles y la base de Fock para el campo. Por lo visto en Óptica Cuántica, en términos de esta base, se obtiene que el Hamiltoniano completo se puede escribir como una matriz de bloques diagonales:
+
+\begin{equation}\label{eq9.3}H=H_0\oplus H_1\oplus H_2\oplus ...\end{equation}
+
+Cada bloque diagonal $H_n$ funciona como Hamiltoniano para los estados $\ket{n,e}$ y $\ket{n+1,g}$, definiendo la dinámica:
+
+\begin{equation}\label{eq9.4} H_n\begin{bmatrix}\ket{n+1,g}\\\ket{n,e}\end{bmatrix}=\hslash\begin{bmatrix}(n+1)\omega+\frac{\omega_A}{2}&-g\sqrt{n+1}\\-g\sqrt{n+1} &n\omega+\frac{\omega_A}{2}\end{bmatrix}\begin{bmatrix}\ket{n+1,g}\\\ket{n,e}\end{bmatrix}\end{equation}
+
+Siendo $\ket{n+1,g}$ y $\ket{n,e}$ llamados \textcolor{red}{Estados Desnudos} del sistema Jaynes-Cumming. Para cada uno de las submatrices de \ref{eq9.3} los autovalores son:
+
+\begin{equation}\label{eq9.5}\omega_{n,\pm}=(n+\frac{1}{2})\omega\pm \frac{1}{2}\sqrt{\delta^2+\Omega_n^2}\textcolor{red}{(}\delta=\omega-\omega_A. \Omega_n=2g\sqrt{n+2}\textcolor{red}{)}\end{equation}
+
+Estos permiten definir los \textcolor{red}{Estados Vestidos} $\ket{n,\pm}$, para cuya base el Hamiltoniano es diagonal (lo que será muy útil para definir el operador evolución temporal, por ejemplo). Si $\Delta_n=\sqrt{\delta^2+\Omega_n^2}$:
+
+\begin{equation}\label{eq9.6}\begin{bmatrix} cos\Theta_n\\sin\Theta_n\end{bmatrix}=\frac{1}{\sqrt{(\Delta_n^2-\delta)^2+\Omega_n^2}}\begin{bmatrix}\Delta_n-\delta\\\Omega_n\end{bmatrix}\textcolor{red}{\Rightarrow}\begin{bmatrix}\ket{n,+}\\\ket{n,-}\end{bmatrix}=\begin{bmatrix}cos\Theta_n&-sin\Theta_n\\sin\Theta_n&cos\Theta_n\end{bmatrix}\begin{bmatrix}\ket{n+1,g}\\\ket{n,e}\end{bmatrix}\end{equation}
+
+Entonces, en términos de los estados de \ref{eq9.6}, el Hamiltoniano de \ref{eq9.2} se puede descomponer como:
+
+\begin{equation}\label{eq9.7}H=\hslash \frac{\omega_A}{2}\ket{0,g}\bra{0,g}+\sum_{n=0}^\infty \sum_{\sigma=\{+,-\}} \hslash \omega_{n,\sigma}\ket{n,\sigma}\bra{n,\sigma}\end{equation}
+
+Por lo que el operador de Evolución temporal es simple de obtener usando \ref{eq9.7} y \ref{eq9.5}:
+
+\begin{equation}\label{eq9.8}U(t)=e^{\frac{-iH t}{\hslash}}= e^{i\frac{\omega_A}{2} t}\ket{0,g}\bra{0,g}+\sum_{n=0}^\infty e^{i(n+\frac{1}{2})\omega t}(e^{-i\frac{\Delta_n t}{2}}\ket{n,+}\bra{n,+}+e^{i\frac{\Delta_n t}{2}}\ket{n,-}\bra{n,-})  \end{equation}
+
+Con lo anterior se puede obtener la \textcolor{red}{Población de estados} en un nivel determinado. Para la matriz densidad en el átomo de 2 niveles (denotada como $\sigma(t)$
+
+\begin{equation}\label{eq9.9}\sigma(t)=Tr_f\rho(t)=Tr_f(U(t)(\rho_F(0)\otimes\sigma(0))U^\dag(t))=\sum_{n=0}^\infty\bra{n}U(t)(\rho_F(0)\otimes\sigma(0))U^\dag(t)\ket{n}\end{equation}
+
+Llamando $\rho_F(0)$ el estado inicial del campo y $\sigma(0)$ el estado inicial del átomo. De \ref{eq9.10} se deriva la población de estados para el estado $\ket{e}$ (análogamente para el estado $\ket{g}$)
+
+\begin{equation}\label{eq9.10}\sigma_{ee}(t)=\sum_{n=0}^\infty\bra{n,e}U(t)(\rho_F(0)\otimes\sigma(0))U^\dag(t)\ket{n,e}\end{equation}
+
+Lo que aplicando  \ref{eq9.8}, \ref{eq9.6} y \ref{eq9.5} entrega el resultado para un sistema Jaynes-Cumming:
+
+\begin{equation}\label{eq9.11}\sigma_{ee}(t)=\sum_{n=0}^\infty \{cos^2(\frac{\Omega_n t}{2})\rho_{n,n}\sigma_{ee}+sin^2(\frac{\Omega_n t}{2})\rho_{n+1,n+1}\sigma{gg}+Im(\frac{1}{2}sin(\Omega_n t)\rho_{n+1,n}\sigma_{ge})\}\end{equation}
+
+Si se impone como condición inicial un átomo en estado excitado y un campo inicial definido como estado coherente:
+
+\begin{equation}\label{eq9.12}\textcolor{red}{(}\sigma_{ee}(0)=1, \rho_{n,n}(0)=\frac{\lvert\alpha\rvert^{2n}}{n!}e^{-\lvert\alpha\rvert^2}\textcolor{red}{)\Rightarrow}\sigma_{ee}(t)=\frac{1}{2}[1+\sum_{n=0}^\infty\frac{\lvert\alpha\rvert^{2n}}{n!}e^{-\lvert\alpha\rvert^2}cos(2g\sqrt{n+1}t)]\end{equation}
+
+Luego de este ejemplo básico, se estudiará más generalmente cómo cambian los estados en cavidades ópticas.
+
+\section{Dinámica de  Cavidades Ópticas}
+
+Para un montaje experimental general se tiene 2 espejos y un campo, la posición de un espejo se modifica por la presión del campo de cavidad. Se compone por 4 componentes:
+
+\begin{itemize}
+    \item Oscilación de Campo de \textcolor{red}{Cavidad}, dado por los operadores $a$
+    \item Movimiento \textcolor{red}{Mecánico}, dado por los operadores $b$
+    \item \textcolor{red}{Interacción} Optomecánica, dada por una combinación de $a$ y $b$
+    \item \textcolor{red}{Pérdidas} de Cavidad y Mecánicas. dadas por expresiones asociadas al Ruido.
+\end{itemize}
+
+Para el modo de cavidad $a$ (que tiene asociado un operador número de cavidad $a^\dag a$ se tiene la siguiente ecuación diferencial si los espejos son fijos y $\Delta=\omega_l-\omega_{cav}$:(Resta entre las frecuencias de la parte de interacción y la de cavidad).
+
+\begin{equation}\label{eq9.13}\dot{a}=-\frac{\kappa}{2} a+i\Delta a +\sqrt{\kappa_{ex}}a_{in}+\sqrt{\kappa_0}f_{in}\end{equation}
+
+Si se considera $\dot{a}=0$ se puede encontrar la solución llamada de \textcolor{red}{\textit{steady state}}. Si además, $<f_{in}>=0$, para el valor de espectación de $a$, y también para el \textcolor{red}{Número de Fotones en la Cavidad} se obtiene a partir de \ref{eq9.13} 
+
+\begin{equation}\label{eq9.14}<a>=\frac{\sqrt{\kappa_{ex}}<a_{in}>}{\frac{\kappa}{2}-i\Delta} \textcolor{red}{\Rightarrow} n_{cav}=\lvert<a>\rvert^2=\frac{\kappa_{ex}<a_{in}^2>}{\Delta^2+\frac{\kappa^2}{4}}=\frac{\kappa_{ex}}{\Delta^ 2+\frac{\kappa^2}{4}}\frac{P}{\hslash\omega_L}\textcolor{red}{(}<a_{in}>=\sqrt{\frac{P}{\hslash\omega_L}}\textcolor{red}{)}\end{equation}
+
+Lo obtenido en \ref{eq9.14} implica que, luego de encender el laser por un determinado tiempo, se obtiene un \textcolor{red}{campo de cavidad estable} con el número de fotones dado en la ecuación (considerando a la solución para $n_{cav}$ en \ref{eq9.14} como una solución a la que el sistema optomecánico tiende para tiempos largos).
+
+Para poder definir en base a operadores cuánticos el desplazamiento es necesario considerar la dinámica para el campo con un Hamiltoniano de Oscilador Armónico, la que define el operador $x$ como combinación lineal de $b$ y su conjugado:
+
+\begin{equation}\label{eq9.15}H_b=\hslash\Omega_m (b^\dag b+\frac{1}{2})\textcolor{red}{\Rightarrow} x= \sqrt{\frac{\hslash}{2m_{eff}\Omega_m}}(b+b^\dag)=x_{ZPL}(b+b^\dag)\end{equation}
+
+Se define $x_{ZPL}$ el que es una constante pequeña llamada \textcolor{red}{Fluctuación de Punto Cero}. 
+
+Para escribir la \textcolor{red}{Disipación Mecánica} basta encontrar el resultado de lo siguiente para el operador $b$
+
+\begin{equation}\label{eq9.16}\dot{<n>}=-\Gamma_m(<n>-n_{th})\textcolor{red}{\Rightarrow} <n>(t)=n_{th}(1-e^{\frac{-t}{\Gamma_m}})\end{equation}
+
+Una observación importante: Si$ <n(0)>=0$, el oscilador estará en \textcolor{red}{Estado Fundamental}, lo que será imposible si la temperatura del baño es distinta de 0.
+
+\begin{equation}\label{eq9.17}<n>(0)=n_{th}\Gamma_m\simeq\frac{k_b T_{bath}}{\hslash Q_m}\end{equation}
+
+Otro detalle a estudiar es que \textcolor{red}{bajo amortiguamiento y fluctuaciones aleatorias, el oscilador mecánico sigue un movimiento browniano}. Se puede empezar a cuantificar lo segundo usando el \textcolor{red}{espectro de ruido} como se definió en el capítulo 6
+
+\begin{equation}\label{eq9.18}S_{xx}(\omega)=\int_{-\infty}^\infty <x(t)x(0)>e^{i\omega t} dt\textcolor{red}{\Rightarrow}\frac{1}{2\pi}\int_{-\infty}^\infty d\omega S_{xx}(\omega)= <x^2>\end{equation}
+
+De manera que se obtiene un \textcolor{red}{Distribución de Probabilidad} de donde se obtienen las constantes para la parte de ruido de la dinámica.
+
+Para evaluar la \textcolor{red}{Interacción Optomecánica}, se considera en principio a los operadores de campo y mecánicos como 2 sumandos del Hamiltoniano \textcolor{red}{Sin interacción}:
+
+\begin{equation}\label{eq9.19}H_0=\hslash\omega_{cav}a^\dag a+\hslash\Omega_m b^\dag b\end{equation}
+
+Eso se altera modificando ligeramente la frecuencia de la cavidad $\omega_{cav}$, considerando la interacción como una \textcolor{red}{perturbación}:
+
+\begin{equation}\label{eq9.20}\omega_{cav}=\frac{n\pi c}{L}\textcolor{red}{\Rightarrow}\omega_{cav}(x)=\frac{n\pi c}{L+x}\simeq \frac{n\pi c}{L}-\frac{n\pi}{L^2}x =\omega_{cav}-Gx\end{equation}
+
+Reemplazando en \ref{eq9.19} lo obtenido en \ref{eq9.20}, se obtiene el elemento de interacción buscado considerando \ref{eq9.15}
+
+\begin{equation}\label{eq9.21}H=\hslash\omega_{cav}a^\dag a +\hslash \Omega_m b^\dag b-\hslash G x a^\dag a = \hslash\omega_{cav}a^\dag a +\hslash \Omega_m b^\dag b -\hslash g_0 a^\dag a(b+b^\dag) \textcolor{red}{(}g_0=G x_{ZPL}\textcolor{red}{)}\end{equation}
+
+Lo que constituye un \textcolor{red}{Hamiltoniano No Lineal}, que es difícil de resolver. Por lo tanto, se buscará \textcolor{red}{linealizarlo}. Usando un operador de evolución $U=e^{-i\omega_L a^\dag a t}$, se reescribe el Hamiltoniano de \ref{eq9.21} con $\Delta=\omega_L-\omega_{cav}$:
+
+\begin{equation}\label{eq9.22}\bar{H}=UHU^\dag+i\hslash\frac{\partial U}{\partial t}=-\hslash\Delta a^\dag a +\hslash \Omega_m b^\dag b -\hslash g_0 a^\dag a(b+b^\dag) \end{equation}
+
+Con sus respectivas ecuaciones de Heisenberg para $a$ y $b$
+
+\begin{equation}\label{eq9.23}\dot{a}=-\frac{\kappa}{2}a+i(\Delta+Gx)a+\sqrt{\kappa_{ex}}a_{in}(t)+\sqrt{\kappa_0}f_{in}(t)\end{equation}
+\begin{equation}\label{eq9.24}\dot{b}=(-i\Omega_m-\frac{\Gamma_m}{2})b+ig_0a^\dag a+\sqrt{\Gamma_m}b_{in}(t)\end{equation}
+
+De \ref{eq9.21} se define el Hamiltoniano de Interacción. Y, usando que $a=<a>+\delta a=\sqrt{n_{cav}}+\delta a$ y que $g=g_0\sqrt{n_{cav}}$
+
+\begin{equation}\label{eq9.25}H^\prime_{int}=\hslash g_0(\sqrt{n_{cav}}+\delta a^\dag)(\sqrt{n_{cav}}+\delta a)(b+b^\dag)\simeq h g (\delta a^\dag+\delta a)(b+b^\dag)\end{equation}
+
+Lo que define una \textcolor{red}{Linealización} de \ref{eq9.22}
+
+\begin{equation}\label{eq9.26}H^\prime=-\hslash\Delta \delta a^\dag \delta a +\hslash \Omega_m b^\dag b -\hslash g (\delta a^\dag b+ \delta ab+\delta a^\dag b^\dag + \delta a b^\dag) \end{equation}
+
+Esta linealización puede simplificarse si se consideran 2 casos posibles:
+
+\begin{itemize}
+    \item Si $\Delta=-\Omega_m$, el elemento de Interacción se simplifica a $-\hslash g(\delta a^\dag b+ \delta a b^\dag)$.
+    \item Si $\Delta=\Omega_m$, el elemento de Interacción se simplifica a $-\hslash g(\delta ab+\delta a^\dag b^\dag)$.
+\end{itemize}
+
+Con la linealización, también cambian las ecuaciones de Heisenberg de \ref{eq9.23} y \ref{eq9.24}
+
+\begin{equation}\label{eq9.27}\dot{\delta a}=(i\Delta-\frac{\kappa}{2})\delta a+iG(b^\dag+b)(\sqrt{n_{cav}}+\delta a)+\sqrt{\kappa_{ex}}a_{in}(t)+\sqrt{\kappa_0}f_{in}(t)\end{equation}
+\begin{equation}\label{eq9.28}\dot{b}=(-i\Omega_m-\frac{\Gamma_m}{2})b+ig(\delta a+\delta a^\dag)+\sqrt{\Gamma_m}b_{in}(t)\end{equation}
+
+Definiendo las funciones $a_{in}(t)$ y $b_{in}(t)$ como \textcolor{red}{Funciones de ruido}, que siguen las siguiente reglas de Ito:
+
+\begin{equation}\label{eq9.29}<a_{in}(t),a^\dag_{in}(t)>=\delta(t-t^\prime),<a^\dag_{in}(t),a_{in}(t)>=0 \end{equation}
+\begin{equation}\label{eq9.30}<b_{in}(t),b^\dag_{in}(t)>=(n_{th}+1)\delta(t-t^\prime),<b^\dag_{in}(t),b_{in}(t)>=n_{th}\delta(t-t^\prime)\end{equation}
+
+Se puede promediar sobre ellas, obteniendo de \ref{eq9.27} una ecuación lineal para $\delta a$
+
+\begin{equation}\label{eq9.31}<\dot{\delta a}>=(i\Delta-\frac{\kappa}{2})<\delta a>+iG\sqrt{n_{cav}}<x> \end{equation}
+
+Usando \ref{eq9.15} y \ref{eq9.30}, se obtiene una ecuación diferencial para $b$ ($\Gamma_{eff}=\frac{\Gamma_m}{2}+i\Omega_m$):
+
+ \begin{equation}\label{eq9.32}\dot{b}+\dot{b}^\dag=-\Gamma_{eff}b-\Gamma^*_{eff}b^\dag\textcolor{red}{\Rightarrow} \ddot{b}+\ddot{b^\dag}=-\Gamma_{eff}\dot{b}-\Gamma^*_{eff}\dot{b}^\dag=-\Gamma_m(\dot{b}+\dot{b}^\dag)-2i\Omega_m(\dot{b}-\dot{b}^\dag)\end{equation}
+ 
+Calculando desde \ref{eq9.28} y su conjugado el último sumando de \ref{eq9.32} se termina de resolver:
+
+\begin{equation}\label{eq9.33}2i\Omega_m(\dot{b}-\dot{b}^\dag)=2i(\frac{1}{2}(i\Omega_m(b+b^\dag)+2ig(\delta a+\delta a^\dag)))\textcolor{red}{\Rightarrow}\ddot{b}+\ddot{b}^\dag= -\Gamma_m(\dot{b}+\
+dot{b}^\dag)-(\Omega_m(b+b^\dag)+g(\delta a+\delta a^\dag))\end{equation}
+
+Se puede hacer un promedio para $x$ análogo a \ref{eq9.31}, obteniendo una dinámica \textcolor{red}{similar al caso clásico} ($x_{ZPF}=\sqrt{\frac{\hslash}{2m_{eff}\Omega_m}}$)
+
+\begin{equation}\label{eq9.34} m_{eff}\ddot{<x>}=m_{eff}x_{ZPF}<\ddot{b}+\ddot{b}^\dag>=-m_{eff}\Gamma_m \dot{<x>}-m_{eff}\Omega_m<x>+\hslash G\sqrt{n_{cav}}(\delta a+\delta a^\dag )\end{equation}
+
+Si se escriben las ecuaciones \ref{eq9.31} y \ref{eq9.33} en el espacio de frecuencias (pasando de $<\delta a>\textcolor{red}{\rightarrow} \alpha(\omega)$ y de $<x>\textcolor{red}{\rightarrow} x(\omega)$).
+
+\begin{equation}\label{eq9.35}-i\omega\alpha(\omega)=(i\Delta-\frac{\kappa}{2})\alpha(\omega)+iG\sqrt{n_{cav}}x(\omega)\end{equation}
+\begin{equation}\label{eq9.36}-m_{eff}\omega^2x(\omega)=im_{eff}\omega\Gamma_m x(\omega)-m_{eff}\Omega_m x(\omega)+hG\sqrt{n_{cav}}(\alpha(\omega)+(\alpha(-\omega))^*)\end{equation}
+
+En lo último se aprovecha que $(\alpha^*)(\omega)=(\alpha(-\omega))^*$. El movimiento mecánico para \ref{eq9.37} puede aproximarse mediante la \textcolor{red}{respuesta lineal} que se obtiene despejando $x(\omega)$ para una dinámica lineal (que no contiene al último sumando de \ref{eq9.36}), equivalente a lo obtenido para un oscilador amortiguado.
+
+\begin{equation}\label{eq9.37}X_{xx,0}(\omega)=\frac{x(\omega)}{m_{eff}(-\omega^2 x(\omega)-i\Gamma_m\omega x(\omega)+\Omega_mx(\omega))}=\frac{1}{m_{eff}((\Omega_m-\omega^x)-i\omega\Gamma_m)}\end{equation}
+
+Tal que la respuesta lineal evaluada en las transformadas de Fourier es $\delta x(\omega)=X_{xx}(\omega)F_{ext}(\omega)$. Se puede considerar el efecto del último sumando de \ref{eq9.36} como una perturbación a lo obtenido en \ref{eq9.37}
+
+\begin{equation}\label{eq9.38}\frac{1}{X_{xx}(\omega)}=\frac{1}{X_{xx,0}(\omega)}+\Sigma(\omega)\end{equation}
+
+¿Cómo obtener $\Sigma(\omega)$? Despejando $\alpha(\omega)$ respecto a $x(\omega)$ en \ref{eq9.35} para obtener un sumando análogo a los obtenidos en \ref{eq9.37} a partir de la ecuación \ref{eq9.36}
+
+\begin{equation}\label{eq9.39}\textcolor{red}{\Rightarrow}\alpha(\omega)=\frac{iG\sqrt{n_{cav}}x(\omega)}{\frac{\kappa}{2}-i(\omega+\Delta)}=\frac{-G\sqrt{n_{cav}}x(\omega)}{i\frac{\kappa}{2}+(\Delta+\omega)}\textcolor{red}{\Rightarrow}(\alpha(-\omega))^*=\frac{-G\sqrt{n_{cav}}x(\omega)}{-i\frac{\kappa}{2}+(\Delta-\omega)}\end{equation}
+
+Usando \ref{eq9.39} para reemplazar $\alpha(\omega)$ en \ref{eq9.36} se puede obtener el elemento no trivial de \ref{eq9.38}
+
+\begin{equation}\label{eq9.40}\Sigma(\omega)=-\frac{\hslash G\sqrt{n_{cav}}(\alpha(\omega)+(\alpha(-\omega))^*)}{x(\omega)}=\hslash G^2 n_{cav}\{\frac{1}{(\Delta+\omega)+i\frac{\kappa}{2}}+\frac{1}{(\Delta-\omega)-i\frac{\kappa}{2}}\}\end{equation}
+
+Considerando que $G^2=\frac{g_0^2}{x_{ZPL}^2}=\frac{2g^2m_{eff}\Omega_m}{\hslash n_{cav}}$, se puede escribir \ref{eq9.40} como:
+
+\begin{equation}\label{eq9.41}\Sigma(\omega)=2m_{eff}g^2\Omega_m\{\frac{1}{(\Delta+\omega)+i\frac{\kappa}{2}}+\frac{1}{(\Delta-\omega)-i\frac{\kappa}{2}}\}=m_{eff}\omega\frac{g^2\Omega_m}{\omega}\{\frac{2\Delta+2\omega-i\kappa}{(\Delta+\omega)^2+\frac{\kappa^2}{4}}+\frac{2\Delta-2\omega+i\kappa}{(\Delta-\omega)^2+\frac{\kappa^2}{4}}\}\end{equation}
+
+Definiendo los operadores de \textcolor{red}{variación de frecuencia mecánica} $\delta\Omega_m(\omega)$ y de \textcolor{red}{amortiguamiento optomecánico efectivo} $\Gamma_{opt}(\omega)$
+
+\begin{equation}\label{eq9.42}\delta\Omega_m(\omega)=\frac{g^2\Omega_m}{\omega}[\frac{\Delta+\omega}{(\Delta+\omega)^2+\frac{\kappa^2}{4}}+\frac{\Delta-\omega}{(\Delta-\omega)^2+\frac{\kappa^2}{4}}]\end{equation}
+\begin{equation}\label{eq9.43}\Gamma_{opt}(\omega)=\frac{g^2\Omega_m}{\omega}[\frac{\kappa}{(\Delta+\omega)^2+\frac{\kappa^2}{4}}-\frac{\kappa}{(\Delta-\omega)^2+\frac{\kappa^2}{4}}]\end{equation}
+
+Se puede redefinir \ref{eq9.41} de manera conveniente para algunos cálculos:
+
+\begin{equation}\label{eq9.44}\Sigma(\omega)=m_{eff}\omega(2\delta\Omega_m(\omega)-i\Gamma_{opt}(\omega))\end{equation}
+
+Lo calculado servirá para los siguientes ejemplos de sistemas optomecánicos.
+
+\section{Enfríamiento Estático}
+
+Un sistema de congelamiento dinámico consiste en un sistema optomecánico cuyo principal objetivo es \textcolor{red}{reducir el número de fonones promedio} lo más posible (de ahí que se habla de \textit{enfríamiento}. El \textcolor{red}{Número de fonones} se define como la suma de los números posibles multiplicados por su respectiva probabilidad:
+
+\begin{equation}\label{eq9.45} \bar{n}=\sum_{n=0}^\infty nP_n \end{equation}
+
+Este número evoluciona de acuerdo a la siguiente ecuación diferencial:
+
+\begin{equation}\label{eq9.46}\dot{\bar{n}}=(\bar{n}+1)(A^++A^+_{th})-\bar{n}(A^-+A_{th}^-)=  -\bar{n}(-\Gamma_{opt}-A_{th}^++A_{th}^-)+(A^++\bar{n}_{th}\Gamma_m)\end{equation}
+
+La última igualdad se obtiene definiendo $A_{th}^+=\bar{n}_{th}\Gamma_m$ y $\Gamma_{opt}=A^--A^+$. Si se usa que $\Gamma_m=A^-_{th}-A^+_{th}$, se puede hallar una solución estacionaria: (despejar una solución para $\dot{\bar{n}}=0$
+
+\begin{equation}\label{eq9.47}\bar{n}_f=\frac{A^++\bar{n}_{th}\Gamma_m}{\Gamma_{opt}+\Gamma_{m}}\end{equation}
+
+Si $\Gamma_m=0$, \ref{eq9.47} se convierte en la solución estacionaria para un oscilador mecánico que \textcolor{red}{no interactúa con su ambiente}:
+
+\begin{equation}\label{eq9.48}\bar{n}_{f,0}=\frac{A^+}{\Gamma_{opt}}=\frac{A^+}{A^--A^+}\end{equation}
+
+A partir de lo obtenido en \ref{eq9.47} y \ref{eq9.48} se define un problema de \textcolor{red}{ambiente ruidoso}. Se pueden definir los coeficientes calculados para el Hamiltoniano como resultado de los amortiguamientos entre ambos:
+
+\begin{equation}\label{eq9.49}\begin{bmatrix}\Gamma_{n\rightarrow n-1}\\ \Gamma_{n\rightarrow n+1}\end{bmatrix}=\begin{bmatrix} nA^-\\(n+1)A^+
+\end{bmatrix}\end{equation}
+
+Si se considera que el oscilador está acoplado a este ambiente ruidoso, el que induce su transición a niveles superiores o inferiores. El Hamiltoniano de interacción será:
+
+\begin{equation}\label{eq9.50} H_{in}=-A\times F \textcolor{red}{(}AF=-\hslash G a^\dag a\textcolor{red}{)}\end{equation}
+
+Para este Hamiltoniano se definen las tasas de transición:
+
+\begin{equation}\label{eq9.51}\Gamma_{n\rightarrow n+1}=\frac{A^2}{\hslash^2}x^2_{ZPF}(n+1)S_{FF}(-\Omega)\end{equation}
+\begin{equation}\label{eq9.52}\Gamma_{n\rightarrow n-1}=\frac{A^2}{\hslash^2}x^2_{ZPF}(n)S_{FF}(\Omega)\end{equation}
+
+Que son posibles porque $\Omega=\Omega_m$ y la ecuación para $S_{FF}(\omega)$ es:
+
+\begin{equation}\label{eq9.53}S_{FF}(\omega)=\int_{-\infty}^\infty dte^{i\omega t}<F(t)F(0)>\end{equation}
+
+Como comentario, la tasa de transición de \ref{eq9.51} es proporcional a $\lvert\bra{n+1}x\ket{n}\rvert^2$. $A$ es una constante de integración que sin perder generalidad se puede considerar $1$. Dicho esto, de \ref{eq9.51} y \ref{eq9.52}, se definen los valores de $A^\pm$ usando \ref{eq9.49}
+
+\begin{equation}\label{eq9.54}A^\pm=\frac{x^2_{ZPF}}{\hslash^2}S_{FF}(\omega=\mp \Omega)=g_0^2S_{NN}(\omega=\mp\Omega)\end{equation}
+
+$S_{NN}$ corresponde a la correlación del operador número de partículas:
+
+\begin{equation}\label{eq9.55}S_{NN}(t)=<a^\dag(t)a(t)a^\dag(0)a(0)>-<a^\dag(t)a(t)>^2\end{equation}
+
+Si se define $a(t)$ como un operador que fluctúa respecto a un valor estable se puede calcular \ref{eq9.55}
+
+\begin{equation}\label{eq9.56}a(t)=e^{-i\omega_L t}(\bar{a}+d(t))\textcolor{red}{\Rightarrow} S_{NN}(t)=\bar{n}<d(t)d^\dag(0)>\end{equation}
+
+Si una cavidad amortiguada tiene una correlación $<d(t)d^\dag(0)>$ definida, se puede obtener $S_{NN}(t)$ y su correspondiente función transformada $S_{NN}(\omega)$:
+
+\begin{equation}\label{eq9.57}<d(t)d^\dag(0)>=e^{i\Delta t}e^{-\frac{\kappa}{2}\lvert t \rvert}\textcolor{red}{\Rightarrow} S_{NN}(\omega)=\int_{-\infty}^\infty dt e^{i\omega t}(\bar{n}e^{i\Delta t}e^{-\frac{\kappa}{2}\lvert t\rvert})=\frac{\bar{n}_{cav}\kappa}{(\omega+\Delta)^2+(\frac{\kappa^2}{4})}\end{equation}
+
+En lo último se ocupa $\bar{n}=\bar{n}_{cav}$, recuperando la notación para sistemas optomecánicos definida anteriormente. Insertando \ref{eq9.57} en \ref{eq9.54}:
+
+\begin{equation}\label{eq9.58}A^\pm=g_0^2\frac{\bar{n}_{cav}\kappa}{(\Delta\mp\Omega_m)^2+\frac{\kappa^2}{4}}\end{equation}
+
+Con lo obtenido en \ref{eq9.58}, se puede obtener el número mínimo de fotones:
+
+\begin{equation}\label{eq9.59}\bar{n}_{min}=\frac{1}{\frac{A^-}{A^+}-1}=\frac{1}{\frac{(\Delta-\Omega_m)^2+\frac{\kappa^2}{4}}{(\Delta+\Omega_m)^2+\frac{\kappa^2}{4}}-1}\end{equation}
+
+Para un régimen en el que $\kappa << \Omega_m=\Delta$, se simplifica \ref{eq9.59}
+
+\begin{equation}\label{eq9.60}\bar{n}_{min}=\frac{(\Delta-\Omega_m)^2+\frac{\kappa 2}{4}}{4\Delta\Omega_m}\simeq \frac{\kappa^2}{4^2\Omega_m^2}=(\frac{\kappa}{4\Omega_m})^2<1\end{equation}
+
+Reemplazando $A^+=\Gamma_{opt}\bar{n}_{min}$ en \ref{eq9.47}, se obtiene el número de estado estacionario para el sistema de enfríamiento estático:
+
+\begin{equation}\label{eq9.61}\bar{n}_f=\frac{\Gamma_{opt}\bar{n}_{min}+n_{th}\Gamma_m}{\Gamma_{opt}+\Gamma_m}=\bar{n}^{th}_{cav}+\frac{\kappa^2}{16\Omega^2_m}+\bar{n}_{th}\frac{\Gamma_m}{\Gamma_{eff}}\end{equation}
+
+En la última igualdad se definió $\Gamma_{eff}=\Gamma_{opt}+\Gamma_m$ y se usó la definición de \ref{eq9.60}, definiendo con esto $\bar{n}^{th}_{cav}=-\bar{n}_{min}(\frac{\Gamma_{m}}{\Gamma_{eff}})$ De acá se impone la condición para que exista enfríamiento:
+
+\begin{equation}\label{eq9.62}\bar{n}_{th}=\frac{k_BT_{bath}}{\hslash\Omega_m}>>\bar{n}_{cav}^{th}=\frac{k_BT_{bath}}{\hslash\omega_{cav}}\end{equation}
+
+Lo que mantiene el número termal positivo. La siguiente sección hace un análisis más completo del problema considerando movimiento.
+
+\section{Enfriamiento Dinámico}
+
+Se presenta el formalismo para definir un proceso de enfríamiento para un oscilador mecánico, cuyo estado inicial es de una cavidad con cero excitaciones y un oscilado en un estado tipo termal:
+
+\begin{equation}\label{eq9.63}\rho(0)=\ket{0}_C\bra{0}\otimes\sum_{n=0}^\infty\frac{n_{th}^n}{(1+n_{th})^{n+1}}\ket{n}_m\bra{n}\end{equation}
+
+El Hamiltoniano para el reservorio (que contiene tanto a la cavidad como al oscilador mecánico) es:
+
+\begin{equation}\label{eq9.64}H_r=\int_0^\infty d\omega_1\omega_1\xi_c^\dag(\omega_1)\xi_c(\omega_1)+\int_0^\infty d\omega_2\omega_2\xi_m^\dag(\omega_2)\xi_m(\omega_2)\end{equation}
+
+Para operadores de campo $\xi_c(\omega)$ y $\xi_m(\omega)$ que cumplen estadística de Bose Einstein ($[\xi(\omega),\xi^\dag(\omega^\prime)]=\delta(\omega-\omega^\prime)$). Se puede escribir también el Hamiiltoniano de Interacción para todo el sistema usando el mismo tipo de operadores: 
+
+\begin{equation}\label{eq9.65}H_{s-r}=i\int_0^\infty d\omega_1\kappa(\omega_1)(a-a^\dag)\{\xi_c^\dag(\omega_1)+\xi_c(\omega_1)\}+i\int_0^\infty d\omega_2\gamma_m(\omega_2)(b-b^\dag)\{\xi_m^\dag(\omega_2)+\xi_m(\omega_2)\}\end{equation}
+
+Haciendo un paso a marco de interacción con el siguiente operador de evolución temporal:
+
+\begin{equation}\label{eq9.66}U(t)=e^{-i\int_0^t ds (H_r(s)+\omega_c a^\dag a+\omega_m b^\dag b)}\end{equation}
+
+Se puede escribir el hamiltoniano de \ref{eq9.66} en el marco de interacción.
+
+\begin{equation}\label{eq9.67}\begin{aligned} H_{s-r}(\omega)=i\int_0^\infty d\omega_1\kappa(\omega_1)(ae^{-i\omega_c t}-a^\dag e^{i\omega_c t})\{\xi_c^\dag(\omega_1)e^{i\omega_1 t}+\xi_c(\omega_1)e^{-i\omega_1 t}\}\\+i\int_0^\infty d\omega_2\gamma_m(\omega_2)(be^{-i\omega_m t}-b^\dag e^{i\omega_m t})\{\xi_m^\dag(\omega_2)e^{i\omega_2 t}+\xi_m(\omega_2)e^{-i\omega_2 t}\}\end{aligned}\end{equation} 
+
+Para escribir la \textcolor{red}{aproximación de onda rotante} de \ref{eq9.67} basta aproximar $\kappa(\omega)\textcolor{red}{\rightarrow}\sqrt{\frac{\kappa}{\pi}}$ y $\gamma_m(\omega)\textcolor{red}{\rightarrow}\sqrt{\frac{\gamma_m}{\pi}}$ y considerar solo los elementos tipo \textit{beam splitter}:
+
+\begin{equation}\label{eq9.68}H_{s-r}(t)=i\sqrt{2\kappa}(a^\dag \xi_c(t)-a\xi_c^\dag(t))+i\sqrt{2\gamma_m}((b^\dag \xi_m(t)-b\xi_m^\dag(t))\end{equation}
+
+Dentro del mismo marco rotante se puede escribir un Hamiltoniano completo que incluye el \textcolor{red}{elemento de ruido} definido en \ref{eq9.68}, el \textcolor{red}{elemento de campo} y el \textcolor{red}{elemento optomecánico} que se definirán a continuación ($\Delta=\omega_c-\omega_l$)
+
+\begin{equation}\label{eq9.69}H_e(t)=iE(a^\dag e^{i\Delta t}-ae^{-i\Delta t})\end{equation}
+\begin{equation}\label{eq9.70}H_{om}(t)=-ga^\dag a(be^{-i\omega_m t}+b^\dag e^{i\omega_m t})\end{equation}
+
+Haciendo la evolución temporal para el operador hecho con el Hamiltoniano total $H_{s-r}(t)+H_e(t)+H_{om}(t)$ se obtienen las siguientes ecuaciones de Heisenberg para $a$ y $b$:
+
+\begin{equation}\label{eq9.71}\dot{a}=-\kappa a+ig(be^{-i\omega_m t}+b^\dag e^{i\omega_m t})+Ee^{i\Delta t}+\sqrt{2\kappa}\xi_c(t)\end{equation}
+´\begin{equation}\label{eq9.72}\dot{b}=-\gamma_m b+ige^ {i\omega_m t}a^\dag a +\sqrt{2\gamma_m}\xi_m(t)\end{equation}
+
+Se puede manipular el Hamiltoniano completo expresando el resultado de aplicar $H_e(t)$ de \ref{eq9.69} primero y escribir el resto de operadores respecto a esa evolución. Esto no hace más que inducir la transformación sobre el operador $a$
+
+
+\begin{equation}\label{eq9.73}a\textcolor{red}{\rightarrow}a-i\frac{e^{i\Delta t}-1}{\Delta}E=a-if(t)E\textcolor{red}{(}f(t)=\frac{e^{i\Delta t}-1}{\Delta}\textcolor{red}{)}\end{equation}
+
+Si se reemplaza \ref{eq9.73} en \ref{eq9.68} y \ref{eq9.70} se puede escribir el Hamiltoniano en el nuevo marco rotante ($b(t)=be^{-i\omega_m t}$,$F(t)=f(t)E$):
+
+\begin{equation}\label{eq9.74}H^{in}(t)=i\sqrt{2\kappa}((a^\dag+iF^\dag(t))\xi_c(t)-(a-iF(t))\xi_c^\dag(t))+i\sqrt{2\gamma_m}((b^\dag \xi_m(t)-b\xi_m^\dag(t))-g(a^\dag+iF^\dag(t))(a-iF(t))(b(t)+b^\dag (t))\end{equation}
+
+El último sumando de \ref{eq9.75}, dependiente de $g$, puede descomponerse en 4 elementos:
+
+\begin{equation}\label{eq9.75}-g(a^\dag a+F^\dag(t) F(t)+iF^\dag(t)a-iF(t)a^\dag)(b(t)+b^\dag(t))=H_{nl}(t)+H_{disp}(t)+H_{c1}(t)+H_{c2}(t)\end{equation}
+
+Estos 4 elementos corresponden a la evolución \textcolor{red}{no lineal}, \textcolor{red}{de desplazamiento} y \textcolor{red}{de acoplamiento} (1 y 2). Se definen así:
+
+\begin{equation}\label{eq9.76}H_{nl}(t)=-ga^\dag a(b(t)+b^\dag(t))\end{equation}
+\begin{equation}\label{eq9.77}H_{disp}(t)=-gF^\dag(t)F(t)(b(t)+b^\dag(t))\end{equation}
+\begin{equation}\label{eq9.78}H_{c1}(t)=ig(F(t)a^\dag b(t)-F^\dag(t)ab^\dag(t))\end{equation}
+\begin{equation}\label{eq9.79}H_{c2}(t)=ig(F(t)a^\dag b^\dag(t)-F^\dag(t)ab(t))\end{equation}
+
+Los Hamiltonianos de \ref{eq9.78} y \ref{eq9.79} pueden simplificarse para 2 situaciones límite, tomando la aproximación $-i(e^{i\Delta t}-1)\simeq \Delta t$:
+
+\begin{equation}\label{eq9.80}\Delta=\omega_m\textcolor{red}{\Rightarrow}H_{c1}(t)=i\frac{gE}{\omega_m}(a^\dag b-ab^ \dag),H_{c2}(t)=i\frac{gE}{\omega_m}(a^\dag b^\dag(2t)-ab(2t))\end{equation}
+\begin{equation}\label{eq9.81}\Delta=-\omega_m\textcolor{red}{\Rightarrow}H_{c1}(t)=i\frac{gE}{\omega_m}(a^\dag b(2t)-ab^ \dag(2t)),H_{c2}(t)=i\frac{gE}{\omega_m}(a^\dag b^\dag-ab)\end{equation}
+
+Para un operador cualquiera $O(a,a^\dag,b,b^\dag)$ se puede calcular su valor de expectación usando los desarrollos obtenidos anteriormente (siendo $U(t)$ el operador evolución temporal con $H^{in}$ y $U_0(t)$ el con $H_e(t)$:
+
+\begin{equation}\label{eq9.82}<O(t)>=Tr_{S,R}(O(t)\rho)\simeq Tr_{S,R}(U^\dag(t)U_0^\dag(t)OU_0(t)U(t)\rho(0)\rho_r)\end{equation}
+
+Con esto se puede escribir el siguiente sistema de ecuaciones diferenciales para los operadores base para $O$:
+
+\begin{equation}\label{eq9.83}\begin{bmatrix}\dot{a}\\\dot{a^\dag}\\\dot{b}\\\dot{b^\dag}\end{bmatrix}=\begin{bmatrix} -\kappa&0&gF(t)e^{-i\omega_mt}& gF(t)e^{i\omega_mt}\\0&-\kappa&gF^\dag(t)e^{-i\omega_mt}&gF^\dag(t)e^{i\omega_mt}\\-gF^\dag(t)e^{i\omega_mt}&gF(t)e^{-i\omega_mt}&-\gamma_m&0\\ gF^\dag(t)e^{-i\omega_mt}&-gF(t)e^{-i\omega_mt}&0 &-\gamma_m\end{bmatrix}\begin{bmatrix}a\\a^\dag\\b\\b^\dag\end{bmatrix}+\begin{bmatrix}i\kappa F(t)\\-i\kappa F^\dag(t)\\ig\lvert F(t)\rvert^2e^{i\omega_mt}\\-ig\lvert F(t)\rvert^2e^{-i\omega_mt}\end{bmatrix}+\begin{bmatrix}\sqrt{2\kappa}\xi_p(t)\\\sqrt{2\kappa}\xi^\dag_p(t)\\\sqrt{2\gamma_m}\xi_m(t)\\\sqrt{2\gamma_m}\xi^\dag_m(t)\end{bmatrix}\end{equation}
+
+Definiendo las matrices y los vectores encontrados como $M(t)$, $\lambda(t)$ y $\eta(t)$, se puede escribir la ecuación \ref{eq9.53} como una ecuación más simple:
+
+\begin{equation}\label{eq9.84}\dot{\vec{x}}(t)=M(t)\vec{x}(t)+\vec{\lambda}(t)+\vec{\eta}(t)\end{equation}
+
+Siguiendo el procedimiento normal para obtenerlas, la ecuación maestra para el Hamiltoniano total es ($O_a=a-iF(t))$:
+
+\begin{equation}\label{eq9.85}\dot{\rho}=-i[H,\rho]-\kappa \mathcal{L}(O_a)-\gamma_m(n_{th}+1)\mathcal{L}(b)-\gamma_m(n_{th})\mathcal{L}(b^\dag)\end{equation}
+
+El sistema de ecuaciones de \ref{eq9.84} tiene como solución (Se puede definir el superoperador de evolución temporal como una matriz $d(\tau,t)$ cuyos elementos de matriz son $d_{ij}(\tau,t)$:
+
+\begin{equation}\label{eq9.86}\vec{x}(t)=\mathcal{T}(e^{\int_0^t d\tau M(\tau)})\vec{x}(t)
++\int_0^t d\tau \mathcal{T}(e^{\int_\tau^t dt^\prime M(t^\prime) })(\vec{\lambda}(\tau)+
+\vec{\eta}(\tau))=d(0,t)\vec{x}(t)+\int_0^t d\tau d(\tau,t)(\vec{\lambda}(\tau)+\vec{\eta}(\tau))\end{equation}
+
+Se puede definir para estudiar el sistema la \textcolor{red}{evolución temporal del número de partículas}, que se puede separar en una parte dependiente de la evolución temporal y otra dependiente del ruido:
+
+\begin{equation}\label{eq9.87}n_m(t)=<b^\dag(t) b(t)>-\lvert<b(t)>\rvert^2=n_m^{evol}(t)+n_m^{ruido}(t)\end{equation}
+
+Reemplazando con \ref{eq9.86} se puede deducir:
+
+\begin{equation}\label{eq9.88}\textcolor{red}{(}j=\{3,4\}\textcolor{red}{)}x_j(t)=\sum_{i=1}^4 d_{j,i}(0,t)x_i(t)+\int_0^t d\tau \sum_{i=1}^4 d_{j,i}(\tau,t)\lambda_i(\tau)\eta_i(\tau)\textcolor{red}{\Rightarrow} n_m(t)=<x_4(t)x_3(t)>-\lvert x_3(t)\rvert^2\end{equation}
+
+\begin{equation}\label{eq9.89}\begin{aligned}\textcolor{red}{\Rightarrow} n_m^{evol}(t)=\lvert d_{4,1}(0,t)\rvert^2+\lvert d_{4,4}(0,t)\rvert^2 n_{th}+\lvert d_{4,3}(0,t)\rvert^2 (n_{th}+1) \\ \textcolor{red}{\Rightarrow} n_m^{ruido}(t)=2\kappa\int_0^t d\tau \lvert d_{4,1}\rvert^2(\tau,t)+2\gamma_m\int_0^t d\tau \{\lvert d_{4,4}(\tau,t)\rvert^2 n_{th}+\lvert d_{4,3}(\tau,t)\rvert^2 (n_{th}+1) \}\end{aligned}
+\end{equation}
+
+Para estudiar esta función se define la \textcolor{red}{Constante de Acoplamiento Efectivo} $J=\frac{gE}{\omega_m \kappa}$, con lo que se puede obtener la evolución temporal de $n_m$ dependiente de la temperatura, hasta alcanzar su valor estable $n_m^f$. La pregunta que surge entonces es \textcolor{red}{¿Bajo qué condiciones se produce el mejor enfríamiento?} (entiéndase como con qué parámetro $n_m^f$ tiene el menor valor posible). Y esto se obtiene para $\frac{\omega_m}{\kappa}\textcolor{red}{\rightarrow}\infty$ y $\Delta=\omega_m$. Si se definen las nuevas variables $\Gamma_m=\frac{\omega_m}{\kappa}$, $\eta_\pm=-1+\Gamma_m\pm\sqrt{(1-\Gamma_m)^2-4J^2}$ y $\lambda_\pm=\frac{1}{2}(-1-\Gamma_m\pm\sqrt{(1-\Gamma_m)^2-4J^2})$.
+
+\begin{equation}\label{eq9.90}n_{m,f}=\Gamma_mn_{th}\frac{1}{\lvert\eta^+-\eta^-\lvert^2}\{4Re(\frac{\eta^*_+\eta_-}{\lambda^*_++\lambda_-})-\frac{\lvert\eta_+\rvert^2}{Re(\lambda_-)}-\frac{\lvert\eta_-\rvert^2}{Re(\lambda_+)}\}\end{equation}
+
+Se puede analizar más sobre procesos de enfríamiento, aunque se requiere el uso de estados gaussianos, lo que se definirá en la siguiente sección.
+
+\section{Estados Gaussianos}
+
+Se puede buscar escribir describir enfriamiento óptimo en términos de la Función de Wigner:
+
+\begin{equation}\label{eq9.91}W(q_m,p_m)=\frac{1}{\pi(1+2n_{th})}e^{-\frac{q_m^2+p_m^2}{1+2n_{th}}}\end{equation}
+
+El enfríamiento idealmente tiende a un estado en el que $n_m^f=0$ y tendría la forma:
+
+\begin{equation}\label{eq9.92}W(q_m,p_m)=\frac{1}{\pi}e^{-(q_m-q_m^0)^2-(p_m-p_m^0)^2}\end{equation} El estado de \ref{eq9.92} corresponde a un \textcolor{red}{Estado Coherente}. Si $q_m^0=p_m^0=0$ se obtiene un \textcolor{red}{Estado de Vacío}.
+
+Los \textcolor{red}{Estados Gaussianos} no son más que la generalización de los estados coherentes, y corresponden a la representación en Espacio de Fases de Osciladores cuánticos que cumplen una relación de conmutatividad análoga a estos:
+
+\begin{equation}\label{eq9.93}[R_k,R_l]=i\Omega_{kl}\end{equation}
+
+Donde $R=(q_1,p_1,..,q_n,p_n)^T$ y $\Omega_{kl}$ son los elementos de la matriz $\Omega=\oplus_{k=1}^n (\sigma_x\sigma_z)$. Un estado Gaussiano tendrá como función característica:
+
+\begin{equation}\label{eq9.94}\chi[\rho](\Lambda)=Tr(\rho e^{-i\Lambda^T\Omega R})=e^{-\frac{1}{2}\Lambda^T\Omega\sigma\Omega^T\Lambda-i\Lambda^T\Omega<R>}\end{equation}
+
+Acá $\Lambda=(a_1,b_1,...,a_n,b_n)^T$ es un \textcolor{red}{vector de coeficientes} y se define la \textcolor{red}{Matriz de Covarianza} $\sigma$:
+
+\begin{equation}\label{eq9.95}\sigma_{kl}=\frac{1}{2}<R_kR_l-R_lR_k>-<R_k><R_l>\end{equation}
+
+Como ejemplo de esta notación, para un estado termal ($N_k=\frac{1}{e^{\beta_k}-1}$):
+
+\begin{equation}\label{eq9.96}\nu=\bigotimes_{k=1}^n \frac{N_k^{a_k^\dag a_k}}{(1+N_k)^{a_k^\dag a_k+1}}=\frac{1}{1+N_k}\sum_{m=0}^\infty(\frac{N_k}{N_k+1})^m \ket{m}_k\bra{m}\end{equation}
+
+Se puede definir su respectiva matriz de covarianza, además de una versión más general para un estado gaussiano cualquiera:
+
+\begin{equation}\label{eq9.97}\sigma_\nu=\bigoplus_{k=1}^n\frac{1}{2}(1+2N_k)\mathbb{I}\textcolor{red}{\Rightarrow}\Sigma_v=\begin{bmatrix}\sigma_1 & \delta_{12} & ... & \delta_{1n} \\ \delta^T_{12} & \sigma_2 & ... & ...\delta_{2n} \\ \vdots & \vdots & \vdots & \vdots\\ \delta_{1n}^T & \delta_{2n}^T& ... & \sigma_n\end{bmatrix}\end{equation}
+
+Para el estado de \ref{eq9.94} se puede calcular la función de Wigner:
+
+\begin{equation}\label{eq9.98
+}W[\rho](\Lambda)=\frac{1}{(2\pi^2)^n}\int d^{2n}\Lambda e^{-i\Lambda^T\Omega X}\chi[\rho](\Lambda)\end{equation}
+
+Siendo $\vec{x}=(x_1,y_1,...,x_n,y_n)^T$. A partir de las siguientes identidades:
+
+\begin{equation}\label{eq9.99}\frac{1}{\pi^{2n}}\int d^{2n}\Lambda e^{-i\Lambda^T\Omega X}=2^n\delta^{(2n)}(X)\end{equation}
+\begin{equation}\label{eq9.100}\int d^{2n}\Lambda e^{-\frac{1}{2}\Lambda^TQ\Lambda+i\Lambda^TX}=\frac{(2\pi)^ne^{-\frac{1}{2}X^TQ^{-1}X}}{\sqrt{det(Q)}}\end{equation}
+
+Se puede reescribir la función de Wigner para el estado gaussiano:
+
+\begin{equation}\label{eq9.101}W[\rho](X)=\frac{1}{\pi^n \sqrt{det(\sigma)}}e^{-\frac{1}{2}(X-<R>)^T\sigma^{-1}(X-<R>)}\end{equation}
+
+La que se debe poder escribir con una forma similar a la de una Función de Wigner. Si a un estado gaussiano se le hace evolucionar con un Hamiltoniano con la siguiente forma:
+
+\begin{equation}\label{eq9.102}H=\sum_{k=1}^n g_k^{(1)} a_k^\dag +\sum_{k\geq l=1}^n g_{kl}^{(2)}a_k^\dag a_l+\sum_{k,l=1}^n g_{kl}^{(3)}a_k^\dag a_l^\dag +h.c.\end{equation}
+
+Los operadores \textcolor{red}{son tranformados} por la evolución temporal de la siguiente manera:
+
+\begin{equation}\label{eq9.103}\vec{R}\textcolor{red}{\rightarrow}F\vec{R}+\vec{d}, \sigma\textcolor{red}{\rightarrow} F\sigma F^\dag\end{equation}
+
+La matriz $F$ es llamada \textcolor{red}{transformación simpléctica}. Como ejemplo de esto último, para el Hamiltoniano que produce compresión de un modo se puede definir un operador simpléctico de manera que $a$ y $b$ transforman a la manera de \ref{eq9.103}
+
+\begin{equation}\label{eq9.104}H=ab+a^\dag b^\dag \textcolor{red}{\Rightarrow} F^\dag=S_2(\xi)=e^{\xi a^\dag b^\dag-\xi^* ab}\textcolor{red}{:}F\begin{bmatrix} a\\ b\end{bmatrix}F^\dag= \begin{bmatrix}cosh(r)a+e^{i\psi} sinh(r)b^\dag \\ cosh)r)b-e^{i\psi}sinh(r)a^\dag \end{bmatrix}\end{equation}
+
+Para un estado gaussiano de 2 modos la matriz de covarianza es:
+f
+\begin{equation}\label{eq9.105}\sigma=\begin{bmatrix} A& C^T\\ C& B\end{bmatrix}=\begin{bmatrix} a&0&c_1&0 \\ 0&a&0&c_2 \\ c_1&0&b&0 \\ 0&c_2&0&b \end{bmatrix}\end{equation}
+
+Se define $I_1=det(A)$, $I_2=det(B)$, $I_3=det(C)$, $I_4=det(\sigma)$. Si $\Delta(\sigma)=I_1+I_2+2I_3$, sus \textcolor{red}{invariantes simplécticas} son:
+
+\begin{equation}\label{eq9.106}d_\pm=\sqrt{\frac{\Delta(\sigma)\pm\sqrt{\Delta(\sigma)^2-4I_4}}{2}}\end{equation}
+\section{Entrelazamiento entre 2 Osciladores}
+
+Si 2 estados gaussianos son separables se puede construir un \textcolor{red}{estado parcialmente transpuesto}: 
+\begin{equation}\label{eq9.107}\rho_{AB}=\sum_kp_k(\rho_k^{(A)}\otimes\rho_k^{(B)})\textcolor{red}{\Rightarrow} \rho_{AB}^{T_A}=\sum_kp_k((\rho_k^{(A)})^T\otimes\rho_k^{(B)})\end{equation}
+
+Los estados definidos en \ref{eq9.107} deben tener autovalores no negativos. Esta condición es necesaria para los estados entrelazados. Se puede generalizar lo anterior definiendo un \textcolor{red}{Operador Transpuesto Parcial}
+
+\begin{equation}\label{eq9.108}\Delta_A=diag(1,-1)\oplus\mathbb{I}_2\textcolor{red}{\Rightarrow} \sigma^{T_A}=\tilde{\sigma}=\Delta_A\sigma\Delta_A\end{equation}
+
+Si se aplican los operadores definidos en \ref{eq9.105} y \ref{eq9.106} se obtiene que $\tilde{I_1}=I_1$, $\tilde{I_2}=I_2$, $\tilde{I_3}=-I_3$ y $\tilde{I_4}=I_4$. Sus respectivas invariantes simplécticas serán ($\tilde{\Delta}=\tilde{I_1}+\tilde{I_2}+2\tilde{I_3}$):
+
+\begin{equation}\label{eq9.109}\tilde{d}_\pm=\sqrt{\frac{\tilde{\Delta}(\sigma)\pm\sqrt{\tilde{\Delta}(\sigma)^2-4I_4}}{2}}\end{equation}
+
+A partir de \ref{eq9.109}, análogamente a lo estudiado en Información Cuántica, se puede calcular la \textcolor{red}{Negatividad Logarítmica} de $\sigma$:
+
+\begin{equation}\label{eq9.110}E(\sigma)=max\{0,-log 2\tilde{d}_-\}\end{equation}
+
+Usando todo lo anterior, se puede calcular el entrelazamiento para un sistema de 2 osciladores que interactúan entre sí. Para el estado inicial termal definido en \ref{eq9.63} se obtienen los resultados de Langevin obtenidos en \ref{eq9.83} y la evolución temporal dada por el Hamiltoniano definido por \ref{eq9.74} y \ref{eq9.75}. Si $\Delta=-\omega_m$ (lo que es llamado en literatura como \textcolor{red}{\textit{blue detuning}}) y $\frac{\omega_m}{\kappa}\textcolor{red}{\rightarrow}\infty$ se puede escribir una simplificación de lo obtenido en \ref{eq9.83} ($J=\frac{gE}{\omega_m}$)
+
+\begin{equation}\label{eq9.111}\dot{a}=-\kappa a+Jb^\dag+i\frac{\kappa J}{g}+\sqrt{2\kappa}\xi_c(t)\end{equation}
+\begin{equation}\label{eq9.112}\dot{b}=-\gamma_m b+Ja^\dag-i\frac{J^2}{g}+\sqrt{2\gamma_m}\xi_m(t)\end{equation}
+
+Se puede reescribir la matriz de covarianza de \ref{eq9.95} para el vector $u(t)=(x_C(t),p_C(t),x_M(t),p_M(t))^T$ y usando $\delta u_i(t)=u_i(t)-<u_i(t)>$:
+
+\begin{equation}\label{eq9.113}V_{ij}(t)=\frac{1}{2}<\delta u_i(t)\delta u_j(t)+\delta u_j(t)\delta u_i(t)>\end{equation}
+
+Con la negatividad de la matriz traspuesta parcial definida en \ref{eq9.110} se puede evaluar el entrelazamiento de los osciladores usando como $d_-$ lo obtenido para la matriz $V$ definida en \ref{eq9.113}. Otra forma de hacerlo es mediante la medición de \textcolor{red}{pureza} del estado, que no es más que la traza del cuadrado del estado:
+
+\begin{equation}\label{eq9.114}\mu(\rho(t))=Tr (\rho^2(t))=\frac{1}{4\sqrt{Det(V(t))}}\end{equation}
+
+Para un estado puro $\mu(\rho(t))=1$. Cuanto más mezclado esté el estado, menor será $\mu(\rho(t))$. En el límite, la negatividad será:
+
+\begin{equation}\label{eq9.115}E_N=-ln(\frac{J^2(\kappa+2\gamma_mn_{th})-\kappa(\sqrt{4J^2+\kappa^2}-\kappa)\gamma_mn_{th}}{J^2\sqrt{4J^2+\kappa^2}})\end{equation}
+
+Se encuentra entonces que \textcolor{red}{el ruido de la cavidad es más significativo para el entrelazamiento}. Si se conoce que para que exista decoherencia $\frac{Q}{n_{th}}>>1$, la pureza será mucho más alta cumpliéndose esta condición. De todas formas, puede haber entrelazamiento para los 2 intervalos que no incluyen al anterior, estos son $\frac{Q}{n_{th}}>1$ y $\frac{Q}{n_{th}}\sim 1$. 
+
+Se puede evaluar cuánto acoplamiento efectivo se requiere para realizar entrelazamiento entre los osciladores bajo cierta decoherencia termal evaluando $\frac{J}{\kappa}=\frac{g_mE}{\omega_m\kappa}$ respecto a $\frac{\omega_m n_{th}}{\kappa}$.
+
+Se pueden también conectar 2 pares de osciladores acoplados y medir sus campos usando detección homodina. Si se tienen los vectores $x_1=(x_C^1,p_C^1,x_M^1,p_M^1)^T$ y $x_2=(x_C^2,p_C^2,x_M^2,p_M^2)^T$ se puede definir su respectiva función de Wigner:
+
+\begin{equation}\label{eq9.116}W(X_1,X_2)=\mathcal{N}e^{-\frac{1}{2}(x_1^TV_1^{-1}x_1+x_2^TV_2^{-1}x_2)}\end{equation}
+
+Se puede aplicar la siguiente transformación para los operadores que viven en el subespacio de cavidad:
+
+\begin{equation}\label{eq9.117}\begin{bmatrix} (x^\prime)^1_C\\(x^\prime)^2_C\\(p^\prime)^1_C\\(p^\prime)^2_C\end{bmatrix}=\sqrt{\frac{\kappa}{2}}\begin{bmatrix} 1&1&0&0\\1&-1&0&0\\0&0&1&1\\0&0&1&-1\end{bmatrix}\begin{bmatrix} x^1_C\\x^2_C\\p^1_C\\p^2_C\end{bmatrix}\end{equation}
+
+Si se insertan los valores de \ref{eq9.117} en \ref{eq9.116} se calcula $W(X^1_M,X^2_M)$, que entrega una cuantificación del entrelazamiento entre los pares de osciladores.
+
+Se puede estudiar la influencia de un reservorio no Markoviano mediante las siguientes definiciones de los valores de expectación para los siguientes valores de ruido en un reservorio bosónico:
+
+\begin{equation}\label{eq9.118}<[\zeta(t),\zeta(t^\prime)]>_R=i\dot{\gamma}(t-t^\prime)=-i\frac{2\gamma_m}{\pi\omega_m}\int_0^\infty d\omega \omega sin(\omega(t-t^\prime))\end{equation}
+\begin{equation}\label{eq9.119}<\{\zeta(t),\zeta(t^\prime)+\zeta(t^\prime),\zeta(t\}>_R=\frac{2\gamma_m}{\pi\omega_m}\int_0^\infty d\omega \omega coth(\frac{\beta\hslash\omega}{2})cos(\omega(t-t^\prime))\end{equation}
+
+A partir de \ref{eq9.118} y \ref{eq9.119} se puede obtener lo siguiente, que se puede aproximar para $\frac{2}{\beta}>>\hslash\omega$:
+
+\begin{equation}\label{eq9.120}<\{\zeta(t),\zeta(t^\prime)+\zeta(t^\prime),\zeta(t\}>_R\simeq\frac{4\gamma_m}{\pi\hslash\beta\omega_m}\int_0^\infty d\omega cos(\omega(t-t^\prime))=\frac{4\gamma_m}{\hslash\beta\omega_m}\delta(t-t^\prime)\end{equation}
+
+\section{Laser de Fonones}
+Un Laser de fonones se define como la \textcolor{red}{emisión estimulada de fonones} bajo inversión de población de supermodos. Para un sistema original acoplado con 2 cavidades ($\hslash=1$):
+
+\begin{equation}\label{eq9.121}H_C=\omega_c(a_1^\dag a_1+a_2^\dag a_2)+J(a_1a_2^\dag+a_1^\dag a_2)\end{equation}
+
+Se pueden definir los siguientes autoestados y autoenergías: \begin{equation}\label{eq9.122}O_{1,2}=\frac{a_1\pm a_2}{\sqrt{2}} \textcolor{red}{(}E_\pm=\omega_c\pm J\textcolor{red}{)}\end{equation}
+
+A este sistema se le puede agregar un Hamiltoniano de interacción con ruido:
+
+\begin{equation}\label{eq9.123}H_I=i\{E(a_1^\dag e^{-i\omega_L t}-a_1 e^{i\omega_L t})+\sqrt{2\kappa}(a_1^\dag\xi_p(t)-a_1\xi^\dag_p(t))+\sqrt{2\gamma_m}(b^\dag\xi_m(t)-b\xi^\dag_m(t))+\sqrt{2g(t)}(a_2^\dag\xi_a^\dag(t)-a_2\xi_a(t))+\sqrt{2\gamma}(a^\dag_2\xi_a(t)-a_2\xi^\dag_a(t))\}\end{equation}
+
+Haciendo las ecuaciones de Langevin para este Hamiltoniano, análogamente a lo expuesto en las secciones anteriores, se puede hacer la evolución temporal para $O_1$ y $O_2$ en el marco de Interacción. Con ello se puede obtener la \textcolor{red}{inversión de población}
+
+\begin{equation}\label{eq9.124}\Delta N(t)=<O_1^\dag(t)O_1(t)>-<O_2^\dag(t)O_2(t)>\end{equation}
+
+Para alcanzar el mayor valor de \ref{eq9.124}, debe haber \textcolor{red}{compresión resonante} para $O_1$ y $b$, lo que se obtiene para $\Delta=-\omega_m-J$. Existe una relación $\omega_m=2J$. Con todo esto el \textit{detuning} debe ser $\Delta=-3J$, el que corresponde a un valor de \textit{blue detuning} alcanzable definiendo la frecuencia de conducción para el sistema. Se puede obtener también la amplificación de $b$ usando su ecuación de Langevin.
+
+\chapter{Mecánica de Espines}
+\section{Medidas Débiles}
+De acuerdo al clásico \textit{paper} de Aharonov, Albert y Vaidman, \textcolor{red}{la combinación de una medida débil seguida por una medición de posselección fuerte} pueden llevar a un \textcolor{red}{Amplicación anómala} de la medida débil, anómala en el sentido que que el valor medio de la variable medida puede exceder el rango de autovalores. Dicho valor se define como:
+
+\begin{equation}\label{eq10.1}A_W=\frac{\bra{\psi_{post}}A\ket{\psi_{in}}}{\bra{\psi_{post}}\ket{\psi_{in}}}\end{equation}
+
+Las medidas débiles difieren de las de Von Neumann en que se busca \textcolor{red}{reducir drásticamente el impacto de la medición} dada por ser mediciones en sistemas cuánticos. Consiste en la acumulación gradual de información durante un tiempo de interacción finita entre el \textcolor{red}{sistema} y el \textcolor{red}{medidor}. En esa interacción el estado es alterado mínimamente en comparación a una medida cuántica típica, obteniéndose un estado que no es autoestado del sistema original. Esto \textcolor{red}{no contradice a la Mecánica Cuántica}, ya que luego de un evento la información obtenida es baja y para obtener información del sistema se requieren varios eventos de este tipo.
+
+Lo anterior será útil para estudiar un sistema optomecánico (basado en el trabajo de Montenegro, Coto, Emereev y Orszag) en el que un qubit de espín interactúa con un oscilador mecánico. Los mecanismos de amortiguamiento con ambientes termales para el oscilador y el espín se presentan con tasas $\gamma$ y $\Gamma$ respectivamente (en unidades de $\omega_m$). De acuerdo a lo estudiado en el capítulo anterior, el Hamiltoniano de interacción y la ecuación maestra del sistema son:
+
+\begin{equation}\label{eq10.2}H_{int}=b^\dag b-\lambda\sigma_z(b^\dag+b)\end{equation}
+\begin{equation}\label{eq10.3}\dot{\rho}=-i[H_{int},\rho]+(1+\bar{n}_m)(\gamma\mathcal{L}[b]+\Gamma\mathcal{L}[\sigma^-])+(\bar{n}_m)(\gamma\mathcal{L}[b^\dag]+\Gamma\mathcal{L}[\sigma^+])+\frac{\Gamma_\phi}{2}\mathcal{L}[\sigma_z]\end{equation}
+
+\section{Preparación de Estados Cuánticos Macroscópicos}
+
+Para analizar la dinámica cuántica, se preseleciona el espín en superposición $\frac{\ket{\uparrow}+\ket{\downarrow}}{\sqrt{2}}$, iniciando la mecánica en el estado $\ket{0}$. Luego se mostrará cómo se puede generar un \textcolor{red}{qubit mecánico macroscópico} usando posselección de espín condicionada bajo acoplamiento débil ($\lambda >>1$). La función de onda espín mecánica en ausencia de cualquier forma de decoherencia es:
+
+\begin{equation}\label{eq10.4}\ket{\psi(t)}=\frac{1}{\sqrt{2}}(\ket{\uparrow,\lambda\eta}+\ket{\downarrow,-\lambda\eta}) \textcolor{red}{(}\eta=1-e^{-it}\textcolor{red}{)}\end{equation}
+
+En este estado se realiza el siguiente proceso:
+
+\begin{itemize}
+    \item Se truncan los estados mecánicos coherentes $\ket{\lambda\eta}$ al estado número (entiéndase número de fotones) más cercano. Como ejemplo, si $\lvert\lambda\eta\rvert=\lambda\sqrt{2(1-cos(t)} <<1$, el truncado para un estado de este tipo es:
+\begin{equation}\label{eq10.5} \ket{\pm\lambda\eta}\simeq\frac{1}{\sqrt{1+\lvert\lambda\eta\rvert^2}}(\ket{0}\pm\lambda\eta\ket{1}\end{equation}
+
+Este régimen operacional es alcanzable \textcolor{red}{usando acoplamiento magnético} $\hslash\lambda_0\simeq \mu_B\frac{\partial B}{\partial z}\sqrt{\frac{\hslash}{2m\omega_m}}$.<Si experimentalmente $m\sim 10^{-14}Kg$, $\omega_m\sim 10^6 Hz$ y $10^4<\frac{\partial B}{\partial z}<10^7$, $10^{-4}<\lambda<10^{-1}$.
+    \item Luego se posselecciona el espín en un estado final, resultando en el siguiente función de onda para el estado en el oscilador mecánico:
+    
+\begin{equation}\label{eq10.6}cos(\frac{\theta}{2})\ket{\uparrow}+sin(\frac{\theta}{2})e^{i\phi}\ket{\downarrow}\textcolor{red}{\Rightarrow}\ket{\psi(t)}_m\simeq\frac{1}{N\sqrt{2(1+\lvert\lambda\eta\rvert^2)}}(\alpha_+\ket{0}+\lambda\eta\alpha_-\ket{1})\end{equation}
+\end{itemize}
+
+En la ecuación $2N^2(1+\lvert\lambda\eta\rvert^2)=1+sin\theta cos\phi+\lvert\lambda\eta\rvert^2(1-sin\theta cos\phi)$ y $\alpha_\pm=cos(\frac{\theta}{2})+sin(\frac{\theta}{2})e^{-i\phi}$. Se obtiene entonces, con \ref{eq10.6}, lo esperado: \textcolor{red}{un estado de qubit}. Este será equiprobable si $1+sin\theta cos\phi=\lvert\lambda_n\rvert^2(1-sin\theta cos\phi)$. Esto permite, a su vez, tener una \textcolor{red}{Distribución de Probabilidad} para un fonón, que puede ser estudiada y graficada.
+
+Explorando el mismo sistema en un régimen de \textcolor{red}{régimen operacional fuerte}. A partir de la función de onda de \ref{eq10.4}, una consecuencia directa del acoplamiento dispersivo espín-oscilador es que \textcolor{red}{lleva la mecánica hacia una superposición macroscópica no clásica}, que se vuelve mayor en la medida que $\lambda$ crece. Estos estados son llamados \textcolor{red}{Estados Gato}, en alusión a la analogía del \textit{gato de Schr\"odinger}. Se puede obtener este tipo de funciones tomando una distribución de probabilidad de fonones y reemplazando $t=\pi$, $\beta=0$, $c_1=1$ y $c_2=0$ (los últimos 2 reemplazos implican que \textcolor{red}{no existe decoherencia}).
+
+\begin{equation}\label{eq10.7}Pr(n)=\frac{4^ne^{-4c_1\lambda^2}(c_1\lambda^2)^n}{2\mathcal{P}(\theta,\phi)n!}[1+sin\theta cos\phi e^{c_2\lambda^2}(-1)^n]\textcolor{red}{\Rightarrow}Pr(n)=e {-4\lambda^2}\lambda^{2n}[1+sin\theta(-1)^n]\end{equation}
+
+Eligiendo ángulos adecuados $\theta=\pm \frac{3\pi}{2}$ y $\phi=0$ se puede obtener una distribución de número de fonones par o impar, dependiendo del signo de $\theta$.
+
+\section{Congelamiento del Oscilador Mecánico}
+
+Si $N$ espines interactúan con un un oscilador mecánico de un modo. Después que el sistema evoluciona un tiempo $\tau$, se realiza posselección para los espines. Si el proceso es exitoso, entonces se repite el proceso, en cuyo siguiente paso el estado del oscilador es \textcolor{red}{exactamente el mismo pedido en la posseleccion}.
+
+Como un ejemplo ilustrativo, se considera el enfríamiento de un oscilador mecánico con un solo espín. La dinámica unitaria de la dinámica de espín es descrita por el Hamiltoniano en el cuadro de interacción con su correspondiente operador de evolución temporal:
+
+\begin{equation}\label{eq10.8}H_{int}=b^\dag  b-\lambda\sigma_z(b+b^\dag) \textcolor{red}{\Rightarrow} U(t)=e^{\lambda\sigma_z(\eta b^\dag-\eta^* b-ib^\dag b}\end{equation}
+
+Si se preselecciona en el estado  $\frac{1}{\sqrt{2}}(\ket{\uparrow}+\ket{\downarrow})$ y se inicializa el oscilador en el estado $\ket{\beta}$, el oscilador seguirá una superposición de 2 estados posibles, como describe la siguiente función de onda:
+
+\begin{equation}\label{eq10.9}\ket{\psi(t)}=\ket{\uparrow,\beta e^{-it}+\lambda\eta}+e^{-2i\lambda\beta sin t}\ket{\downarrow,\beta e^{-it}-\lambda\eta}\end{equation}
+
+Se desarrolla una manera de bajar el número de fotones, lo que es llamado \textcolor{red}{congelamiento}, obteniendo la mejor tasa de reducción con $<n>_{post}=0,7<n>_0$. Entonces, se puede indagar en el caso general, preguntándose \textcolor{red}{¿Puede bajarse aún más la tasa si se agregan más espines?}
+
+Se puede empezar estudiando lo que ocurre usando una cadena de $N$ espines independientes. Para la base $\{\ket{\downarrow},\ket{\uparrow}\}$ el estado inicial será:
+
+\begin{equation}\label{eq10.10}\rho_q(0)=\frac{1}{2^N}\bigotimes_{i=1}^N\begin{bmatrix} 1&1\\1&1 \end{bmatrix} \end{equation}
+
+A tiempo $t=\frac{\pi}{2}$ los espines se posseleccionan con el estado objetivo $\ket{\psi}_{target}=\frac{1}{2^\frac{N}{2}}\bigotimes_{i=1}^N (\ket{0}+\ket{1})$. Se obtienen entonces 2 resultados: Que el acoplamiento óptimo es con $\lambda\simeq 0.12$, sin depender del número de espines usados, y que al aumentar $N$ se mejora el efecto de enfríamiento, aunque el efecto es significativo solo hasta $N=5$, ya que $<n>^5_{post}=0.96 <n>^4_{post}$. Esto \textcolor{red}{limita el efecto de mejorar el enfríamiento añadiendo spins independientes a solo 4 de ellos}. 
+
+Esto lleva a preguntarse si \textcolor{red}{generar espines que interactúan entre sí} mejora el enfríamiento. Se observa que bajo mediciones óptimas, $<n>_{post}$ decrece más rápido que una medición individual. Sin embargo, encontrar un estado objetivo óptimo es sumamente costoso computacionalmente, incluso para una cantidad de espines baja. Para superar esta dificultad se sugiere el siguiente \textcolor{red}{tratamiento colectivo de la evolución temporal de los estados de espín}. Esta descripción surge de la teoría de Electrodinámica Cuántica en Cavidades (descrita en literatura como \textcolor{red}{\textit{Cavity QED}}), y es llamado \textcolor{red}{Modelo de Dicke}.
+
+\begin{equation}\label{eq10.11}S_z=\sum_{i=1}^N  \sigma_z^i \textcolor{red}{:} S_z\ket{m,s,\mathcal{D}}=m\ket{m,s,\mathcal{D}} \end{equation}
+\begin{equation}\label{eq10.12}S_\pm=\sum_{i=1}^N \sigma_\pm^i \textcolor{red}{:} S_\pm \ket{m,s,\mathcal{D}}=\sqrt{(s\mp m )(s\pm m+1)}\ket{m,s,\mathcal{D}} \end{equation}
+\begin{equation}\label{eq10.13}S^2=S_x^2+S_y^2+S_z^2\textcolor{red}{:} S^2\ket{m,s,\mathcal{D}}=s(s+1)\ket{m,s,\mathcal{D}}\end{equation}
+
+Siendo $\mathcal{D}$ la posible degeneración de los estados de espín. Ahora se supone un estado inicial con $N$ espines no interactuantes acoplados a un oscilador mecánico en estado térmico. Por simplicidad se asumen espines $\frac{1}{2}$ sin degeneración:
+
+\begin{equation}\label{eq10.14}\rho(0)=\sum_{m=\{s,-s\}}\sum_{m^\prime=\{s^\prime,-s^\prime\}}c_mc_m^\prime\ket{s,m}\bra{s^\prime.m^\prime}\otimes\rho(0)_{NM0}\end{equation}
+
+Como en la situación anterior a $t=\frac{\pi}{2}$ se posseleccionan los estados hacia $\ket{\psi}_{target}=\sum_{m^{\prime\prime}=\{-s^{\prime\prime},s^{\prime\prime}\}}d_{m^{\prime\prime}}\ket{s^{\prime\prime},m^{\prime\prime}}$. Para el análisis del estado posterior, se considerarán 2 conductas colectivas distintas:
+
+\begin{itemize}
+    \item Una distribución plana para los coeficientes $c$
+y $d$ en los estados inicial y objetivo: $c_n=d_n=\sqrt{\frac{1}{N+1}}$    
+   \item Un estado de espín simétrico, donde $a=b=\frac{1}{\sqrt{2}}$, usando los conocidos \textcolor{red}{Estado CSS}.
+\end{itemize}
+
+Para ambas situaciones, se obtiene una mejora en el enfríamiento válida para $4<N<10$.
+
+\section{Laser de Fonones}
+
+Tal como se propuso en el capítulo anterior, se puede generar \textcolor{red}{Emisión Espontánea} desde un sistema optomecánico, generando un \textcolor{red}{Laser de Fonones}. Si se coloca un espín en una pinza magnética en un intervalo de tiempo $\Delta t$, haciéndola interactuar dispersivamente con un oscilador mecánico a tiempo $\tau$. A partir del Hamiltoniano de \ref{eq10.8} Se realiza el siguiente proceso:
+
+\begin{itemize}
+    \item Preseleccionar el estado en $\frac{\ket{\uparrow}+\ket{\downarrow}}{\sqrt{2}}$ e inicializar el oscilador en  un estado termal.
+    \item Detrás de un tiempo $\tau$ se posselecciona en el estado objetivo $cos\theta\ket{\uparrow}+sin\theta\ket{\downarrow}$, tal que si $\eta=1-e^{-i\tau}$,$\rho_{m}^{in}(\tau)=e^{-ib^\dag bt}\rho_m(0)e^{ib^\dag b}$ y $D(\alpha)$ es el operador desplazamiento, el estado final es:
+
+\begin{equation}\label{eq10.15}\rho_m(t)=cos^2\theta D(\lambda\eta)\rho_m^{in}(\tau)D(-\lambda\eta)+sin^2D(-\lambda\eta)\rho_m^{in}(\tau)D(\lambda\eta)\theta+\frac{sin 2\theta}{2}[D(\lambda\eta)\rho_m^{in}(\tau)D(\lambda\eta)+h.c.] \end{equation}
+
+\item Se aplica en el estado de \ref{eq10.15} el \textcolor{red}{Modelo de Micromaser}. Para $\tau=\pi$, $\theta=\frac{\pi}{2}$, el Superoperador requerido es $M(\tau)=D(-\lambda\eta)\rho_m^{in}(\tau)D(\lambda\eta)$ y la ecuación maestra para el modelo es:
+
+\begin{equation}\label{eq10.16}\dot{\rho}_m(t)=r(M(\tau)-1)\rho_m(t)+\mathcal{L}\rho_m(t)\end{equation}
+\end{itemize}
+
+El número promedio de fonones que se obtiene con este modelo y su valor estacionario para tiempos largos son:
+
+\begin{equation}\label{eq10.17}<n(t)>=\bar{n}_0+\frac{16\lambda^2r^2}{\kappa^2}(1-e^{\frac{-\kappa t}{2}})^2
+\textcolor{red}{\Rightarrow} n_{SS}=\bar{n}_0+16\frac{\lambda^2 r^2}{\kappa^2}\end{equation}
+
+También se puede definir la \textcolor{red}{función de correlación} de segundo órden para el laser resultante, pudiendo también obtener su \textcolor{red}{ancho de linea}:
+
+\begin{equation}\label{eq10.18}g^{(2)}(0)=\frac{2\bar{n}_0^2+4\beta_1^2\bar{n}_0+\beta_1^4}{\bar{n}_0^2+2\beta_1^2\bar{n}_0+\beta_1^4}\textcolor{red}{\Rightarrow}\mathcal{D}=\frac{\kappa\bar{n}_0}{2\bar{n}_{ss}}=\frac{\kappa \bar{n}_0}{2(\bar{n}_0+16\frac{\lambda^2r^2}{\kappa^2})}\end{equation}
+
+Estas funciones se pueden graficar y evaluar para sus extremos. Se ha intentado realizar experimentalmente, obteniendo resultados esperables considerando que se omiten ruidos en el sistema.
+
+
+
+\chapter{Computación Cuántica con Fotones}
+\section{Introducción}
+La computación cuántica, al menos teóricamente, tiene la capacidad de realizar cálculos computacionales complejos con menor tiempo y gasto de cómputo, lo que es llamado \textcolor{red}{supremacía}. Un ejemplo de dicha supremacía ocurre en el problema de la Factorización Prima, el que se puede implementar con el Algoritmo de Shor. Para factorizar un número primo grande $N$, un computador cuántico puede implementar en tiempo polinomial $log N$. 
+
+En lo práctico, este tipo de computación se puede realizar buscando sistemas que implementen correctamente \textcolor{red}{qubits} y \textcolor{red}{compuertas cuánticas}. Se puede, por ejemplo, generar fotones mediante emisión espontánea y usar su \textcolor{red}{polarización} para representar qubits y su \textcolor{red}{interacción con cristales no lineales} para representar compuertas. Esta sería la base para hacer computación fotónica.
+
+La ventaja de usar fotones para computación cuántica es que estos \textcolor{red}{interactúan levemente con el ambiente}. La desventaja es que \textcolor{red}{es muy difícil acoplarlos entre sí}, ya que la interacción fotón-fotón es considerablemente baja ($\sim \alpha^4 =\frac{1}{(137)^4}$). Esto definiría los siguientes ingredientes para hacer computación cuántica con fonones:
+
+\begin{itemize}
+    \item Fuente de fotones coherentes (puede ser cualquier material que produzca radiación Laser).
+    \item Instrumentos Ópticos Lineales para Operaciones Auxiliares.
+    \item Instrumentos Ópticos No Lineales para Compuertas Cuánticas
+    \item Recursos Auxiliares para mejorar los resultados
+\end{itemize}
+
+El principal objetivo de los circuitos que se pueden armar será \textcolor{red}{Hacer portales cuánticos con la mayor eficiencia usando la menor cantidad de recursos posible}. Entonces se usa como qubit:
+
+\begin{equation}\label{eq11.1}\ket{\phi}=a\ket{H}+b\ket{V}=a a_H^\dag\ket{0}+b a_V^\dag\ket{0}=\begin{bmatrix}a\\b\end{bmatrix}\end{equation}
+
+Entonces se puede ocupar estos 2 estados ortogonales para definir al qubit. Y un alto número de estos estados \textcolor{red}{pueden participar en computación cuántica realista}. Se puede, para empezar a implementar compuertas cuánticas, definir una operación lineal para estos estados:
+
+\begin{equation}\label{eq11.2}\begin{bmatrix}a^\dag_{out}\\b^\dag_{out}\end{bmatrix}=\begin{bmatrix}cos\theta&ie^{-i\varphi}sin\theta\\ie^{i\varphi}sin\theta&cos\theta\end{bmatrix}\begin{bmatrix}a^\dag_{in}\\b^\dag_{in}\end{bmatrix}\end{equation}
+
+El Hamiltoniano del sistema posterior a la compuerta será:
+
+\begin{equation}\label{eq11.3}H_{BS}=\theta e^{i\varphi}a^\dag_{in}b_{in}+\theta e^{-i\varphi}a_{in}b^\dag_{in}\end{equation}
+
+A la usansa de lo obtenido en \ref{eq11.3}, se pueden definir cambios desde operadores $b$  a operadores $a$ por medio de una operación unitaria $U$
+
+\begin{equation}\label{eq11.4}b_k\textcolor{red}{\rightarrow}\sum_{j=1}^N U_{jk}a_j\end{equation}
+
+Lo anterior lleva a definir \textcolor{red}{Portales probabilistas} para los fotones sin requerir la interacción entre ellos. Como un ejemplo simple se puede ver el siguiente portal determinista:
+
+\begin{equation}\label{eq11.5}(\ket{H}+\ket{V})\otimes(\ket{H}+\ket{V})\textcolor{red}{\rightarrow} \ket{HH}+\ket{VH}+\ket{HV}+e^{i\tau}\ket{VV}\end{equation}
+
+Si $\tau=\pi$ esto reproduce una compuerta $\sigma_Z$. En fibra óptica $\tau\sim 10^{-18}$ y en medios coherentes atómicos $\tau\sim 10^{-5}$. 
+
+Si se quiere representar una \textcolor{red}{operación no lineal} se puede comenzar por el Hamiltoniano:
+
+\begin{equation}\label{eq11.6}\begin{bmatrix}\ket{1}_a\\\ket{1}_b\end{bmatrix}=\begin{bmatrix}a^\dag\\b^\dag\end{bmatrix}\ket{0}\textcolor{red}{\Rightarrow}H=\chi a^\dag a b^\dag b\end{equation}
+
+Se puede entonces, calcular la evolución temporal para el estado $\ket{1,1}=a^\dag b^\dag \ket{0}$ definido en \ref{eq11.6}. A partir de los resultados para cada operador y estado:
+
+\begin{equation}\label{eq11.7}\begin{bmatrix}\ket{0}(t)\\ a(t)\\b(t)\end{bmatrix}=\begin{bmatrix}e^{-iHt}\ket{0}\\ e^{-iHt}ae^{iHt}\\ e^{-iHt}be^{iHt} \end{bmatrix}=\begin{bmatrix}\ket{0}\\e^{-\chi b^\dag bt}a \\ e^{-\chi a^\dag a t}b\end{bmatrix}\textcolor{red}{\Rightarrow} \ket{1,1}(t)=e^{-\chi t}\ket{1,1}\end{equation}
+
+Para una función arbitraria dependiente de $a$ y $a^\dag$ se obtiene el resultado de la evolución:
+
+\begin{equation}\label{eq11.8}F(a,a^\dag)(t)=e^{-iHt}F(a,a^\dag) e^{iHt}=F(e^{i\chi b^\dag b}a, e^{-i\chi b^\dag b}a^\dag)\end{equation}
+
+Aplicando \ref{eq11.8} al \textcolor{red}{operador desplazamiento} se obtiene:
+
+\begin{equation}\label{eq11.9}D_b(\alpha)=e^{\alpha b-\alpha^* b^\dag}\textcolor{red}{\Rightarrow} D_b(\alpha)(t)=e^{\alpha e^{i\chi a^\dag a t}b-\alpha^\dag e^{-i\chi a^\dag a t}b^\dag}=D_b(e^{-i\chi t}\alpha)\end{equation}
+
+Por lo tanto, para la realización de un estado coherente en el subespacio $b$ el estado \textcolor{red}{evolucionado temporalmente} es:
+
+\begin{equation}\label{eq11.10}\ket{1,\alpha}=a^\dag D_b(\alpha)\ket{0}\textcolor{red}{\Rightarrow} \ket{1,\alpha}(t)=\ket{1,e^{-i\chi t}\alpha}\end{equation}
+
+En todo este estudio se usa que $[a,b]=0$.
+\section{No Linealidad Débil}
+
+Se ha estudiado la operación de \textcolor{red}{portales cuánticos indirectos} con un \textcolor{red}{rayo fuerte de ancilla} en estado coherente $\ket{\alpha}$. Por ejemplo, se puede estudiar el acoplamiento del estado coherente con el estado de 1 fotón ($\ket{1}\ket{\alpha}\textcolor{red}{\rightarrow}\ket{1}\ket{\alpha e^{i\theta}}$). Los estados $\ket{\alpha}$ y $\ket{\alpha e^{i\theta}}$ son distinguibles para un $\alpha$ grande y $\theta$ pequeño. Qing Lin y Bing He definen un ejemplo de portal para este estado: el \textcolor{red}{portal de camino controlado} que realiza los siguientes cambios de estado:
+
+\begin{equation}\label{eq11.11}\begin{aligned}\ket{H}_C\ket{\phi_1}_T+\ket{V}_C\ket{\phi_2}_T\textcolor{red}{\rightarrow}\frac{1}{\sqrt{2}}(\ket{H}_C\ket{\phi_1}_1\ket{\alpha e^{i\theta}}_{cs}\ket{\alpha e^{i\theta}}_{cs}+\ket{H}_C\ket{\phi_1}_2\ket{\alpha}_{cs}\ket{\alpha e^{2i\theta}}_{cs}\\ +\ket{V}_C\ket{\phi_2}_1\ket{\alpha e^{2i\theta}}_{cs}\ket{\alpha}_{cs}+\ket{V}_C\ket{\phi_2}_2\ket{\alpha e^{i\theta}}_{cs}\ket{\alpha e^{i\theta}}_{cs})\textcolor{red}{\rightarrow} \ket{H}_C\ket{\phi_1}_1+\ket{V}_C\ket{\phi_2}_2\end{aligned}\end{equation}
+
+¿Cómo concretar el segundo proceso? Esto se puede hacer considerando \textcolor{red}{operadores de \textit{beam splitter}}, si se define un estado coherente $\ket{\beta}$:
+
+\begin{equation}\label{eq11.12}\ket{\beta}=\sum_{j=0}^\infty \frac{(-\beta)^j}{\sqrt{j!}}\ket{j}\textcolor{red}{\Rightarrow} \begin{bmatrix}\ket{\alpha e^{i\theta}}\ket{\alpha e^{i\theta}}\\\ket{\alpha}\ket{\alpha e^{2i\theta}}\\\ket{\alpha e^{2i\theta}}\ket{\alpha} \end{bmatrix}\textcolor{red}{\rightarrow}\begin{bmatrix}\ket{\sqrt{2}\alpha e^{i\theta}}\ket{0}\\\ket{\frac{\alpha +\alpha e^{2i\theta}}{\sqrt{2}}}\ket{-\beta} \\\ket{\frac{\alpha +\alpha e^{2i\theta}}{\sqrt{2}}}\ket{\beta} \end{bmatrix}\end{equation}
+
+Al proyectar el resultado de \ref{eq11.11} luego de aplicar el \textit{beam splitter} (tal como define  \ref{eq11.12} en un estado número $\ket{n}$ ($\alpha^\prime=\alpha(\frac{1+e^{2i\theta}}{\sqrt{2}})$):
+
+\begin{equation}\label{eq11.13} \bra{n}\frac{1}{\sqrt{2}}(\ket{H,\phi_1,0,\sqrt{2}\alpha e^{i\theta},0}+\ket{H,0,\phi_1,\alpha^\prime,-\beta}+\ket{V,\phi_2,0,\alpha^\prime,\beta}+\ket{V,0,\phi_2,\sqrt{2}\alpha e^{i\theta},0})\ket{n}\propto (-1)^n\ket{H}_C\ket{\phi_1}_2+\ket{V}_C\ket{\phi_2}_1\end{equation}
+
+Con lo que para obtener la última relación de \ref{eq11.11}, bastará con \textcolor{red}{invertir los subespacios} $1$ y $2$ y \textcolor{red}{añadir} un operador de fase eliminar el factor $(-1)^n$. Por lo tanto, para poder construir el operador deseado, basta el operador no lineal, seguido de un \textit{beam splitter} y un operador de fase. 
+
+Se puede definir también un \textcolor{red}{operador de unión} que hace el proceso inverso al expresado en \ref{eq11.11}, es decir, el proceso $\ket{H}_C\ket{\phi_1}_1+\ket{V}_C\ket{\phi_2}_2\textcolor{red}{\rightarrow}\ket{H}_C\ket{\phi_1}_T+\ket{V}_C\ket{\phi_2}_T$. Con ambos operadores se pueden \textcolor{red}{implementar experimentalmente toda clase de operadores de control} (como por ejemplo el $C-NOT$) con alta eficiencia. De acuerdo a Barenco \textit{et.al.}, si un portal cuántico de orden $n$ se puede construir con compuertas $C-NOT$ con un conjunto de operadores binarios de orden $\mathcal{O}(n^2)$, se puede construir con ambas puertas anteriormente mencionadas con un conjunto de operadores de orden $\mathcal{O}(n)$, lo que implica que requiere \textcolor{red}{muchos menos operadores binarios para su implementación}.
+\section{Interacción fotón-fotón por Excitación de Rydberg}
+
+Se define como \textcolor{red}{Átomos de Rydberg} como átomos con \textcolor{red}{niveles altamente excitados} ($n>20$), \textcolor{red}{gran momento dipolar} ($\sim n^2a_0$) y \textcolor{red}{tiempos de vida media muy largos} ($\sim n^3$). Entre materiales hechos con átomos de Rydberg se pueden usar las \textcolor{red}{interacciones de Van der Waals} para modelar interacciones entre fotones, resultantes de las siguientes interacciones entre dipolos
+
+\begin{equation}\label{eq11.14}V_d=\frac{1}{4\pi\epsilon_0R^3}(\mu_{1x}\mu_{2x}+\mu_{1y}\mu_{2y}-2\mu_{1z}\mu_{2z})\end{equation}
+
+Entonces la interacción de Van der Waals corresponde a la \textcolor{red}{corrección de segundo órden} al potencial de \ref{eq11.14}
+
+\begin{equation}\label{eq11.15}V\sim \sum_{n,m}\frac{\lvert\bra{n,m}V_d\ket{n^\prime, m^\prime}\rvert^2}{E_{n^\prime}+E_{m^\prime}-E_n-E_m}\sim R^6\end{equation}
+
+La interacción de Van der Waals produce como efecto \textcolor{red}{un tope a las excitaciones alrededor de un átomo}. Los átomos de la red que pueden interactuar con un átomo fijo no pueden estar a una distancia mayor al \textcolor{red}{radio} $R_b$. Algo similar se puede modelar para el efecto de impurezas en una el resto de átomos de una red cristalina.
+
+Se puede aprovechar la interacción entre átomos de Rydberg para \textcolor{red}{obtener interacciones fotón fotón} para los circuitos definidos en las secciones anteriores. Incidiendo \textcolor{red}{luz lenta} (lenta en el sentido de que su velocidad de grupo es baja) usando Transparencia Inducida Electromagnéticamente como se define el Capítulo 9. A continuación se listan propiedades de dicho proceso.
+\begin{itemize}
+\item La respuesta de los átomos a la luz de sonda es $\sigma_{02}(\omega)=\xi^{(1)}(\omega)\epsilon_p$. 
+\item Su dispersión corresponde a $n-1\sim Re \chi^{(1)}$
+\item Su absorción corresponde a $\gamma\sim Im \chi^{(1)}$
+\item También a partir de la velocidad de grupo se puede definir un \textcolor{red}{índice de grupo} $n_g$
+\begin{equation}\label{eq11.16}v_g=\frac{d\omega_p}{dk}=\frac{c}{n_g}\textcolor{red}{\Rightarrow} n_g(\omega_p)=n(\omega_p)+\omega_p\frac{\partial n(\omega_p)}{\partial \omega_p}\end{equation}
+\end{itemize}
+
+Bajo la definición de $n_g$ de \ref{eq11.16}, la luz es lenta si $n_g >>1$ (se observa que al ser el índice de grupo alto, la velocidad de grupo es baja). Si $N$ es la densidad atómica y $\lvert \Omega_c\rvert$ la intensidad de bombeo el índice de grupo para una red de átomos de Rydberg es:
+
+\begin{equation}\label{eq11.17}n_g\simeq \frac{\omega_p N\lvert\mu_{02}\rvert^2}{\lvert\Omega_c(t)\rvert^2}\end{equation}
+
+La luz puede ser parada hasta llegar a $EIT$ si $\Omega_c(t)$ tiende a 0. La interacción entre átomo y campo se puede escribir con mayor detalle definiendo también la \textcolor{red}{Frecuencia de Rabi}:
+
+\begin{equation}\label{eq11.18}\Omega_\alpha=\frac{-\bra{g_\alpha}\epsilon_\alpha\cdot\vec{d}\ket{e}E_{0\alpha}}{\hslash}\textcolor{red}{\Rightarrow} H_{AF}=\frac{\hslash}{2}(\Omega_1(\sigma_1e^{-i\vec{k}_1\cdot\vec{r}}e^{i\omega_1 t}+h.c.)+\Omega_2(\sigma_2e^{i\vec{k}_2\cdot\vec{r}}e^{i\omega_2 t}+h.c.))\end{equation}
+
+Se puede escribir entonces la ecuación maestra para el sistema:
+
+\begin{equation}\label{eq11.19}\dot{\rho}=\frac{-i}{\hslash}[H_A+H_{AF},\rho]+\Gamma_1\mathcal{L}[\sigma_1]\rho+\Gamma_2\mathcal{L}[\sigma_2]\rho+\gamma_g\mathcal{L}[\sigma_g]\rho\end{equation}
+
+Si se evalúa  la ecuación \ref{eq11.19} para distintos elementos de matriz:
+
+\begin{equation}\label{eq11.20}\dot{\rho}_{e,g_2}=(-\frac{\Gamma_2}{2}+i\Delta_2)\rho_{e,g_2}+\frac{i\Omega_2}{2}(\rho_{e,e}-\rho_{g_2,g_2})-\frac{i\Omega_1}{2}\rho_{g_1,g_2}\simeq(-\frac{\Gamma_2}{2}+i\Delta_2)\rho_{e,g_2}-\frac{i\Omega_2}{2}-\frac{i\Omega_1}{2}\rho_{g_1,g_2}\end{equation}
+\begin{equation}\label{eq11.21}\dot{\rho}_{g_1,g_2}=i(\Delta_2-\Delta_1)\rho_{g_1,g_2}-\gamma_g\rho_{g_1,g_2}-\frac{i\Omega_1}{2}\rho_{e,g_2}+\frac{i\Omega_2}{2}\rho_{g_1,e}\simeq i(\Delta_2-\Delta_1+i\gamma_g)\rho_{g_1,g_2}-\frac{i\Omega_1}{2}\rho_{e,g_2}\end{equation}
+
+Para $\dot{\rho}_{e,g_2}=\dot{\rho}_{g_1,g_2}=0$, se puede, usando \ref{eq11.20} y \ref{eq11.21} se obtiene la solución estacionaria:
+
+\begin{equation}\label{eq11.22}\rho_{e,g_2}^{ss}=\frac{i(\frac{\Omega_2}{2})(\Delta_2-\Delta_1+i\gamma_g)}{(i\Delta_2-\frac{\Gamma_2}{2})(\Delta_2-\Delta_1+i\gamma_g)-i(\frac{\Omega_1}{2})^2}\end{equation}
+
+De acuerdo con la definición de teoría electromagnética, se puede obtener la \textcolor{red}{susceptibilidad de EIT}:
+
+\begin{equation}\label{eq11.23}\chi=\frac{P^{(+)}}{\epsilon_0 E^{(+)}}=\frac{-iN\lvert\bra{g_2}\epsilon_2\cdot\vec{d}\ket{e}\rvert^2}{\epsilon_0\hslash}\frac{\Delta_2-\Delta_1+i\gamma_g}{(i\Delta_2-\frac{\Gamma_2}{2})(\Delta_2-\Delta_1+i\gamma_g)-i(\frac{\Omega_1}{2})^2}\end{equation}
+
+Entonces se puede definir usando \ref{eq11.23} los índices de refracción y de absorción:
+
+\begin{equation}\label{eq11.24}n=Re(\sqrt{1+\chi})=1+\frac{Re(\chi)}{2}\end{equation}
+\begin{equation}\label{eq11.25}a=2k_0Im(\sqrt{1+\chi})\simeq k_0Im(\chi)\end{equation}
+
+Para $\Delta_1=\Delta_2$ se simplifica la definición de \ref{eq11.23} y se puede obtener el índice de grupo:
+
+\begin{equation}\label{eq11.26}\chi\simeq\frac{iN\lvert\bra{g_2}\epsilon_2\cdot\vec{d}\ket{e}\rvert^2}{\epsilon_0\hslash}\frac{\gamma_g}{(\frac{\Gamma_2}{2})\gamma_g+(\frac{\Omega_1}{2})^2}\textcolor{red}{\Rightarrow}n_g=(1+\frac{Re(\chi)}{2})+\omega\frac{d}{d\omega}(1+\frac{Re(\chi)}{2})\simeq \frac{2\omega N\lvert\bra{g_2}\epsilon_2\cdot\vec{d}\ket{e}\rvert^2}{\epsilon_0\hslash\Omega_1^2}\end{equation}
+
+Si $\omega\simeq 5*10^{14}Hz$, $N=10^{11} cm^{-3}$ y $\Omega\simeq 10 MHz$, se obtiene $n_g=2*10^4$ para átomos alcalinos.
+
+Otra situación ocurre cuando se incide \textcolor{red}{luz rápida} (alta velocidad de grupo) o \textcolor{red}{superluminal} (velocidad de grupo \textcolor{red}{negativa}, lo que corresponde a un alto amortiguamiento). Un ejemplo de fuente de luz superluminal corresponde a un sistema de 2 niveles.
+
+Otro fenómeno a estudiar es el \textcolor{red}{bloqueo de Rydberg} (se puede encontrar en literatura como \textit{Rydberg blockade}), que es cuando el cambio en la interacción Van der Waals es demasiado grande para permitir una excitación. Se puede considerar estudiando que los fotones de entrada en realidad corresponden a pulsos:
+
+\begin{equation}\label{eq11.27}\ket{1}=\int_{-\infty}^\infty d\omega f(\omega)a^\dag(\omega) \ket{0} \textcolor{red}{(}\int_{-\infty}^\infty d\omega \lvert f(\omega)\rvert^2=1\textcolor{red}{)}\end{equation}
+
+Esto requiere un \textcolor{red}{tratamiento de campos cuánticos}. Para $E_l(\vec{x},t)$, $P_l(\vec{x},t)=\sqrt{N}\ket{g}\bra{e}(t)$ y $S_l(\vec{x},t)=\sqrt{N}\ket{g}\bra{r}(t)$
+
+\begin{equation}\label{eq11.28}[E(\vec{x},t),E^\dag(\vec{x}^\prime,t)]=[P_l(\vec{x},t),P_l^\dag(\vec{x}^\prime,t)]=[S_l(\vec{x},t),S_l^\dag(\vec{x}^\prime,t)]=\delta(\vec{x}-\vec{x}^\prime)\end{equation}
+
+Entonces se puede escribir la forma completa de los Hamiltonianos del fotón y el medio de átomos de Rydberg, así como la interacción entre ambos (siendo $\Delta(\vec{x}-\vec{x}^\prime)$ el potencial de Van der Waals):
+
+\begin{equation}\label{eq11.29}H_{foton}=-ic\int d\vec{x}E_1^\dag(\vec{x})\partial_z E_1(\vec{z})\mp ic\int d\vec{x}E_2^\dag(\vec{x})\partial_z E_2(\vec{x})\end{equation}
+\begin{equation}\label{eq11.30}H_{medio}=-\sum_{l=1}^2\int d\vec{x}\{g\sqrt{N}E_l^\dag(\vec{x})P_l(\vec{x})+\Omega_c(t)S_l^\dag(\vec{x})P_l(\vec{x})+h.c.\}-\Delta_pP_l^\dag(\vec{x})P_l(\vec{x})\end{equation}
+\begin{equation}\label{eq11.31}H_{int}=\int d\vec{x}\int d\vec{x}^\prime \{S_1^\dag(\vec{x})S_2^\dag(\vec{x}^\prime)\Delta(\vec{x}-\vec{x}^\prime)S_2(\vec{x}^\prime)S_1(\vec{x})+\frac{1}{2}\sum_{l=1}^2(S_l^\dag(\vec{x})S_l^\dag(\vec{x}^\prime)\Delta(\vec{x}-\vec{x}^\prime)S_l(\vec{x}^\prime)S_l(\vec{x}))\}\end{equation}
+
+Así también se puede estudiar un sistema abierto con operadores de pérdida $\zeta_l(\vec{x},t)$ y $\eta_l(\vec{x},t)$ que se agregan como un nuevo elemento al Hamiltoniano:
+
+\begin{equation}\label{eq11.32}H_{loss}=i\sum_{l=1}^2\int d\vec{x} \{\sqrt{2\gamma}(\zeta^\dag_l(\vec{x},t)P_l(\vec{x})-h.c.)+\sqrt{2\gamma^\prime}(\eta^\dag_l(\vec{x},t)S_l(\vec{x})-h.c.)\}\end{equation}
+
+Entonces, bajo la evolución según la suma de los Hamiltonianos \ref{eq11.29},\ref{eq11.30} y \ref{eq11.32}, la evolución temporal para los 3 operadores de campo son ($\hslash=1$) y ($V_{eff}^0(\vec{x}^\prime, t)=  \int d\vec{x}^\prime V(\vec{x}-\vec{x}^\prime)S_{3-l}^\dag(\vec{x}^\prime,t)S_{3-l}(\vec{x}^\prime,t)+S_l^\dag(\vec{x}^\prime,t)S_l(\vec{x}^\prime,t)$) :
+
+\begin{equation}\label{eq11.33}\begin{bmatrix}\dot{E}(\vec{x},t)\\\dot{P}_l(\vec{x},t)\\\dot{S}_l(\vec{x},t)\end{bmatrix}=\begin{bmatrix} \mp c\partial_z & ig\sqrt{N(\vec{x})}&0  \\ ig\sqrt{N(\vec{x})}&-(\gamma+i\Delta_p) & i\Omega_c^*(t) \\ 0&i\Omega_c(t) &-(\gamma^\prime +i V_{eff}^0(\vec{x}^\prime,t)) \end{bmatrix}\begin{bmatrix}E(\vec{x},t)\\P_l(\vec{x},t)\\S_l(\vec{x},t)\end{bmatrix}+\begin{bmatrix}0\\\sqrt{2\gamma}\zeta(\vec{x},t)\\\sqrt{2\gamma^\prime}\eta_l(\vec{x},t)\end{bmatrix}\end{equation}
+
+El Potencial efectivo $V_{eff}^0(\vec{x},t)$ en \ref{eq11.33}, se puede reemplazar por un potencial derivado de \ref{eq11.31}, que bastará para agregar los efectos del potencial Van der Waals. Entonces se puede evaluar numéricamente para ver los\textcolor{red}{efectos en el campo de la evolución temporal}. También se puede evaluar dicha evolución si  el pulso \textcolor{red}{se detiene dentro del medio} o la dependencia respecto a variables del sistema o entre 2 portales diferentes, lo que se evaluará en la siguiente sección.
+
+\section{Fidelidad y Calidad de Portales fotón-fotón}
+
+Se espera que entre 2 portales existan interacciones que se puedan reducir simplemente a fases:
+
+\begin{equation}\label{eq11.34}U\ket{1}_1\ket{1}_2\textcolor{red}{\rightarrow}U\{\int_{-\infty}^\infty d\omega f_1(\omega)a_1^\dag(\omega)\ket{0} \}U\{\int_{-\infty}^\infty d\omega f_2(\omega)a_2^\dag(\omega)\ket{0}\}=e^{i\theta}\ket{1}_1\ket{1}_2\end{equation}
+
+Esto será cierto si los campos tienen un solo modo, sin embargo, los campos de un modo \textcolor{red}{son ondas planas}. Como ejemplo, la acción del primer sumando de \ref{eq11.31} en 2 distribucionas de ondas de espín resulta:
+
+\begin{equation}\label{eq11.35}\ket{1}_1\ket{1}_2=\int dx_1 f_1(x_1)S^\dag(x_1)\int dx_2 f_2(x_2) S^\dag(x_2)\ket{0}\end{equation}
+
+Esto lleva a un \textcolor{red}{problema documentado} para implementar compuertas fotónicas. ¿Cómo se puede resolver esto? Aquí algunas propuestas para \textcolor{red}{cuantificar y resolver} esta dificultad:
+
+\begin{itemize}
+    \item De acuerdo a Shapiro, la interacción entre ambas ondas tiene fundamentalmente un efecto \textcolor{red}{no instantáneo}:
+    \begin{equation}\label{eq11.36}E_A(t)\textcolor{red}{\rightarrow}e^{i\kappa\int d\tau h(t-\tau)E_B^\dag E_B(\tau)}e^{\xi_A(t)}E_A(t)\textcolor{red}{\Rightarrow}U\ket{1}_A\ket{1}_B\neq e^{i\tau}\ket{1}_A\ket{1}_B\end{equation}
+    
+    Esto se puede comprobar en materiales como la fibra óptica de silicio. La decoherencia en no linealidad de Kerr disminuye las posibilidades de los materiales analizados, ya que se produce \textcolor{red}{decoherencia} para ambos estados, volviéndose estados mezclados.
+    \item De acuerdo a Gea-Banacloche, otra forma de cuantificar la dificultad es considerando que los estados fotónicos son \textcolor{red}{multimodos}, con valores definidos de entrada y salida:
+    \begin{equation}\label{eq11.37}\ket{\psi_0}=\ket{1}_a\otimes\ket{1}_b=\sum_{nm} c_{nm}\ket{1_n}_a\otimes\ket{1_m}_b\textcolor{red}{\Rightarrow}\ket{\psi(t)}=\sum_{nm} c_{nm}(t)\ket{1_n}_a\otimes\ket{1_m}_b=U(t)\ket{\psi_0}\neq e^{i\tau}\ket{\psi_0}\end{equation}
+    
+    Esto ocurre, por ejemplo, en medios atómicos coherentes. Esto ocurre porque \textcolor{red}{se entrelazan los modos de los pulsos}.
+    
+    \begin{equation}\label{eq11.38}\ket{1}=\int dx f(x)E^\dag(x)\ket{0}={red}{\Rightarrow}U\ket{1}_a\ket{1}_b=\int dk_a\int dk_b g(k_a,k_b)c^\dag(k_a)c^\dag (k_b)\ket{0} \textcolor{red}{(}g(k_a,k_b)\neq f_1(k_a)f_2(k_b)\textcolor{red}{)}\end{equation}
+    \item De acuerdo a He y Sherer, se puede definir usando lo anterior el concepto de \textcolor{red}{fidelidad de la puerta}, que consiste en la cerca está el proceso realmente realizado del proceso deseado y escrito en \ref{eq11.34}. Siendo $U(t)$ el proceso real y $U_0(t)$ el ideal:
+    
+    \begin{equation}\label{eq11.39}\sqrt{F}e^{i\theta}=\bra{1,1}U_0^\dag(t)U(t)\ket{1,1}\end{equation}
+\end{itemize}
+
+La fidelidad se puede asociar a la susceptibilidad $\chi$, a su vez está relacionado con el \textcolor{red}{entrelazamiento} entre los modos. Se concluye que \textcolor{red}{a menor pérdida del sistema, la aplicación del portal tiene mayor fidelidad}.
+
+
+\chapter{\textit{Machine Learning} para Óptica e Información Cuántica}
+\section{Introducción}
+
+En términos simples, se puede definir el campo de la \textcolor{red}{Inteligencia Artificial} como la actividad de definir modos de \textit{hacer pensar} a las máquinas. Dentro de esta área, todas las técnicas son clasificables en las siguientes 3:
+
+\begin{itemize}
+    \item \textcolor{red}{\textit{Machine Learning}}: Consiste en hacer que una máquina aprenda a realizar una tarea a partir de una colección de resultados esperados. Cuantos más resultados recibe, mejor será su aprendizaje. Un ejemplo de librería especializadas en esta tarea es \textcolor{fgreen}{Scikit Learn}, que trabaja bajo \textcolor{fgreen}{Python}.
+    \item \textcolor{red}{\textit{Deep Learning}}: Consiste en una proceso más complejo que el \textit{machine learning}, en el que la máquina aprende a realizar una tarea por capas. Un ejemplo de Deep Learning conocido son las \textcolor{red}{redes neuronales}. Se pueden trabajar estas redes con librerías como \textcolor{fgreen}{Tensorflow}, \textcolor{fgreen}{Keras} y \textcolor{fgreen}{Theano}.
+    \item \textcolor{red}{Programación Probabilista}: Consiste en el \textcolor{red}{análisis bayesiano} de datos. Una librería para hacer este procedimiento podría ser la también basada en \textcolor{fgreen}{Python} \textcolor{fgreen}{PyMC3}
+\end{itemize}
+
+Dentro del \textit{machine learning} se pueden definir 2 tipos de problema a resolver programando:
+
+\begin{itemize}
+    \item \textcolor{red}{Aprendizaje Supervisado}: En esto se clasifican la Clasificación y Regresión o Predicción.
+    \item \textcolor{red}{Aprendizaje No Supervisado}: En esto se clasifican el \textit{Clustering} o el \textit{Reinforcement}
+\end{itemize}
+
+El aprendizaje no supervisado consta de procesos complejos, que no son otra cosa que versiones más complejas de los procedimientos hechos con supervisión. Por lo que, para explicar bien de qué se trata el \textit{machine learning}, bastará comenzar entendiendo los procesos de Regresión y Clasificación, lo que se hará en la siguiente sección.
+
+\section{Clasificación y Regresión}
+La \textcolor{red}{clasificación}, como su nombre indica, clasifica en una o más categorías un conjunto de información. En simple, es capaz de aprender \textit{si} o \textit{no} a la pertenencia de un dato a un conjunto determinado. A la máquina se le entrega información de muestra y esta a partir de los patrones que obtenga de esa información puede responder a la pregunta con información nueva. Se puede considerar al \textcolor{red}{\textit{clustering}} una versión más compleja de clasificación que no requiere supervisión.
+
+La \textcolor{red}{regresión}, por su parte, consiste en la predicción de valores numéricos que la máquina aprende a hacer a partir de un bloque de información dada. Como un comentario práctico, a la Regresión en algunas librerías como \textcolor{fgreen}{Mathematica} puede encontrarse como Predicción, pero corresponde al mismo algoritmo. Para mayor comprensión, la regresión más simple conocida es el ajuste lineal de datos que se puede hacer en cualquier ofimática.
+
+Entrenar un modelo para predecir una respuesta útil para un conjunto de datos de entrada dado es la base para hacer una regresión. Consta de un proceso que incluye la \textcolor{red}{adquisición de datos}, seguida de una \textcolor{red}{limpieza} que reduce el ruido de estos, una  \textcolor{red}{transformación} que los prepara para ser claros de leer y escribir, un \textcolor{red}{modelado} de la predicción (que es donde realmente ocurre el \textit{machine learning} y una \textcolor{red}{interpretación y evaluación} de los datos obtenidos para ver qué tan correcta fue la predicción hecha.
+
+La principal ventaja de usar \textit{Machine Learning} para hacer regresiones es que se pueden obtener resultados adecuados incluso \textcolor{red}{sin elegir una fórmula para los resultados}.
+
+\section{Tipos de Clasificadores}
+Para hacer regresiones y clasificaciones resultan de importancia de los \textcolor{red}{clasificadores}, que son los métodos a usar para clasificar datos: Algunos clasificadores conocidos son \textcolor{red}{KNN}, \textcolor{red}{regresión logística}, \textcolor{red}{SVM}, \textcolor{red}{\textit{Random Forrest}}, \textcolor{red}{\textit{Naives Bayes}}, \textcolor{red}{Redes Neuronales}, entre otros. Se definirán a continuación KNN y SVM:
+
+\begin{itemize}
+    \item \textcolor{red}{KNN}, también llamado método de próximos vecinos, consiste en clasificar cada caso nuevo basado en la proximidad a casos etiquetados (es decir en la información de muestra que se entregó al programa). Puede usar cualquier tipo de métrica de distancia (euclídea, con peso, etc). Si $k$ es el número de vecinos usado (clasificando por voto de mayoría entre ellos), $n$ el número de muestras, $d$ la distancia definida entre valores (usando la métrica adecuada) y $p$ el número de dimensiones, para el método de KNN aproximadamente $n$ escala como:
+    
+    \begin{equation}\label{eq12.1}n\sim\frac{1}{d^p}\end{equation}
+    \item \textcolor{red}{SVM}, es por sus siglas en inglés, un método de \textcolor{red}{Máquina de Vector de Soporte}. Esto significa que usa un subconjunto de puntos de entrenamiento (llamado \textcolor{red}{vector de soporte} en una llamada \textcolor{red}{función de decisión}, que es la que hace la acción de clasificar.  Este método es muy efectivo para espacios de varias dimensiones, incluso cuando $p>n$, que es cuando el método de KNN falla. Diferentes funciones de núcleo se pueden especificar en la función de decisión, incluso \textcolor{red}{funciones customizadas} (o \textit{núcleos customizados} como se mencionan en literatura). Este método se usa, por ejemplo, para reconocimiento facial. Su principal desventaja es que no provee directamente estimados de probabilidad.  
+\end{itemize}
+
+A continuación se mostrará un esquema de la \textit{receta} para usar \textit{machine learning} en el desarrollo de problemas de clasificación.
+
+\section{Implementación}
+Para implementar una clasificación se deben seguir los siguientes pasos:
+
+\begin{itemize}
+    \item Se debe definir un \textcolor{red}{conjunto de datos de entrenamiento}, por ejemplo:
+    \begin{equation}\label{eq12.2}\{(1\textcolor{red}{\rightarrow} A),(2\textcolor{red}{\rightarrow}B),(3,5\textcolor{red}{\rightarrow} B),(4\textcolor{red}{\rightarrow} B)\}\end{equation}
+    \item A partir de estos datos se puede construir una \textcolor{red}{Función Clasificadora} que servirá para evaluar todo el conjunto de números, estén o no en el conjunto inicial de \ref{eq12.2}. Como ejemplo se puede construir la función $cf(x)$ tal que:
+    \begin{equation}\label{eq12.3}cf(5)=B, cf(1.2)=A, cf(2.8)\textcolor{red}{\Rightarrow} A (35\%), B (65\%)\end{equation}
+    Estas funciones pueden ser probabilistas y complicarse para valores intermedios en los que debe predecir.
+    \item Usar la función clasificadora para poder definir el valor para datos no incluidos en el conjunto de entrenamiento. 
+\end{itemize}
+%\bibliographystyle{acm}
+%\bibliography{main}
+\end{document}   
+
+

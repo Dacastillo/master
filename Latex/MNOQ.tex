@@ -1,0 +1,958 @@
+\documentclass{book}
+\usepackage[spanish]{babel}
+\usepackage[left=1cm,right=1cm,top=1.5cm, bottom=1.5cm]{geometry}
+\usepackage{amsmath,amsthm,amssymb,hyperref,braket,xcolor,graphicx,appendix,empheq,subfig,url}
+\definecolor{fgreen}{HTML}{228B22}
+\begin{document}
+\author{\textcolor{red}{Raúl Coto-Cabrera, Bing He}}
+\title{\textcolor{red}{Métodos Numéricos de Óptica e Información Cuántica}}
+\vspace{0.05in}
+\everymath{\color{blue}}
+\everydisplay{\color{blue}}
+\maketitle
+\tableofcontents
+\chapter{Ecuación de Schr\"odinger}
+\section{Definición}
+La ecuación de Schr\"odinger es una ecuación diferencial que describe la \textcolor{red}{evolución temporal} unitaria para funciones de onda que representan los estados de energía de \textcolor{red}{sistemas cuánticos cerrados}:
+
+\begin{equation}\label{eq1.1}i\hslash\frac{d}{dt}\ket{\psi(t)}=H(t)\ket{\psi(t)}\end{equation}
+
+En los sistemas cuánticos cerrados no se puede escapar la información del sistema. Estos se pueden definir estableciendo un sistema y un ambiente. La división entre un sistema cerrado y uno abierto es arbitraria y se puede establecer de manera de simplificar los cálculos.
+
+Como un ejemplo concreto de esto, se puede considerar una cavidad que interactúa como el ambiente. Se puede definir un termino de interacción entre 2 estados $\ket{1}$ y $\ket{2}$ basado en sus respectivos operadores de creación y destrucción:
+
+\begin{equation}\label{eq1.2}H_{I}=J(a_1^\dag a_1+a_2^\dag a_1)\end{equation}
+
+Al aplicar la ecuación de Schr\"odinger a este sistema, se logran obtener efecto túnel y una onda evanescente a la misma frecuencia. También es mencionado este efecto en literatura como \textcolor{red}{Coherent Scattering}, de donde se pueden derivar efectos de \textcolor{red}{Emisión Estimulada} debido al acoplamiento entre niveles atómicos.
+
+\section{Leyendo un Hamiltoniano}
+
+Completando la situación antes mencionada se puede escribir el siguiente Hamiltoniano completo que describe a un \textcolor{red}{Campo Electromagnético} simplificado como sistema de 2 niveles. una cavidad y un reservorio:
+
+\begin{equation}\label{eq1.3}H=\omega_0\sigma_{ee}+\omega_c  a^\dag a+g(\sigma^++\sigma^-)(a^\dag+a)+\sum_{i=0}^\infty (\omega_i c_i^\dag c_i+G_i(\sigma^++\sigma^-)(c_i^\dag+c_i)+G_i^D \sigma_z(c_i^\dag+c_i)+k_i(a^\dag+a)(c_i^\dag+c_i))\end{equation}
+Los 7 sumandos del Hamiltoniano corresponden respectivamente a:
+\begin{itemize}
+    \item Campo Electromagnético Libre (operador $\sigma$, constante $\omega_0$)
+    \item Cavidad Libre (operador $a$, constante $\omega_c$)
+    \item Interacción Campo-Cavidad (Modelo de Rabi, constante $g$)
+    \item Reservorio Libre (operadores $c_i$, constantes $\omega_i$)
+    \item Interacción Reservorio-Campo Electromagnético (constantes $G_i$)
+    \item Interacción Reservorio-Campo Electromagnético (constantes $G_i^D$
+    \item Interacción Reservorio-Cavidad (constantes $k_i$)
+\end{itemize}
+
+Si $\omega_0 >> g$, se habla de un régimen de \textcolor{red}{Acoplamiento débil}, en el que se obtiene como aproximación el conocido Hamiltoniano de \textcolor{red}{Jaynes-Cumming}, en la que se observa que el ancho de línea permite detuning entre estados:
+
+\begin{equation}\label{eq1.4}H_{JC}=\omega_0\sigma_{ee}+\omega_c  a^\dag a+g(\sigma^+ a+\sigma^- a^\dag)\end{equation}
+
+Como un comentario respecto al Hamiltoniano de \ref{eq1.3}, el sexto término de este corresponde al termino conocido como \textcolor{red}{Pure Dephasing}. Todo el sistema definido por la ecuación debe ser capaz de \textcolor{red}{modelar pérdidas}, pudiendo \textit{cerrar} el sistema donde se estime conveniente para simplificar los cálculos, como se expresó anteriormente.
+
+Un ejemplo de lo anterior se obtiene al estudiar diamantes hechos de Carbono con un $1,1\%$ de Carbono 13 con un Centro NV, los que producen ruido que se puede utilizar como memoria para el sistema definido por el centro.
+
+A continuación se mostrarán 2 métodos para resolver la ecuación de Schr\"odinger para sistemas sencillos,ejemplificando el uso de ambos para el Hamiltoniano Jaynes-Cumming de \ref{eq1.4}.
+
+\section{Método del Operador Unitario}
+
+A partir de la ecuación \ref{eq1.1}, se puede definir un \textcolor{red}{Operador de Evolución Temporal} que permite obtener $\ket{\phi(t)}$ para cualquier tiempo $t$ a partir de $\ket{\psi(t_0}$ en un tiempo inicial $t_0$. Entonces la Ecuación de Schr\"odinger se termina aplicando al operador y no al estado (al ser $\ket{\psi(t_0)}$ constante en el tiempo):
+
+\begin{equation}\label{eq1.5}\ket{\psi(t)}=U(t,t_0)\ket{\phi(t_0)} \textcolor{red}{\Rightarrow} i\hslash\frac{d}{dt}U(t,t_0)=H(t)U(t,t_0)\textcolor{red}{\Rightarrow}\dot{U}(t,t_0)=\frac{-i}{\hslash}H(t)U(t,t_0)\end{equation}
+
+Integrando lo obtenido en \ref{eq1.5} (y tomando $U(t_0,t_0)=\mathbb{I}$) 
+
+\begin{equation}\label{eq1.6}U(t,t_0)-\mathbb{I}=\frac{-i}{\hslash}\int_0^t H(t_1)U(t_1,t_0) dt_1 \textcolor{red}{\Rightarrow} U(t,t_0)=\mathbb{I}+\frac{-i}{\hslash}\int_0^t H(t_1)U(t_1,t_0) dt_1 \end{equation}
+Si se considera un intervalo ordenado $t_0<t_1<...<t_n<t$ y se aplica recursivamente \ref{eq1.6} se termina obteniendo una \textcolor{red}{Exponencial de una Integral Ordenada} como definición algebraica del operador evolución temporal:
+\begin{equation}\label{eq1.7}U(t,t_0)=\mathcal{T}_{\leftarrow}\sum_{k=0}^{n} \frac{(\frac{-i}{\hslash}\int_0^t H(s)U(s,t_0) ds)^k}{k!}=\mathcal{T}_{\leftarrow}e^{ \frac{-i}{\hslash}\int_0^t H(s)U(s) ds}\end{equation}
+Si el Hamiltoniano no depende del tiempo, \ref{eq1.7} se simplifica:
+\begin{equation}\label{eq1.8}U(t,t_0)=\mathcal{T}_{\leftarrow}\sum_{k=0}^{n} \frac{(\frac{-i}{\hslash} H \int_0^t U(s,t_0) ds)^k}{k!}=\sum_{k=0}^{n} \frac{(\frac{-i}{\hslash}\int_0^t U(s,t_0) ds)^k}{k!}=e^{-\frac{-i}{\hslash}H (t-t_0)}\end{equation}
+Lo anterior se puede aplicar para resolver una ecuación de Sch\"odinger considerando un estado inicial $\ket{\psi(t_0)}$ escrito en una base en la cual el Hamiltoniano sea diagonal. 
+\section{Método de la Función de Onda}
+Se parte de la suposición (comunmente se menciona en la literatura como \textit{anszats}) de que se puede escribir la función de onda resultado de la ecuación como una \textcolor{red}{combinación lineal} de una base de vectores linealmente independientes que \textcolor{red}{no dependen del tiempo}, lo que aplicado a \ref{eq1.1}:
+\begin{equation}\label{eq1.9}\ket{\psi(t)}=\sum_j a_j(t)\ket{\phi_j}\textcolor{red}{\Rightarrow} i\hslash \sum_j \dot{a}_j(t)\ket{\phi_j} = H(t)\sum_j a_j(t)\ket{\phi_j}  \end{equation}
+Multiplicando \ref{eq1.9} por $\ket{\phi_j}$ se obtiene una ecuación diferencial para las funciones $a_j(t)$ dependientes del tiempo:
+\begin{equation}\label{eq1.10} \dot{a}_j(t)=  \frac{-i}{\hslash}\sum_k a_k\bra{\phi_j}H(t)\ket{\phi_k}\end{equation}
+Lo anterior se puede obtener aprovechando que $\sum_k a_k(t)=1$ para cualquier tiempo. La base de vectores $\ket{\phi_j}$ se puede elegir siempre convenientemente.
+\section{Ejemplo: Modelo Jaynes-Cumming}
+De acuerdo a métodos desarrollados y vistos en el curso de Óptica Cuántica, el Hamiltoniano $H_{JC}$ es diagonalizable usando los \textcolor{red}{Estados Vestidos}, obtenibles a partir de los estados producto para el campo ($\ket{g}$ y $\ket{e}$) y la cavidad (estados número $\ket{n}$)
+\begin{equation}\label{eq1.11}\begin{bmatrix}\ket{n_-}\\\ket{n_+}\end{bmatrix}=\begin{bmatrix}cos\theta_n & -sin \theta_n \\ sin\theta_n & cos\theta_n \end{bmatrix}\begin{bmatrix}\ket{n,g}\\\ket{n-1,e}\end{bmatrix}\textcolor{red}{\Rightarrow}\begin{bmatrix}\ket{n,g}\\\ket{n-1,e}\end{bmatrix}=\begin{bmatrix}cos\theta_n & sin \theta_n \\ -sin\theta_n & cos\theta_n \end{bmatrix}\begin{bmatrix}\ket{n_-}\\\ket{n_+}\end{bmatrix}\end{equation}
+\begin{equation}\label{eq1.12}\textcolor{red}{:} H=\sum_{n=1}^{n_f} (E_{n_+}\ket{n_+}\bra{n_+}+E_{n_-}\ket{n_-}\bra{n_-})\end{equation}
+A partir de la condición inicial $\ket{0,e}$
+\begin{equation}\label{eq1.13}\ket{\psi(0)}=\ket{0,e}=-sin\theta_n\ket{1_-}+cos\theta_n\ket{1_+}\end{equation}
+Se puede resolver la Ecuación de Schr\"odinger bajo los 2 métodos expuestos anteriormente.
+\begin{itemize}
+    \item \textcolor{red}{Con método de Operador Unitario}, se debe obtener el operador a partir del Hamiltoniano de \ref{eq1.12}
+\begin{equation}\label{eq1.14}U(t,0)=e^{\frac{-i}{\hslash}Ht}=\sum_{n=1}^{n_f}(e^{\frac{-i}{\hslash}E_{n_+}t}\ket{n_+}\bra{n_+}+e^{\frac{-i}{\hslash}E_{n_-}t}\ket{n_-}\bra{n_-})\end{equation}
+Aplicando el operador de \ref{eq1.14} en el estado de \ref{eq1.13} para obtener $\ket{\psi(t)}$:
+\begin{equation}\label{eq1.15}\ket{\psi(t)}=cos\theta_n e^{\frac{-i}{\hslash} E_{1_+}t}\ket{1_+}-sin\theta_n e^{\frac{-i}{\hslash} E_{1_-}t}\ket{1_-}\end{equation}
+    \item \textcolor{red}{Con método de Función de Onda}, aplicando la ecuación \ref{eq1.10} para el Hamiltoniano en \ref{eq1.12} se obtiene la ecuación diferencial para la descomposición de $\ket{\psi(t)}$ en los estados definidos en \ref{eq1.11}
+\begin{equation}\label{eq1.16}\dot{a}_{n_\pm}(t)=\frac{-i}{\hslash}E_{n_\pm}a_{n_\pm}\textcolor{red}{\Rightarrow} a_{n_\pm}(t)=a_{n_\pm}(0)e^{\frac{-i}{\hslash}E_{n_\pm}t}, \textcolor{red}{\therefore} \ket{\psi(t)}=\sum_{n=0}^{n_f} (a_{n_+}(0)e^{\frac{-i}{\hslash}E_{n_+}t}\ket{n_+}+a_{n_-}(0)e^{\frac{-i}{\hslash}E_{n_-}t}\ket{n_-})\end{equation}
+Para la condición inicial de \ref{eq1.13} solo son distintos de 0 en todas las constantes iniciales $a_{n_\pm}(0)$ definidas en \ref{eq1.16} \begin{equation}\label{eq1.17} a_{1_+}=cos\theta_n, a_{1_-}=-sin\theta_n \textcolor{red}{\Rightarrow} \ket{\psi(t)}=cos\theta_n e^{\frac{-i}{\hslash}E_{1_+}t}\ket{1_+}-sin\theta_n e^{\frac{-i}{\hslash}E_{1_-}t}\ket{1_-}\end{equation}
+\end{itemize}
+Con lo que se obtiene para \ref{eq1.15} el mismo resultado que para \ref{eq1.17}.
+\chapter{Ecuación Maestra Fenomenológica}
+
+\section{Ecuación de Liouville-Von Neumann}
+
+Para un estado en un sistema cuántico, cerrado o abierto, se puede definir una \textcolor{red}{Matriz Densidad}, a la que siempre se le puede encontrar una \textcolor{red}{descomposición espectral} que lo define como combinación lineal de estados puros.
+
+\begin{equation}\label{eq2.1}\rho=\sum_{i,j}a_{ij}\ket{\psi_i}\bra{\psi_j}=\sum_\alpha \omega_\alpha \ket{\psi_\alpha}\bra{\psi_\alpha}\end{equation}
+
+Si se define una evolución temporal para los estados puros $\ket{\psi_\alpha}$ que aparecen en la descomposición mediante la Ecuación de Schr\"odinger (como se detalló en el capítulo anterior), se puede usar para encontrar la evolución temporal de la matriz densidad completa.
+
+\begin{equation}\label{eq2.2}\ket{\psi_\alpha(t)}=U(t,t_0)\ket{\psi_\alpha(t)}\textcolor{red}{\Rightarrow} \rho(t)=\sum_\alpha \omega_\alpha \ket{\psi_\alpha(t)}\bra{\psi_\alpha(t)}=\sum_\alpha \omega_\alpha U(t,t_0)\ket{\psi_\alpha(t_0)}\bra{\psi_\alpha(t_0)}U^\dag(t,t_0)=U(t,t_0)\rho(t_0)U^\dag(t,t_0)\end{equation}
+
+Si se deriva lo obtenido en \ref{eq2.2}, usando la Ecuación de Schr\"odinger tal y como se define en \ref{eq1.5}
+
+\begin{equation}\label{eq2.3}\dot{\rho}(t)=\dot{U}(t,t_0)\rho(t_0)U^\dag(t,t_0)+U(t,t_0)\rho(t_0)\dot{U}^\dag(t,t_0)=-\frac{i}{\hslash}(H(t)U(t,t_0)\rho(t_0)U^\dag(t,t_0)-U(t,t_0)\rho(t_0)U^\dag(t,t_0)H(t))\end{equation}
+
+Reemplazando \ref{eq2.2} en \ref{eq2.3}, se obtiene finalmente la \textcolor{red}{Ecuación de Liouville-Von Neumann}:
+
+\begin{equation}\label{eq2.4}\dot{\rho}(t)=-\frac{i}{\hslash}(H(t)\rho(t)-\rho(t)H(t))=\frac{-i}{\hslash}[H(t),\rho(t)]\end{equation}
+
+La ecuación \ref{eq2.4} se puede reescribir usando un \textcolor{red}{Superoperador}, que no es más que una función que pasa de operador a operador.
+
+\begin{equation}\label{eq2.5}\dot{\rho}(t)=\mathcal{L}(t)[\rho(t)]\textcolor{red}{\Rightarrow} \rho(t)=[\mathcal{T}_{\leftarrow} e^{\int_0^t \mathcal{L}(s) ds}]\rho(t_0)\end{equation}
+
+Análogamente a \ref{eq1.7} y \ref{eq1.8}, si el superoperador $\mathcal{L}(t)$ no depende del tiempo:
+
+\begin{equation}\label{eq2.6}\rho(t)=[\mathcal{T}_{\leftarrow} e^{\mathcal{L} (t-t_0)}]\rho(t_0)\end{equation}
+\section{¿Qué es una ecuación Maestra?}
+
+Para cualquier sistema cuántico en un espacio compuesto de un subespacio $A$ (llamado comunmente \textcolor{red}{Sistema}) y otro llamado $B$ (llamado comunmente \textcolor{red}{Ambiente} o \textcolor{red}{Reservorio}),si el Sistema y el Reservorio no tienen correlaciones entre sí, se puede escribir el estado conjunto como un producto tensorial. En caso contrario, no se puede escribir así y deben agregarse elementos correspondientes a la \textcolor{red}{correlación} entre los 2 subespacios: 
+\begin{equation}\label{eq2.7} \rho_{AB}=\rho_A\otimes\rho_B+\rho_{corr}\textcolor{red}{\Rightarrow} \rho_{AB}=\rho_A\otimes\rho_B\end{equation}
+
+Entonces, la \textcolor{red}{Ecuación Maestra} comienza a obtenerse a partir de la traza en el reservorio de la ecuación \ref{eq2.4}, buscando evitar el cálculo de toda la evolución temporal de $\rho_{AB}(t)$ y poder hacer la evolución de $\rho_A(t)$ considerando la influencia de $B$ sobre $A$. 
+
+\begin{equation}\label{eq2.8} \dot{\rho}_A(t)=-\frac{i}{\hbar} Tr_B[H(t),\rho(t)]\end{equation}
+
+Algo importante a considerar para la evolución temporal obtenida es que esta debe hacer que la matriz densidad reducida $\rho_A(t)$ cumpla con las propiedades requeridas para que sea considerada como matriz densidad, que no son más que exigir que sus autovalores puedan reinterpretarse como probabilidades:
+
+\begin{itemize}
+\item Que $\rho_A(t)$ sea hermítico para que los autovalores sean reales. ($\rho_A(t)=\rho^\dag_A(t)$)
+\item Que $\rho_A(t)$  tenga traza 1 para que sus autovalores sumen 1. ($Tr_A(\rho_A(t))=1$)
+\item Que $\rho_A(t)$ sea semipositivo para que sus autovalores sean positivos. ($\bra{\phi(t)}\rho_A(t)\ket{\psi(t)} \geq 0 (\forall t )$)
+
+A continuación, y considerando las tres propiedades anteriores, se obtendrán ecuaciones maestras usando un método formal y otro empírico.
+\end{itemize}
+
+\section{Derivación formal: semigrupos}
+Se puede definir un \textcolor{red}{mapa dinámico} como una función que va del espacio de Hilbert de A hasta sí mismo y consiste en \textcolor{red}{superoperadores} que representan la evolución temporal para la matriz densidad para $\rho_B$ y tiempo fijos.
+\begin{equation}\label{eq2.9}V(t):\mathbb{H}_A\textcolor{red}{\Rightarrow}\mathbb{H}_A\textcolor{red}{\Rightarrow} \rho_A(t)=V(t)\rho_A(0)=U(t,0)[\rho_A(0)\otimes\rho_B(0)]U^\dag(t,0) \end{equation}
+Si se escribe $\rho_A$ en su base espectral, y se escribe las componentes matriciales del operador unitario $U(t,0)$ presente en \textcolor{blue}{\ref{eq2.9}} en la misma base:
+\begin{equation}\label{eq2.10}\rho_A=\sum_\alpha\lambda_\alpha\ket{\varphi_\alpha}\bra{\varphi_\alpha}, W_{\alpha\beta}=\sqrt{\lambda_\alpha\lambda_\beta}\bra{\varphi_\alpha}U(t,0)\ket{\varphi_\beta}\end{equation}
+Se puede reescribir la evolución temporal $V(t)$ como una medición generalizada (POVM)
+\begin{equation}\label{eq2.11}V(t)\rho_A=\sum_{\alpha\beta}W_{\alpha\beta}(t)\rho_AW^\dag_{\alpha\beta}(t)\end{equation}
+Dicha evolución temporal cumple como propiedades
+\begin{equation}\label{eq2.12} \sum_{\alpha\beta}W_{\alpha\beta}^\dag(t)W_{\alpha\beta}(t)=\mathbb{I}_A\textcolor{red}{\Rightarrow} tr_A(V(t)\rho_A)=tr_A(\rho_A)=1\end{equation}
+La operación evolución temporal cuántica es convexa, positiva y preservadora de traza, por lo que permite cumplir las propiedades requeridas para $\rho_A(t)$. Los operadores $V(t)$ forman un semigrupo que cumple con la siguiente propiedad fundamental.
+\begin{equation}\label{eq2.13}V(t_1)V(t_2)=V(t_1+t_2) \end{equation}
+La propiedad en \textcolor{blue}{\ref{eq2.13}} está vinculada con la Markovialidad.
+Se define entonces un \textcolor{red}{generador de semigrupo}, que consiste en un mapa lineal.
+\begin{equation}\label{eq2.14}\mathcal{L}:V(t)=e^{\mathcal{L}t}\textcolor{red}{\Rightarrow} \dot{\rho_A(t)}=\dot{V}(t)\rho_A=\mathcal{L}\rho_A(t)\end{equation}
+Se pretenderá entonces, construir el $\mathcal{L}$ más general en el espacio $\mathbb{H}_A\otimes\mathbb{H}_A$ definiendo operadores $F_i$ desde $0$ hasta $N^2$ definiendo un producto escalar para operadores
+\begin{equation}\label{eq2.15}  X\cdot Y=Tr_A(X^\dag Y)\end{equation}
+Se puede escribir el operador de medida generalizada, y por lo tanto el operador de evolución temporal como combinación lineal de los elementos de la base (considerando el producto escalar anterior:
+\begin{equation}\label{eq2.16}W_{\alpha\beta}=\sum_{i=1}^{N^2} F_i(F_i\cdot W_{\alpha\beta}(t))\textcolor{red}{\Rightarrow} V(t)\rho_A=\sum_{\alpha\beta}\sum_{i,j=1}^{N^2} F_i(F_i\cdot W_{\alpha\beta}(t))\rho_AF_j^\dag(F_j\cdot W_{\alpha\beta}(t))^*\end{equation}
+Llamando $c_{ij}$ a los resultados de los productos escalares la expansión de \textcolor{blue}{\ref{eq2.16}} se simplifica
+\begin{equation}\label{eq2.17}c_{ij}=(F_i\cdot W_{\alpha\beta}(t))(F_j W_{\alpha\beta}(t))^*\textcolor{red}{\Rightarrow} V(t)\rho_A=\sum_{i,j}^{N^2}c_{ij}(t)F_i\rho_AF_j^\dag\end{equation}
+Por la forma dada en la definición en \textcolor{blue}{\ref{eq2.17}}, los $c_{ij}$, forman una matriz hermítica y positiva.
+Sin perder generalidad se define que el último operador de la lista sera proporcional a la identidad, así como que los operadores traza tendrán traza $0$
+\begin{equation}\label{eq2.18}\forall i:[0,n^2-1] Tr_A F_i=0, F_{N^2}=\frac{\mathbb{I}_A}{\sqrt{N}}\end{equation}
+Dicho esto se procede a evaluar la derivada de la evolución temporal, considerando \textcolor{blue}{\ref{eq2.14}}, la definición formal de derivada (con un tiempo $\epsilon$) y las definiciones dadas en \textcolor{blue}{\ref{eq2.18}}
+\begin{equation}\label{eq2.19}\mathcal{L}\rho_A= \lim\limits_{\epsilon\textcolor{red}{\Rightarrow} 0}\frac{V(\epsilon)\rho_A-\rho_A}{\epsilon}\end{equation}
+Se descompone $V(\epsilon)$ en los operadores base usando las condiciones señaladas
+\begin{equation}\label{eq2.20}\begin{aligned}=\lim\limits_{\epsilon\textcolor{red}{\Rightarrow} 0}\frac{1}{\epsilon}(\sum_{i,j}^{N^2-1} C_{ij}(\epsilon)F_i\rho_AF_j^\dag+\frac{1}{\sqrt{n}}\sum_{i=1}^{N^2-1}(C_{iN^2}(\epsilon)F_i\rho_A+\\ C_{N^2i}(\epsilon)\rho_AF_i^\dag)+\frac{C_{N^2N^2}(\epsilon)-N}{N}\rho_A)\end{aligned}\end{equation}
+Como se puede notar de descompuso en los productos que no incluyen a $F_N^2$, los que lo incluyen una vez y el que lo incluye 2 veces. Definiendo las siguientes constantes
+\begin{equation}\label{eq2.21} a_{N^2N^2}=\lim\limits_{\epsilon\textcolor{red}{\Rightarrow} 0}\frac{C_{N^2N^2}(\epsilon)-N}{\epsilon}, a_{iN^2}=\lim\limits_{\epsilon\textcolor{red}{\Rightarrow} 0}\frac{C_{iN^2}(\epsilon)}{\epsilon} \end{equation}
+\begin{equation}\label{eq2.22} a_{ij}=\lim\limits_{\epsilon\textcolor{red}{\Rightarrow} 0}\frac{C_{ij}(\epsilon)}{\epsilon}, a_{ N^2 i}=\lim\limits_{\epsilon\textcolor{red}{\Rightarrow} 0}\frac{C_{N^2 i}(\epsilon)}{\epsilon} \end{equation}
+La ecuación de \textcolor{blue}{\ref{eq2.20}} se simplifica
+\begin{equation}\label{eq2.23}\mathcal{L}\rho_A=\sum_{i,j}^{N^2-1}a_{ij}F_i\rho_AF_j^\dag+\frac{1}{\sqrt{N}}\sum_{i=1}^{N^2-1}(a_{iN^2}F_i\rho_A+a_{N^2i}\rho_AF_i^\dag)+\frac{a_{N^2N^2}}{N}\rho_A\end{equation}
+Definiendo ahora los siguientes operadores
+\begin{equation}\label{eq2.24} F=\frac{1}{\sqrt{N}}\sum_{i=1}^{N^2-1}a_{iN^2}F_i, G=\frac{a_{N^2N^2}}{2N}\mathbb{I}_A+\frac{1}{2}(F^\dag+F)\end{equation}
+Se puede también escribir el Hamiltoniano en función de estos operadores
+\begin{equation}\label{eq2.25}  H=\frac{1}{2i}(F^\dag-F)\end{equation}
+Y la expresión de \textcolor{blue}{\ref{eq1.17}} se simplifica más
+\begin{equation}\label{eq2.26} =\sum_{i,j}^{N^2-1}a_{ij}F_i\rho_AF_j^\dag+(F\rho_A+\rho_AF^\dag)+(G-\frac{F^\dag+F}{2})\rho_A+\rho_A(G-\frac{F^\dag+F}{2})\end{equation}
+Usando la notación de anticonmutador $\left\{A,B\right\}=AB+BA$ y separando los elementos de F y G en los útimos sumandos se obtiene:
+\begin{equation}\label{eq2.27}=\sum_{i,j}^{N^2-1}a_{ij}F_i\rho_A F_j^\dag+\left\{G,\rho_A\right\}+(F-\frac{F}{2}-\frac{F^\dag}{2})\rho_A+\rho_A(F^\dag-\frac{F^\dag}{2}-\frac{F}{2})\end{equation}
+De los últimos 2 sumandos de \textcolor{blue}{\ref{eq2.27}} se reemplaza:
+\begin{equation}\label{eq2.28} (\frac{F-F^\dag}{2})\rho_A+\rho_A(\frac{F^\dag-F}{2})=-iH\rho_A+i\rho_AH\end{equation}
+Además considerando que el semigrupo preserva la traza
+\begin{equation} \label{eq2.29}0=Tr_A\dot{\rho_A}=Tr_A\mathcal{L}\rho_A=Tr_A((2G+\sum_{i,j=1}^{N^2-1}a_{ij}F_j^\dag F_i)\rho_A)\end{equation}
+Lo último debido a que la traza es cíclica. De \textcolor{blue}{\ref{eq2.29}} se obtiene que
+\begin{equation}\label{eq2.30}-2G=\sum_{i,j=1}^{N^2-1}a_{ij}F_j^\dag F_i \textcolor{red}{\Rightarrow} G=\frac{-1}{2}\sum_{i,j=1}^{N^2-1}a_{ij}F_j^\dag F_i\end{equation}
+E insertando \textcolor{blue}{\ref{eq2.30}} y \textcolor{blue}{\ref{eq2.28}} en \textcolor{blue}{\ref{eq2.26}} se obtiene
+\begin{equation}\label{eq2.31}\mathcal{L}\rho_A=-i[H,\rho_A]+\sum_{i,j}^{N^2-1}a_{ij}(F_i\rho_AF_j^\dag+\left\{\frac{-1}{2}F_j^\dag F_i,\rho_A\right\})\end{equation}
+Al ser los elementos $a_{ij}$ positivos, la matriz $A$ que los contiene puede diagonalizarse. Si se escribe la propiedad anterior como
+\begin{equation}\label{eq2.32} UAU^\dag=diag(\gamma_1...\gamma_{N^2-1})\end{equation}
+Se pueden escribir los operadores del espacio $\mathbb{H}_A\otimes\mathbb{H}_A$ definidos para \textcolor{blue}{\ref{eq2.16}} en términos de esta diagonalización
+\begin{equation}\label{eq2.33} F_i=\sum_{k=1}^{N^2-1}u_{ki}A_k\end{equation} Despreciando el término hamiltoniano de la ecuación \textcolor{blue}{\ref{eq2.31}} e insertándolo en \textcolor{blue}{\ref{eq2.33}} se obtiene:
+\begin{equation}\label{eq2.34}\mathcal{L}\rho_A=\sum_{i,j,k}^{N^2-1}( a_{ij}((u_{ki}A_k)\rho_A(u_{kj}^*A_k^\dag))+\left\{\frac{-1}{2}(u_{kj}^*A_k^\dag) (u_{ki}A_k),\rho_A\right\})\end{equation}
+Y finalmente, usando que $u_{ki}a_{ij}u_{jk}^*=\gamma_k$ se puede reescribir \textcolor{blue}{\ref{eq2.34}} como 
+\begin{equation}\label{eq2.35}\mathcal{L}\rho_A=\sum_k^{N^2-1}\gamma_k(A_k\rho_A A_k^\dag)+\left\{\frac{-1}{2}(A_k^\dag A_k),\rho_A\right\})\end{equation}
+\section{Derivación Empírica: Sistema de 2 niveles}
+Para generar una ecuación maestra simple, y que puede ser aplicada a varios sistemas, se empieza con el Hamiltoniano de Jaynes-Cumming que \textcolor{red}{no depende del tiempo}: 
+\begin{equation}\label{eq2.36}H=\hslash\omega a^\dag a+\sum_j \hslash \omega_jb_j^\dag b_j+\sum_j \hslash g_j(a^\dag b_j+b_j^\dag a\end{equation}
+Donde vale la aproximación de \textcolor{red}{onda rotante}. Se puede pasar rápidamente al marco de interacción.
+\begin{equation}\label{eq2.37}H_I=\sum_j \hslash g_j(a^\dag b_j+b_j^\dag a) \end{equation} Y partiendo de la ecuación diferencial de Liouville (Von Neumann) válida cuando el hamiltoniano no depende del tiempo, considerando operadores en el marco de interacción:
+\begin{equation}\label{eq2.38}\dot{\bar{\rho_{AB}}}=\frac{-i}{\hslash}[\bar{H_I}(t),\bar{\rho_{AB}(t)]}\end{equation}
+La ecuación se itera 2 veces para hallar la solución (lo que por lo general \textcolor{red}{basta como aproximación})
+\begin{equation}\label{eq2.39} \begin{aligned}\bar{\rho}_{AB}(t)\simeq\bar\rho_{AB}(0)-\frac{i}{\hslash}\int_0^t dt_1[\bar{H_I}(t_1),\bar{\rho}_{AB}(t_1)]- \\ \frac{1}{\hslash^2}\int_0^t\int_0^{t_1}dt_1dt_2[\bar{H_I}(t_1),[\bar{H_I}(t_2),\bar{\rho}_{AB}(t_2)]]\end{aligned}\end{equation}
+\textcolor{red}{Asumiendo que} $\bar{\rho}_{AB}(0)=0$ y que 
+\begin{equation}\label{eq2.40}Tr_B[\bar{H}_i,\rho_B(0)]=0\end{equation}
+(Lo que equivale a decir físicamente que \textcolor{red}{el reservorio es un estado termal}), los 2 primeros sumandos de \textcolor{blue}{\ref{eq2.39}} se anulan, se deriva 1 vez y la ecuación maestra finalmente queda
+\begin{equation}\label{eq2.41}\dot{\bar{\rho}_A(t)=\frac{-1}{\hslash^2}\int_0^tdt_1 tr_B[\bar{H}_i(t),[\bar{H}_i(t_1),\bar{\rho}_{AB}(t_1)]]}\end{equation}
+\textcolor{red}{Asumiendo que la matriz densidad en $t_1$ es un estado producto}, se procede a descomponer el integrando 
+\begin{equation}\label{eq2.42}\begin{aligned}\frac{1}{\hslash^2}[\bar{H}_I(t),[\bar{H}_1(t_1),\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1)]]=\frac{1}{\hslash^2}(\bar{H_I}(t)\bar{H_1}(t_1)(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))-\\  \bar{H}_I(t)(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))\bar{H}_I(t_1) -\bar{H}_I(t_1)(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))\bar{H}_I(t)+ \\ (\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))\bar{H}_I(t_1)\bar{H}_I(t))\end{aligned}\end{equation}
+ y usando el hamiltoniano de interacción en \textcolor{blue}{\ref{eq2.38}}, \textcolor{blue}{\ref{eq2.39}} se vuelve:
+ \begin{equation}\begin{aligned} \label{eq2.43} { =(G(t)a^\dag+G^\dag(t)a)(G(t_1)a^\dag+G^\dag(t_1)a)(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))-} \\ {(G(t)a^\dag+G^\dag(t)a)(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))(G(t_1)a^\dag+G^\dag(t_1)a)-} \\ {(G(t_1)a^\dag+G^\dag(t_1)a)(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))(G(t)a^\dag+G^\dag(t)a)+} \\ {(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))(G(t_1)a^\dag+G^\dag(t_1)a)(G(t)a^\dag+G^\dag(t)a)} \end{aligned}\end{equation}
+ Otra aproximación que se realiza es el \textcolor{red}{acoplamiento débil}, qué básicamente se vale de la desigualdad temporal de Heisenberg
+ \begin{equation}\label{eq2.44} {\Delta t \Delta E \geq \frac{\hslash}{2}}\end{equation}
+ Para decir que el tiempo de correlación del baño es menos cuando los anchos de energía son mayores y que se puede asumir que el tiempo propio del baño será mucho menor al tiempo del sistema original \textcolor{red}{en el cuadro de interacción}
+ \begin{equation}\label{eq2.45} {\tau_B \leq \frac{\hslash}{E_B}, T_A\propto \frac{1}{H^A_I}\textcolor{red}{\Rightarrow} \tau_B << T_A}\end{equation}
+ El primer sumando en \textcolor{blue}{\ref{eq2.43}} equivale a
+ \begin{equation}\begin{aligned}\label{eq2.46} {G(t)a^\dag G(t_1)a^\dag(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))+ G(t)a^\dag G^\dag(t_1)a(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))+} \\ {G^\dag(t)a G(t_1)a^\dag(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))+ G^\dag(t)a G^\dag(t_1) a(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))}\end{aligned}\end{equation}
+ El segundo sumando en \textcolor{blue}{\ref{eq2.33}} (sin contar el signo menos) equivale a
+ \begin{equation}\label{eq2.47}\begin{aligned} {G(t)a^\dag(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G(t_1)a^\dag+ G(t)a^\dag(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G^\dag(t_1)a+} \\ {G^\dag(t)a(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G(t_1)a^\dag+ G^\dag(t)a(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G^\dag(t_1)a }\end{aligned}\end{equation}
+ El tercer sumando en \textcolor{blue}{\ref{eq2.43}} (sin contar el signo menos) equivale a
+ \begin{equation}\label{eq2.48}\begin{aligned} { G(t_1)a^\dag(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G(t)a^\dag+ G(t_1)a^\dag(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G^\dag(t)a+} \\ {G^\dag(t_1)a(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G(t)a^\dag+ G^\dag(t_1)a(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G^\dag(t)a}\end{aligned}\end{equation}
+ El cuarto sumando en  \textcolor{blue}{\ref{eq2.43}} equivale a
+ \begin{equation}\label{eq2.49}\begin{aligned} {(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G(t_1)a^\dag G(t)a^\dag+(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G(t_1)a^\dag G^\dag(t)a+}\\  { (\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G^\dag(t_1)a G(t)a^\dag +(\bar{\rho}_A(t_1)\otimes\bar{\rho}_B(t_1))G^\dag(t_1)a G^\dag(t)a }\end{aligned}\end{equation}
+ Para poder quitar los operadores del campo de un modo de la integral se hace una aproximación bastante fuerte: \textcolor{red}{que $\rho_A$ en $t_1$ en realidad depende del tiempo $t$, lo que significa que el sistema es local en el tiempo.}
+ Con esto, la traza en B de cualquiere de estos elementos solo depende de $\rho_B$ y de los operadores G, e incluso $\rho_A(t)$ se puede pasar para afuera de la integral, quedando \textcolor{blue}{\ref{eq2.39}} como:
+  \begin{equation}\label{eq2.50}\begin{aligned}\dot{\bar{\rho}_A=-(a^\dag a^\dag \bar{\rho_A}(t)I_1+a^\dag a \rho_A(t) I_2+ aa^\dag \rho_A(t) I_3+aa\rho_A(t) I_4)} \\ {+(a^\dag\bar{\rho_A}(t)a^\dag (I_5+I_9)+a^\dag\bar{\rho_A}(t)a (I_6+I_{10})+ a\bar{\rho_A}(t)a^\dag (I_7+I_{11})+a\bar{\rho_A}(t)a (I_8+I_{12})} \\ {-(\bar{\rho_A}(t)a^\dag a^\dag I_{13}+\bar{\rho_A}(t)a^\dag a I_{14}+ \bar{\rho_A}(t)aa^\dag I_{15}+\bar{\rho_A}(t)aa I_{15})} \end{aligned}\end{equation}
+ Entiéndanse los $I_i$ como las integrales de los elementos dependientes de B, estando $I_1$ a $I_4$ generados a partir de \textcolor{blue}{\ref{eq2.46}}, $I_5$ a $I_8$ a partir de \textcolor{blue}{\ref{eq2.47}}, $I_9$ a $I_{12}$ a partir de \textcolor{blue}{\ref{eq2.48}} y $I_{13}$a $I_{16}$ de \textcolor{blue}{\ref{eq2.49}}.
+ Usando la propiedad de que la traza de una matriz es cíclica, 
+ \begin{equation}\label{eq2.51} {Tr_B(G(t)G(t_1)\bar{\rho}_B(t_1))=Tr_B(G(t_1)\bar{\rho}_B(t_1)G(t))\textcolor{red}{\Rightarrow} I_{1}=I_{9} }\end{equation}
+ \begin{equation}\label{eq2.52} {Tr_B(G(t)G^\dag(t_1)\bar{\rho}_B(t_1))=Tr_B(G^\dag(t_1)\bar{\rho}_B(t_1)G(t))\textcolor{red}{\Rightarrow} I_{2}=I_{11}}\end{equation}
+ \begin{equation}\label{eq2.53}{ Tr_B(G^\dag(t)G(t_1)\bar{\rho}_B(t_1))=Tr_B(G(t_1)\bar{\rho}_B(t_1)G^\dag(t))\textcolor{red}{\Rightarrow} I_{3}=I_{10} }\end{equation}
+ \begin{equation}\label{eq2.54}{Tr_B(G^\dag(t)G^\dag(t_1)\bar{\rho}_B(t_1))=Tr_B(G^\dag(t_1)\bar{\rho}_B(t_1)G^\dag(t))\textcolor{red}{\Rightarrow} I_{4}=I_{12}}\end{equation}
+ \begin{equation} \label{eq2.55}{ Tr_B(G(t)\hat{\rho}_B(t_1)G(t_1))=Tr_B(\hat{\rho}_B(t_1)G(t_1)G(t)) \textcolor{red}{\Rightarrow} I_{5}=I_{13}
+}\end{equation}
+\begin{equation}\label{eq2.56} {Tr_B(G(t)\hat{\rho}_B(t_1)G^\dag(t_1))=Tr_B(\hat{\rho}_B(t_1)G^\dag(t_1)G(t)) \textcolor{red}{\Rightarrow} I_{6}=I_{15} }\end{equation}
+\begin{equation}\label{eq2.57}{Tr_B(G^\dag(t)\hat{\rho}_B(t_1)G(t_1))=Tr_B(\hat{\rho}_B(t_1)G(t_1)G^\dag(t)) \textcolor{red}{\Rightarrow} I_{7}=I_{14}}\end{equation}
+\begin{equation}\label{eq2.58} {Tr_B(G^\dag(t)\hat{\rho}_B(t_1)G^\dag(t_1))=Tr_B(\hat{\rho}_B(t_1)G^\dag(t_1)G^\dag(t)) \textcolor{red}{\Rightarrow} I_{8}=I_{16} }\end{equation}
+ Lo anterior reduce las integrales a resolver a solo 8. Pero ahora, si se considera que las funciones de correlación, más que de $t_1$ o $t$, dependen de la diferencia entre ellos, se puede aseverar que:
+ \begin{equation}\label{eq2.59}{Tr_B(G(t)G(t_1)\hat{\rho}_B(t_1))=Tr_B(G(t_1)G(t)\hat{\rho}_B(t_1)) \textcolor{red}{\Rightarrow} I_1=I_9=I_5=I_{13}}\end{equation}
+ \begin{equation}\label{eq2.60}{Tr_B(G(t)G^\dag(t_1)\hat{\rho}_B(t_1))=Tr_B(G(t_1)G^\dag(t)\hat{\rho}_B(t_1)) \textcolor{red}{\Rightarrow} I_2=I_{11}=I_7=I_{14}}\end{equation}
+ \begin{equation}\label{eq2.61}{Tr_B(G^\dag(t)G(t_1)\hat{\rho}_B(t_1))=Tr_B(G^\dag(t_1)G(t)\hat{\rho}_B(t_1)) \textcolor{red}{\Rightarrow} I_3=I_{10}=I_6=I_{15}}\end{equation}
+ \begin{equation}\label{eq2.62}{Tr_B(G^\dag(t)G^\dag(t_1)\hat{\rho}_B(t_1))=Tr_B(G^\dag(t_1)G^\dag(t)\hat{\rho}_B(t_1)) \textcolor{red}{\Rightarrow} I_4=I_{12}=I_8=I_{16} }\end{equation}
+ Lo que reduce la obtención de la ecuación maestra a obtener 4 integrales, que se llamarán $A$,$B$, $C$ y $D$ para las resultantes de \textcolor{blue}{\ref{eq2.59}},\textcolor{blue}{\ref{eq2.60}}, \textcolor{blue}{\ref{eq2.61}} y \textcolor{blue}{\ref{eq2.62}} respectivamente.
+ Con esto, \textcolor{blue}{\ref{eq2.41}} se reduce a
+ \begin{equation}\label{eq2.63}\begin{aligned}\dot{\bar{\rho}}_A=A(2a^\dag \bar{\rho_A}(t)a^\dag-a^\dag a^\dag\bar{\rho_A}(t)-\bar{\rho_A}(t)a^\dag a^\dag)+B(2a\bar{\rho_A}(t)a^\dag-a^\dag a\bar{\rho_A}(t)-\bar{\rho_A}(t)a^\dag a) \\ +C(2a^\dag \bar{\rho}_A(t)a-aa^\dag\bar{\rho_A}(t)-\bar{\rho_A}(t)a a^\dag)+D(2a \bar{\rho}_A(t)a-a a\bar{\rho_A}(t)-\bar{\rho_A}(t)a a)\end{aligned}\end{equation}
+ Lo conveniente es que las 4 integrales se resuelven de manera similar.
+\begin{equation}\label{eq2.64} A= Tr_B (\frac{1}{\hslash^2}\int_0^t dt_1 G(t)G(t_1)\hat{\rho}_B(t_1)) \simeq <m(\omega)> e^{-i\omega t}\end{equation}
+\begin{equation}\label{eq2.65} B= Tr_B (\frac{1}{\hslash^2}\int_0^t dt_1 G^\dag(t)G(t_1)\hat{\rho}_B(t_1)) \simeq \frac{\gamma}{2} (1+<n(\omega)>) \end{equation}
+\begin{equation}\label{eq2.66}  C= Tr_B (\frac{1}{\hslash^2}\int_0^t dt_1 G(t)G^\dag(t_1)\hat{\rho}_B(t_1)) \simeq \frac{\gamma}{2}(<n(\omega)>)
+\end{equation}
+\begin{equation}\label{eq2.67} D= Tr_B (\frac{1}{\hslash^2}\int_0^t dt_1 G^\dag(t)G^\dag(t_1)\hat{\rho}_B(t_1)) \simeq <m(\omega)> e^{i\omega t} \end{equation}
+
+Esto es debido a aproximaciones observadas en la asignatura de Óptica Cuántica.
+
+
+\section{Aplicaciones a Reservorios Termales}
+
+A partir de \ref{eq2.63}, se pueden definir ecuaciones maestras para distintos  ambientes termales con partículas con estadística térmica:
+
+\begin{itemize}
+    \item Si el reservorio es a temperatura 0, esto incide en el valor de $n(\omega)$:
+    
+\begin{equation}\label{eq2.68} <n(\omega)>=\frac{1}{e^{0}-1}\simeq 0\end{equation}
+Si se agrega que no está comprimido el reservorio, $<m(\omega)>=0$. Por lo que $A=D=C=0$ y la ecuación maestra de \ref{eq2.63} queda como:
+
+\begin{equation}\label{eq2.69}\dot{\rho}_A=-\frac{\gamma}{2}(a^\dag a\bar{\rho}_A(t)+\bar{\rho}_A(t)a^\dag a-2a\bar{\rho}_A(t)a^\dag )\end{equation}
+    \item Para la misma situación, pero con un reservorio a temperatura distinta de 0, $C$ deja de valer 0 y \ref{eq2.63} queda:
+ 
+\begin{equation}\label{eq2.70}\dot{\rho}_A=-\frac{\gamma}{2}(1+<n(\omega)>)(a^\dag a\bar{\rho}_A(t)+\bar{\rho}_A(t)a^\dag a-2a\bar{\rho}_A(t)a^\dag)-\frac{\gamma}{2}(<n(\omega)>)(a a^\dag\bar{\rho}_A(t)+\bar{\rho}_A(t)aa^\dag-2a^\dag\bar{\rho}_A(t)a)
+\end{equation}
+    \item Si el reservorio es comprimido, a diferencia de los casos anteriores $<M(\omega)>\simeq 0$ y la solución más general a \ref{eq2.63} es
+\begin{equation}\label{eq2.71}\begin{aligned}\dot{\rho}_A=-\frac{\gamma}{2}(1+<n(\omega)>)(\{a^\dag a,\bar{\rho}_A(t)\}-2a\bar{\rho}_A(t)a^\dag)-\frac{\gamma}{2}(<n(\omega)>)(\{a a^\dag,\bar{\rho}_A(t)\}-2a^\dag\bar{\rho}_A(t)a) \\ -<m(\omega)>[e^{-i\omega t}(2a^\dag \hat{\rho}_A(t) a^\dag -\{a^\dag a^\dag, \hat{\rho}_A(t) \})+e^{i\omega t}(2a\hat{\rho}_A(t) a -\{aa, \hat{\rho}_A(t) \})]\end{aligned}
+\end{equation}
+\end{itemize}
+\chapter{Ecuación Maestra Microscópica}
+\section{Planteo Inicial}
+La derivación presentada anteriormente para la Ecuación Maestra tiene una desventaja: requiere hacer \textcolor{red}{Muchos supuestos} sobre el sistema a evaluar. La siguiente derivación se realiza en detalle y es colocada aparte porque permite tener una mayor comprensión del problema físico. La Ecuación Maestra \textcolor{red}{Microscópica}, en efecto, es muy útil para representar un sistema a nanoescala en un ambiente más grande, como por ejemplo, las interacciones entre luz y materia o de los llamados \textcolor{red}{Quantum Dots}).
+
+La principal suposición que se hará es que el reservorio es un \textcolor{red}{Sistema Termodinámico} que mantiene su temperatura al interactuar con otro sistema. Esto formalmente implica que $H_E$ (el Hamiltoniano que describe la mecánica en el reservorio), minimiza la entropía de Von Neumannn, lo que lleva a que el ambiente responde a una estadística térmica:
+\begin{equation}\label{eq3.1} S(\rho_E)=-Tr(\rho_E log \rho_E) \textcolor{red}{\Rightarrow}  \rho_E=\frac{e^{-\beta H_E}}{Tr(e^{-\beta H_E})} \end{equation}
+
+Si se representa la ecuación Liouville-Von Neumann en \ref{eq2.4} en Marco de Interacción, se obtiene:
+
+\begin{equation}\label{eq3.2}\hat{\rho_I}(t)=e^{\frac{iH_0t}{\hslash}}\rho(t)e^{-\frac{iH_0t}{\hslash}}\textcolor{red}{\Rightarrow}\dot{\hat{\rho}}_I(t)=\frac{i}{\hslash}([H_0,\hat{\rho}_I(t)]-e^{\frac{iH_0t}{\hslash}}[H_0+H_I(t),\rho(t)]e^{-\frac{iH_0t}{\hslash}})=\frac{-i}{\hslash}[H_I(t),\hat{\rho}_I(t)]\end{equation}
+
+Usando la aproximación para la matriz densidad de integración:
+
+\begin{equation}\label{eq3.3}\hat{\rho_I}(t)=e^{\frac{iH_0t}{\hslash}}\rho(t)e^{-\frac{iH_0t}{\hslash}}\simeq \hat{\rho}_I(0)- \frac{i}{\hbar}\int_0^t dt_1[H_I(t_1)\hat{\rho}_I(t_1)]\end{equation}
+
+Se puede insertar \ref{eq3.3} en \ref{eq3.2}, se obtiene el siguiente resultado exacto:
+
+\begin{equation}\label{eq3.4}\dot{\hat{\rho}}_I(t)=\frac{-i}{\hslash}[H_i(t),\hat{\rho}_I(0)]-\frac{1}{\hslash^2}\int_0^t dt_1 [H_I(t),[H_I(t_1),\hat{\rho}(t_1)]]\end{equation}
+
+Lo que, trazando para el ambiente para obtener $\hat{\rho}_S(t)$ obtiene finalmente
+
+\begin{equation}\label{eq3.5}\dot{\hat{\rho}}_S(t)=\frac{-i}{\hslash}Tr_E([H_i(t),\hat{\rho}_I(0)])-\frac{1}{\hslash^2}\int_0^t dt_1 Tr_E([H_I(t),[H_I(t_1),\hat{\rho}(t_1)]])\end{equation}
+
+\section{Aproximación de Born}
+
+Si la interacción entre el reservorio y el sistema es lo suficientemente débil entonces es posible considerar el operador densidad de interacción en el espacio completo como el \textcolor{red}{producto tensorial} de operadores densidad en ambos subespacios:
+
+\begin{equation}\label{eq3.6}\hat{\rho}_I(t)=\hat{\rho}_S(t)\otimes\rho_E\end{equation}
+
+Cumpliendo $\rho_E$ con \ref{eq3.1}. La ecuación \ref{eq3.5} se reescribe como:
+
+\begin{equation}\label{eq3.7}\dot{\hat{\rho}}_S(t)=\frac{-i}{\hslash}Tr_E([H_I(t),\hat{\rho}_S(0)\otimes\rho_E])-\frac{1}{\hslash^2}\int_0^t dt_1 Tr_E([H_I(t),[H_I(t_1),\hat{\rho}_S(t_1)\otimes\rho_E]])\end{equation}
+
+\section{Acoplamiento Débil}
+
+Conptinuando con el acoplamiento, para una interacción débil se puede considerar al Hamiltoniano de Interacción como una \textcolor{red}{suma de productos tensoriales} entre operadores en el subespacio del sistema $S_\alpha$ y operadores en el subespacio del ambiente $E_\alpha$:
+
+\begin{equation}\label{eq3.8}H_I(t)=\sum_\alpha S_\alpha(t)\otimes E_\alpha(t)\end{equation}
+
+Como un ejemplo de esta separación, se decompone el Hamiltoniano de Interacción para un Sistema de 2 niveles que interactúa con un conjunto de modos vibracionales:
+
+\begin{equation}\label{eq3.9}H_I=\sigma_z\otimes\sum_k(g_kb_k+g_k^*b_k^\dag) \textcolor{red}{\Rightarrow}S_1=\sigma_z, E_k=g_kb_k+g_k^*b_k^\dag\end{equation}
+
+Con lo que \ref{eq3.7} se reescribe como
+
+\begin{equation}\label{eq3.10}\dot{\hat{\rho}}_S(t)=\frac{-i}{\hslash}\sum
+_\alpha Tr_E([S_\alpha(t)\otimes E_\alpha(t),\hat{\rho}_S(0)\otimes\rho_E])-\frac{1}{\hslash^2}\sum_{\alpha\beta}\int_0^t dt_1 Tr_E([S_\alpha(t)\otimes E_\alpha(t),[S_\beta(t_1)\otimes E_\beta(t_1),\hat{\rho}_S(t_1)\otimes\rho_E]])\end{equation}
+
+La ecuación obtenida se simplifica considerando la Traza parcial sobre el ambiente (por notación $<E_\alpha(t)>=Tr_E(E_\alpha(t)\rho_E)$
+
+\begin{equation}\label{eq3.11}
+\dot{\hat{\rho}}_S(t)=\frac{-i}{\hslash}\sum
+_\alpha <E_\alpha(t)> S_\alpha(t)\otimes \hat{\rho}_S(0) -\frac{1}{\hslash^2}\sum_{\alpha\beta} <E_\alpha(t)E_\beta(t_1)>\int_0^t dt_1 [S_\alpha(t),[S_\beta(t_1),\hat{\rho}_S(t_1)]]
+\end{equation}
+
+El primer sumando de \ref{eq3.11} es simple de simplificar ya en muchos sistemas posibles \textcolor{red}{La traza reducida vale cero}, y si no fuese así, se puede manipular el Hamiltoniano para que lo sea:
+
+\begin{equation}\label{eq3.12}H_S \textcolor{red}{\rightarrow} H_S+\sum_\alpha S_\alpha <E_\alpha> \textcolor{red}{\Rightarrow} Tr_E(H_I(t))=Tr_E(\sum_\alpha S_\alpha\otimes(E_\alpha-<E_\alpha>))=0 \end{equation}
+
+Por lo que sin perder generalidad el primer sumando de \ref{eq3.10} es 0. Además, desarrollando el doble conmutador:
+
+\begin{equation}\label{eq3.13}[S_\alpha(t),[S_\beta(t_1),\hat{\rho}_S(t_1)]]=S_\beta(t_1)\hat{\rho}_S(t_1)S_\alpha^\dag(t)-S^\dag_\alpha(t)S_\beta(t_1)\hat{\rho}_S(t_1)+h.c.\end{equation}
+
+Reemplazando \ref{eq3.13} en \ref{eq3.11}, asumiendo \ref{eq3.12} y definiendo las funiciones de correlación $G_{\alpha\beta}(t,t_1)=<E^\dag_\alpha(t)E_\beta(t_1)>$, se puede escribir la ecuación
+
+\begin{equation}\label{eq3.14}\dot{\hat{\rho}}_S(t)=\frac{-1}{\hslash^2}\sum_{\alpha\beta}\int_0^t dt_1 G_{\alpha\beta}(t,t_1)(S_\beta(t_1)\hat{\rho}_S(t_1)S_\alpha^\dag(t)-S^\dag_\alpha(t)S_\beta(t_1)\hat{\rho}_S(t_1))+h.c.\end{equation}
+
+Una propiedad interesante de la función de correlación es que en lugar de depender del tiempo inicial y final, \textcolor{red}{solo depende de la diferencia} entre ambos. Esto se puede demostrar aprovechando que la traza es cíclica  y definiendo $\tau=t-t_0$:
+
+\begin{equation}\label{eq3.15}<E_\alpha^\dag(t)E_\beta(t_1)>=Tr_E(e^{\frac{iH_0 t}{\hslash}}E_\alpha^\dag e^{\frac{-i H_0 t}{\hslash}} e^{\frac{i H_0 t_1}{\hslash}} E_\beta e^{\frac{-i H_0 t_1}{\slash}}\rho_E)=Tr_E(e^{\frac{iH_0 \tau}{\hslash}}E_\alpha^\dag e^{\frac{-i H_0 \tau}{\hslash}} E_\beta \rho_E)=<E_\alpha^\dag(\tau)E_\beta(0)>\end{equation}
+
+Lo que lleva a la próxima aproximación a realizarse, que impone condiciones a ese tiempo $\tau$, que ya vuelve a la ecuación de \ref{eq3.14} una \textcolor{red}{Ecuación Maestra Tiempo-Local}.
+
+\section{Primera Aproximación de Markov}
+
+Se define como $t_C$ el tiempo en el cual las correlaciones del reservorio son relevantes. Entonces, la aproximación como tal impone que $t>>t_c$, es decir, que dicho tiempo es pequeño en comparación al tiempo en el que se hace evolucionar al sistema. Esto implica que al integrar en el tiempo las matrices densidad tienden a mantenerse constantes:
+
+\begin{equation}\label{eq3.16}\hat{\rho}_S(t_1)\simeq\hat{\rho}_S(t)\end{equation}
+
+Con lo que se puede simplificar más \ref{eq3.14}:
+
+\begin{equation}\label{eq3.17}\dot{\hat{\rho}}_S(t)=\frac{-1}{\hslash^2}\sum_{\alpha\beta}\int_0^t dt_1 G_{\alpha\beta}(\tau,0)(S_\beta(t_1)\hat{\rho}_S(t)S_\alpha^\dag(t)-S^\dag_\alpha(t)S_\beta(t_1)\hat{\rho}_S(t))+h.c.\end{equation}
+
+Lo que permite obtener soluciones para $\hat{\rho}_S(t)$ \textcolor{red}{sin funciones de convolución}, aprovechando que luego de $t_c$ la evolución temporal se comporta de manera suave.
+
+\section{Aproximación Secular}
+
+Para un Hamiltoniano de sistema $H_S$ no degenerado de puede definir la \textcolor{red}{Descomposición Espectral} de las funciones $S_\alpha$
+
+\begin{equation}\label{eq3.18}S_\alpha(\omega)=\sum_{a,b}\delta(\omega_{ba},\omega)\ket{a}\bra{a}S_\alpha\ket{b}\bra{b}\end{equation}
+
+Donde $\ket{a}$ y $\ket{b}$ son autovectores de $S_\alpha$ que sirven como base del espacio en que vivo. Esto implica formalmente que los operadores pueden escribirse como la suma de los elementos de la descomposición, resonando las frecuencias $\omega$ con los autovalores de $S_\alpha$
+
+\begin{equation}\label{eq3.19}\sum_\omega S_\alpha(\omega )= \sum_\omega \sum_{a,b}\delta(\omega_{ba},\omega)\ket{a}\bra{a}S_\alpha\ket{b}\bra{b}=\sum_{a,b}\ket{a}\bra{a}S_\alpha\ket{b}\bra{b}=S_\alpha\end{equation}
+
+Las frecuencias $\omega_{ba}$ se definen como $\omega_{ba}=\frac{E_b-E_a}{\hslash}$. Para obtener una nueva ecuación a partir de \ref{eq3.17}, se debe encontrar la descomposición espectral para los operadores $S_\beta(t)$
+
+\begin{equation}\label{eq3.20}S_\beta(t)=e^{\frac{iH_st}{\hslash}}S_\beta e^{\frac{-iH_st}{\hslash}}=\sum_{a,b,\omega}\delta(\omega_{ba},\omega)\ket{a}\bra{a}e^{\frac{iH_st}{\hslash}}S_\beta e^{\frac{-iH_st}{\hslash}}\ket{b}\bra{b}=\sum_\omega e^{-i\omega t} S_\beta(\omega) \end{equation}
+
+Análogamente, para $S_\alpha^\dag(t_1)$
+\begin{equation}\label{eq3.21}S_\alpha^\dag(t_1)=e^{\frac{-iH_st_1}{\hslash}}S_\alpha^\dag e^{\frac{iH_st_1}{\hslash}}=\sum_{a,b,\omega^\prime}\delta(\omega_{ba},\omega^\prime)\ket{a}\bra{a}e^{\frac{-iH_st_1}{\hslash}}S_\alpha^\dag e^{\frac{iH_st_1}{\hslash}}\ket{b}\bra{b}=\sum_\omega^\prime e^{i\omega^\prime t_1} S_\beta^\dag(\omega^\prime) \end{equation}
+
+Insertando \ref{eq3.20} y \ref{eq3.21} en \ref{eq3.17}, se obtiene finalmente:
+
+\begin{equation}\label{eq3.22}\dot{\hat{\rho}}_S(t)=\frac{1}{\hslash^2}\sum_{\alpha\beta\omega\omega^\prime}\int_0^t d\tau G_{\alpha\beta}(\tau)e^{i\omega\tau}e^{i(\omega-\omega^\prime) t}(S_\beta(\omega)\hat{\rho}_S(t)S_\alpha^\dag(\omega^\prime)-S^\dag_\alpha(\omega^\prime) S_\beta(\omega)\hat{\rho}_S(t))+h.c.\end{equation}
+
+Definiendo la función $\Gamma$ que cubre todo lo dependiente del ambiente:
+
+\begin{equation}\label{eq3.23}\Gamma_{\alpha\beta}(\omega,t)=\int_0^t G_{\alpha\beta}(\tau)e^{i\omega\tau}d\tau \end{equation}
+
+Se puede obtener la llamada \textcolor{red}{Ecuación Maestra Tiempo Local sin aproximación secular}
+
+\begin{equation}\label{eq3.24}\dot{\hat{\rho}}_S(t)=\frac{1}{\hslash^2}\sum_{\alpha\beta\omega\omega^\prime} \Gamma_{\alpha\beta}(\omega, t)e^{i(\omega-\omega^\prime) t}(S_\beta(\omega)\hat{\rho}_S(t)S_\alpha^\dag(\omega^\prime)-S^\dag_\alpha(\omega^\prime) S_\beta(\omega)\hat{\rho}_S(t))+h.c.\end{equation}
+
+¿En qué consiste entonces la Aproximación Secular? en una simplicación del término dado por $e^{i(\omega-\omega^\prime)t}$, que tiene como máximo valor $1$, lo que ocurre si $\omega=\omega^\prime$. En caso contrario se puede definir una escala de tiempo $t_\epsilon$ (tiene a estar cerca de los $GHz$ que convierte esta exponencial en una Delta de Dirac de $\omega$ y $\omega^\prime$.
+
+\begin{equation}\label{eq3.25} t_\epsilon >> \lvert \omega^\prime-\omega\rvert^{-1} \textcolor{red}{\Rightarrow} e^{i(\omega-\omega^\prime)t} \simeq \delta(\omega^\prime-\omega) \end{equation}
+
+Esto corresponde a una forma más potente de hacer una aproximación de Onda rotante. Al insertar \ref{eq3.25} en \ref{eq3.24} se obtiene finalmente:
+
+\begin{equation}\label{eq3.26}\dot{\hat{\rho}}_S(t)=\frac{1}{\hslash^2}\sum_{\alpha\beta\omega} \Gamma_{\alpha\beta}(\omega, t)(S_\beta(\omega)\hat{\rho}_S(t)S_\alpha^\dag(\omega)-S^\dag_\alpha(\omega) S_\beta(\omega)\hat{\rho}_S(t))+h.c.\end{equation}
+
+La que es llamada \textcolor{red}{Ecuación Maestra Tiempo Local y Secular}
+
+\section{Segunda Aproximación de Markov}
+
+Para la próxima y última aproximación conviene hacer las siguientes definiciones de operadores:
+
+\begin{equation}\label{eq3.27}\begin{bmatrix} \gamma_{\alpha\beta}(\omega,t)\\ \lambda_{\alpha\beta}(\omega,t)\end{bmatrix}=\begin{bmatrix} \Gamma_{\alpha\beta}(\omega,t)+\Gamma^*_{\alpha\beta}(\omega, t) \\ \frac{1}{2i}(\Gamma_{\alpha\beta}(\omega,t)-\Gamma^*_{\alpha\beta}(\omega,t))\end{bmatrix}\textcolor{red}{\Rightarrow}\begin{bmatrix} \Gamma_{\alpha\beta}(\omega,t)\\ \Gamma^*_{\alpha\beta}(\omega,t)\end{bmatrix}=\begin{bmatrix}  \frac{1}{2}(\gamma_{\alpha\beta}(\omega,t)+2i\lambda_{\alpha\beta}(\omega, t))\\ \frac{1}{2}(\gamma_{\alpha\beta}(\omega,t)-2i\lambda_{\alpha\beta}(\omega,t)) \end{bmatrix}\end{equation}
+
+Reescribiendo \ref{eq3.26} de manera \textcolor{red}{completa}:
+
+\begin{equation}\label{eq3.28}\dot{\hat{\rho}}_S(t)=\frac{1}{\hslash^2}\sum_{\alpha\beta\omega} (\Gamma_{\alpha\beta}(\omega, t)(S_\beta(\omega)\hat{\rho}_S(t)S_\alpha^\dag(\omega)-S^\dag_\alpha(\omega) S_\beta(\omega)\hat{\rho}_S(t))+\Gamma^*_{\alpha\beta}(\omega, t)(S_\alpha(\omega)\hat{\rho}_S(t)S^\dag_\beta(\omega)-\hat{\rho}_S(t)S^\dag_\beta(\omega)S_\alpha(\omega)))\end{equation}
+
+El operador $\gamma_{\alpha\beta}(\omega,t)$ es simétrico respecto a invertir $\alpha$ y $\beta$, mientras $\lambda_{\alpha\beta}(\omega,t)$ es antisimétrico respecto al mismo cambio. Insertando los operadores definidos en \ref{eq3.27} (considerando esa propiedad) en la ecuación \ref{eq3.28} se obtiene 
+\begin{equation}\label{eq3.29}\dot{\hat{\rho}}_S(t)=\frac{1}{2\hslash}\sum_{\alpha\beta\omega} (\gamma_{\alpha\beta}(\omega, t)\hslash(2S_\beta(\omega)\hat{\rho}(t)S_\alpha^\dag (\omega)-\{S_\alpha^\dag(\omega)S_\beta(\omega),\hat{\rho}_S(t)\})-2i\lambda_{\alpha\beta}(\omega,t)[S_\alpha^\dag(\omega)S_\beta(\omega),\hat{\rho}_S(t)])\end{equation}
+
+Se puede definir el Hamiltoniano de \textcolor{red}{Lamb Shift}, con el que se puede simplificar la notación de \ref{eq3.29}:
+
+\begin{equation}\label{eq3.30}H_{LS}=\sum_{\alpha\beta\omega}\lambda_{\alpha\beta}(\omega,t)S_\alpha^\dag(\omega)S_\beta(\omega)\textcolor{red}{\Rightarrow}\dot{\hat{\rho}}_S(t)=\sum_{\alpha\beta\omega} \frac{\gamma_{\alpha\beta}(\omega, t)}{2}(2S_\beta(\omega)\hat{\rho}(t)S_\alpha^\dag (\omega)-\{S_\alpha^\dag(\omega)S_\beta(\omega),\hat{\rho}_S(t)\})-\frac{i}{\hslash}[H_{LS},\hat{\rho}_S(t)]\end{equation}
+
+Entonces, se aplica la Segunda Aproximación de Markov, que implica que la definición de $\Gamma_{\alpha\beta}(\omega,t)$ de \ref{eq3.23} debe considerarse para \textcolor{red}{tiempos infinitos}, de manera que se puede redefinir $\gamma_{\alpha\beta}(\omega,t)$ como la siguiente función independiente del tiempo a partir de la primera fila de \ref{eq3.27}:
+
+\begin{equation}\label{eq3.31}\gamma_{\alpha\beta}(\omega)=\int_0^\infty d\tau e^{i\omega\tau}G_{\alpha\beta}(\tau)+(\int_0^\infty d\tau e^{i\omega\tau}G_{\alpha\beta}(\tau))^*=\int_0^\infty d\tau e^{i\omega\tau}G_{\alpha\beta}(\tau)+\int_0^\infty d\tau e^{-i\omega\tau}G^*_{\alpha\beta}(\tau)\end{equation}
+
+Usando que $G_{\alpha\beta}^*(\tau)=G_{\alpha\beta}(-\tau)$ y haciendo un cambio de variable en la segunda integral:
+
+\begin{equation}\label{eq3.32}\gamma_{\alpha\beta}(\omega)=\int_0^\infty d\tau e^{i\omega\tau}G_{\alpha\beta}(\tau)+\int_{-\infty}^0 d\tau e^{i\omega\tau}G_{\alpha\beta}(\tau)=\int_{-\infty}^\infty d\tau e^{-i\omega\tau}G_{\alpha\beta}(\tau)\end{equation}
+
+Insertando esta función en \ref{eq3.30} se obtiene la Ecuación Maestra definitiva, que entrega la dinámica para un sistema abierto dadas todas las aproximaciones hechas anteriormente:
+
+\begin{equation}\label{eq3.33}\dot{\hat{\rho}}_S(t)=\sum_{\alpha\beta\omega} \frac{\gamma_{\alpha\beta}(\omega)}{2}(2S_\beta(\omega)\hat{\rho}(t)S_\alpha^\dag (\omega)-\{S_\alpha^\dag(\omega)S_\beta(\omega),\hat{\rho}_S(t)\})-\frac{i}{\hslash}[H_{LS},\hat{\rho}_S(t)]\end{equation}
+
+Finalmente, si se vuelve al marco de Sch\"odinger (considerando a $H_{LS}$ despreciable, lo que es cierto para la mayoría de los sistemas físicos), se deriva como resultado de todo lo anterior:
+
+\begin{equation}\label{eq3.34}\dot{\rho}_S(t)=\sum_{\alpha\beta\omega} \frac{\gamma_{\alpha\beta}(\omega)}{2}(2S_\beta(\omega)\rho(t)S_\alpha^\dag (\omega)-\{S_\alpha^\dag(\omega)S_\beta(\omega),\rho_S(t)\})-\frac{i}{\hslash}[H_{S},\rho_S(t)]\end{equation}
+
+A continuación, se usará \ref{eq3.34} en un ejemplo que mostrará toda la Física que se puede obtener de la derivación hecha.
+
+\section{Ejemplo: Modelo de Bosones con Espín}
+
+Se considera un sistema de un espín en un ambiente compuesto de bosones (pueden ser fotones o fonones). Estos cumplen con la propiedad para sus operadores de subida y bajada:
+
+\begin{equation}\label{eq3.35}[b_k,b_k^\prime]=\hslash\delta_{kk^\prime}\end{equation}
+
+El Hamiltoniano para el sistema indicado es:
+
+\begin{equation}\label{eq3.36}H=\frac{\omega_0}{2}\sigma_z+\sum_k\omega_k b^\dag_k b_k+\frac{1}{2}\sigma_z\sum_k(g_kb_k+g_k^*b_k^\dag)\end{equation}
+
+Donde los 3 sumandos corresponden al espín libre, al campo bosónico libre y a la interacción entre ambos respectivamente. Observando el término de interacción se observa que solo hay un operador $S_\alpha=S_1=\frac{\hslash}{2}\sigma_z$. Por lo que, reemplazando ese operador en \ref{eq3.34} da:
+
+\begin{equation}\label{eq3.37}\dot{\rho}_S(t)=\sum_\omega \frac{\gamma(\omega)}{2}(\frac{1}{2}\sigma_z(\omega)\rho_S(t)\sigma_z(\omega)-\frac{1}{4}\{\sigma_z(\omega)\sigma_z(\omega),\rho_S(t)\})-\frac{i}{\hslash}[H_S,\rho_S(t)]\end{equation}
+
+Haciendo la descomposición espectral de $\sigma_z$ como sugiere \ref{eq3.18}
+
+\begin{equation}\label{eq3.38}\sigma_z(\omega)=\sum_{a,b}\delta(\omega_{ba},\omega)\ket{a}\bra{a}\sigma_z\ket{b}\bra{b}=\delta(\omega)\sigma_z\textcolor{red}{\Rightarrow} \sigma_z(\omega)\sigma_z(\omega)= \sigma_z\sigma_z=\mathbb{I}\end{equation}
+
+Por lo tanto, insertando \ref{eq3.38} en \ref{eq3.37} resulta:
+
+\begin{equation}\label{eq3.39}\rho_S(t)=-\frac{i}{\hslash}[H_S,\rho_S(t)]+ \frac{\gamma(\omega)}{4}(\sigma_z\rho_S(t)\sigma_z-\rho_S(t))\end{equation}
+
+Se observa entonces, que todo el efecto del ambiente bosónico puede obtenerse del cálculo de $\gamma(\omega)$. A partir de \ref{eq3.23} y \ref{eq3.32}:
+
+\begin{equation}\label{eq3.40}\gamma(\omega)=\int_{-\infty}^\infty d\tau e^{-i\omega t} G_{11}(\tau)=\int_{-\infty}^\infty d\tau <E_1^\dag(\tau)E_1(0)>\end{equation}
+
+La correlación observada en \ref{eq3.40} se puede obtener empezando desde la definición del único operador de ambiente:
+
+\begin{equation}\label{eq3.41}E_1=\sum_k(g_kb_k+g_k^*b_k^\dag)\textcolor{red}{\Rightarrow} <E_1^\dag(\tau)E_1>=\sum_{kk^\prime}(g_k^*g_k<b_k^\dag b_{k^\prime}>e^{i\omega_k t}+g_kg_k^*<b_k b_{k^\prime}^\dag>e^{-i\omega_k t})\end{equation}
+
+Considerando que son bosones, la estadística de Bose-Einstein dice que $<b_k^\dag b_{k^\prime}>=n(\omega_k)\delta_{kk^\prime}$ y $<b_k b_{k^\prime}^\dag>=(n(\omega_k)+1)\delta_{kk^\prime}$. Reemplazando en \ref{eq3.41} y luego en \ref{eq3.40} 
+\begin{equation}\label{eq3.42}\gamma_{\alpha\beta}(\omega)=\int_{-\infty}^{\infty} d\tau \sum_k \lvert g_k\rvert^2(n(\omega_k)e^{i\omega_k \tau}+(n(\omega_k)+1)e^{-i\omega_k \tau})\end{equation}
+
+Se pueden tomar las integrales de \ref{eq3.42} y descomponerlas para poderlas resolver usando un cambio de variable:
+
+\begin{equation}\label{eq3.43} \int_{-\infty}^\infty n(\omega_k)e^{i\omega_k\tau}d\tau=\int_{-\infty}^0 n(\omega_k)e^{i\omega_k\tau}d\tau+\int_{0}^\infty n(\omega_k)e^{i\omega_k\tau}d\tau=\int_0^\infty n(\omega_k)e^{-i\omega_k\tau}d\tau+\int_{0}^\infty n(\omega_k)e^{i\omega_k\tau}d\tau\end{equation}
+\begin{equation}\label{eq3.44} \int_{-\infty}^\infty (n(\omega_k)+1)e^{-i\omega_k\tau}d\tau=\int_{-\infty}^0 (n(\omega_k)+1)e^{-i\omega_k\tau}d\tau+\int_{0}^\infty (n(\omega_k)+1)e^{-i\omega_k\tau}d\tau=\int_0^\infty (n(\omega_k)+1)e^{i\omega_k\tau}d\tau+\int_{0}^\infty (n(\omega_k)+1)e^{-i\omega_k\tau}d\tau\end{equation}
+
+Entonces, sumando \ref{eq3.43} y \ref{eq3.44} se obtiene la misma integral de \ref{eq3.42}. Aplicando:
+
+\begin{equation}\label{eq3.45}\gamma_{\alpha\beta}(\omega)=2\int_0^{\infty} d\tau \sum_k \lvert g_k\rvert^2(2n(\omega_k)+1)cos(\omega_k \tau)=2\sum_k\lvert g_k\rvert^2(2n(\omega_k)+1)\frac{sin(\omega_k t)}{\omega_k}\end{equation}
+
+Si se pasa la suma sobre $k$ al contínuo, se termina escribiendo una integral en la que termina apareciendo la función de \textcolor{red}{Densidad de Estados} $D(\omega)$. Esta indica los pesos de las distintas frecuencias y depende del sistema físico a estudiar. También se puede multiplicar por el módulo cuadrado de $g(\omega)$ definiendo la \textcolor{red}{Densidad de Estados Espectral}
+$J(\omega)$
+
+\begin{equation}\label{eq3.46}\gamma_{\alpha\beta}(\omega)=\int_0^\infty d\omega D(\omega)\lvert g(\omega)\rvert^2(2n(\omega)+1)\frac{sin(\omega t)}{\omega}=\int_0^\infty d\omega J(\omega)(2n(\omega)+1)\frac{sin(\omega t)}{\omega}\end{equation}
+
+Se puede hacer algo de trigonometría para calcular la parte dependiente de $n(\omega_k)$, aprovechando que el reservorio cumple la estadística de Bose-Einstein:
+
+\begin{equation}\label{eq3.47}2n(\omega_k)+1=\frac{2}{e^{\beta\hslash\omega}-1}+1=\frac{e^{\beta\hslash\omega}+1}{e^{\beta\hslash\omega}-1}=coth(\frac{\beta\hslash\omega}{2})\end{equation}
+
+Reemplazando \ref{eq3.47} en \ref{eq3.46} y luego reemplazando en \ref{eq3.37} la Ecuación Maestra para el Sistema queda:
+
+\begin{equation}\label{eq3.48}\rho_S(t)=\frac{-i}{\hslash}[H_S,\rho_S(t)]+\frac{1}{4}\int_0^\infty d\omega J(\omega)coth(\frac{\beta\hslash\omega}{2})\frac{sin(\omega t)}{\omega}(\sigma_z\rho_S(t)\sigma_z-\rho_S(t))\end{equation}
+
+Un último comentario respecto a las funciones de densidad espectral: En la mayoría de los casos tienen una forma proporcional a $\alpha\omega^se^{-\frac{\omega}{\omega_C}}$, siendo $\alpha$ el acoplamiento, $s$ la dimensionalidad y $\omega_C$ la frecuencia de corte. En fonones de baja frecuencia $D(\omega)\propto \omega^{d-1}$ y $\lvert g(\omega)\rvert^2 \propto \omega$, por lo que $J(\omega)\propto \omega^3$. Un reservorio en el que $s=1$ es llamado \textcolor{red}{óhmico}. Si $s$ es más bajo se llamará \textcolor{red}{subóhmico} y si es más alto \textcolor{red}{superóhmico}. Todos estos comentarios demuestran que detrás de todo el cálculo realizado se pueden derivar muchas características de los sistemas a estudiar.
+
+\chapter{Saltos Cuánticos}
+\section{Definición}
+Los saltos cuánticos (Definidos en literatura como \textit{Quantum Jumps}) son la manera cuántica de explicar las fluctuaciones, ya que surgen de una \textcolor{red}{Ecuación de Schr\"odinger Estocástica}, que es capaz de definir el \textcolor{red}{Ruido} de sistema. Por lo general los operadores de ruido son dependientes del tiempo, por lo que para encontrar su evolución se debe avanzar al Cuadro de Heisenberg, pero esto es algo que se quiere evitar. Con la formalidad que se presenta en este capítulo, más que el ruido, se estudia la \textcolor{red}{Pérdida de excitaciones}, como se puede estudiar posteriormente, el ruido dado por operadores se puede estudiar con el paso del Cuadro de Heisenberg a \textcolor{red}{\textit{Quantum State Diffusión} (QSD)}.
+
+\section{Derivación Práctica}
+
+La siguiente derivación está basada en el libro de Orszag, un comentario importante, es que los saltos cuánticos definidos acá son para sistemas \textcolor{red}{markovianos}. Existen derivaciones para sistemas no markovianos, pero son de uso más reciente. De acuerdo a los capítulos anteriores, si una ecuación de Schr\"odinger tiene complejidad $N$, si al abrir el sistema se define una ecuación maestra a partir del mismo Hamiltoniano esta tendrá complejidad $N^2$. Entonces, los saltos cuánticos son una forma de definir un \textcolor{red}{enfoque alternativo} a la ecuación maestra, que \textcolor{red}{mantiene la complejidad original} $N$, aunque con el precio de agregar elementos estocásticos a la ecuación. ¿Cuál sería el formalismo por el cual se agregan?  Mediante el siguiente \textcolor{red}{Hamiltoniano no Hermítico} en el que se definen los \textcolor{red}{canales de disipación} $C_m$:
+
+\begin{equation}\label{eq4.1}H=H_s-\frac{i\hslash}{2}\sum_m C_m^\dag C_m
+\end{equation}
+
+Como un ejemplo de estos canales se puede señalar que como ejemplo que una pérdida atómica tiene la forma $\sqrt{\gamma}\sigma^-$, y una pérdida fotónica tiene forma $\sqrt{\kappa} a$ (considerando operadores de bajada para representar la pérdida y la raíz cuadrada de una constante). Para un Hamiltoniano de un átomo libre agregando una pérdida, el Hamiltoniano escrito en \ref{eq4.1} sería:
+
+\begin{equation}\label{eq4.2}H=\frac{\hslash\omega}{2}\sigma_z-\frac{i\hslash}{2}\gamma \sigma^+\sigma^-\end{equation}
+
+Aprovechando que el operador $\sigma^+\sigma^-$ equivale a un proyector en el estado excitado:
+
+\begin{equation}\label{eq4.3}\sigma^+\sigma^-=\ket{e}\bra{g}\ket{g}\bra{e}=\ket{e}\bra{e}\textcolor{red}{\Rightarrow} H= (\frac{\hslash(\omega-i\gamma)}{2})\ket{e}\bra{e}+(\frac{-\hslash\omega}{2})\ket{g}\bra{g}\end{equation}
+
+El elemento imaginario en la proyección de $\ket{e}$ se puede considerar un factor de \textcolor{red}{inestabiidad}. Lo que confirma que para que los saltos cuánticos funcionen, estos valores deben tener una \textcolor{red}{baja probabilidad} (lo que lleva a que debe ser un proceso estocástico propiamente tal).Entonces la dinámica se considera una aproximación al problema:
+
+Se puede definir entonces la \textcolor{red}{probabiliidad de salto} como:
+
+\begin{equation}\label{eq4.4}\delta p_m(t_n)=\Delta t \bra{\psi(t_n)}C_m^\dag C_m\ket{\psi(t_n)}\textcolor{red}{(}t_n=n\Delta t,  \Delta t << 1, E_i \Delta t <<1 \textcolor{red}{)}\end{equation}
+
+Estas probabilidades presentan a los saltos cuánticos como un método \textcolor{red}{numérico} muy útil. También se puede definir un \textcolor{red}{Indicador de ocurrencia de salto} $\delta p(t_n)$: y un número aleatorio $r_n$ al que se comparan para definir si hay salto o no:
+
+\begin{equation}\label{eq4.5}\delta p(t_n)=\sum_m \delta p_m(t_n) \textcolor{red}{\Rightarrow} r_n \geq \delta p(t_n) \textcolor{red}{\rightarrow (1)} \end{equation}
+
+El símbolo $\textcolor{red}{(1)}$ que \textcolor{red}{no hay salto} en el intervalo de tiempo $t_n$. Lo que implica una evolución \textit{normal} del sistema:
+
+\begin{equation}\label{eq4.6} \textcolor{red}{(1)\Rightarrow} \ket{\psi^B(t_{n+1})}=e^{\frac{-i}{\hslash}H\Delta t}\ket{\bar{\psi}^B(t_n)}\textcolor{red}{(}\ket{\bar{\psi}^B(t_n)}=e^{\frac{-i}{\hslash}Ht_n}\ket{\psi(0)}\textcolor{red}{)}\end{equation}
+
+Al ser la evolución temporal hecha en \ref{eq4.6} no hermítica, los estados no tienen necesariamente norma $1$ y se requiere una \textcolor{red}{renormalización}:
+
+\begin{equation}\label{eq4.7}\bra{\psi(0)}\ket{\psi(0)}\neq\bra{\bar{\psi}^B(t_n)}\ket{\bar{\psi}^B(t_n)} \textcolor{red}{\Rightarrow} \ket{\psi^B(t_n)}=\frac{\ket{\bar{\psi}^B(t_n)}}{\sqrt{\bra{\bar{\psi}^B(t_n)}\ket{\bar{\psi}^B(t_n)}}}\end{equation}
+
+Como un ejemplo de la necesidad de normalización, tómese el hamiltoniano de \ref{eq4.2} en el que se aplica la evolución temporal definida en \ref{eq4.6} y luego se calcula su norma:
+
+\begin{equation}\label{eq4.8} \ket{\psi(0)}=\begin{bmatrix}c_g(0)\\c_e(0)\end{bmatrix}\textcolor{red}{\Rightarrow} \ket{\bar{\psi}^B(t)}=\begin{bmatrix}c_g(0)e^{i\frac{\omega t}{2}}\\c_e(0)e^{-i\frac{\omega t}{2}}e^{-\frac{\gamma}{2}}\end{bmatrix}\textcolor{red}{\Rightarrow} \bra{\bar{\psi}^B(t)}\ket{\bar{\psi}^B(t)}=\lvert c_g(0)\rvert^2+\lvert c_e(0)\rvert^2 e^{\gamma t} < 1 \end{equation}
+
+Si ocurre lo contrario a lo definido a \ref{eq4.5}, entonces \textcolor{red}{si habrá salto}, lo que se simboliza usando $\textcolor{red}{(2)}$
+\begin{equation}\label{eq4.9}\delta p(t_n)=\sum_m \delta p_m(t_n) \textcolor{red}{\Rightarrow} r_n \leq \delta p(t_n) \textcolor{red}{\rightarrow (2)} \end{equation}
+
+El salto consiste en la aplicación de un operador $C_m$ al estado:
+
+\begin{equation}\label{eq4.10}\textcolor{red}{(2)\Rightarrow}\ket{\psi^S(t_{n+1})}=\frac{C_m\ket{\psi^S(t_n)}}{\bra{\psi^S(t_n)}C_m^\dag C_m\ket{\psi^S(t_n)}}\end{equation}
+
+Con los operadores $C_m$ de acuerdo a como fueron definidos se puede, por ejemplo, representar que se le quitó una excitación a un sistema. Esto es muy útil (de acuerdo a Haroche) para definir fotodetectores.
+
+Siguiendo el ejemplo desarrollado en \ref{eq4.8}, el operador luego de un salto sería:
+
+\begin{equation}\label{eq4.11} \ket{\psi(t)}=\begin{bmatrix}c_g(0)e^{i\frac{\omega t}{2}}\\c_e(0)e^{-i\frac{\omega t}{2}}e^{-\frac{\gamma}{2}}\end{bmatrix} \textcolor{red}{\Rightarrow} \ket{\bar{\psi}^S(t^\prime)}=\begin{bmatrix}c_e(0)e^{-i\frac{\omega t}{2}}e^{-\frac{\gamma}{2}}e^{i\frac{\omega}{2}(t^\prime-t)}\\c_g(0)e^{i\frac{\omega t}{2}}e^{-i\frac{\omega}{2}(t^\prime-t)}\end{bmatrix}\textcolor{red}{(}t^\prime >t\textcolor{red}{)} \end{equation}
+
+
+Una forma de confirmar que el método de saltos cuánticos es válido para representar sistemas cuánticos abiertos es demostrar que promediando respecto a la trayectoria usada \textcolor{red}{Se obtiene de vuelta la ecuación maestra}, lo que se puede demostrar definiendo la matriz densidad correspondiente al proyector de un estado puro considerando $t_{n+1}=t_n+\Delta t$ y solo evolución temporal:
+
+\begin{equation}\label{eq4.12}\bar{\rho}_C(t_{n+1})=\ket{\psi(t_{n+1})}_C\bra{\psi(t_{n+1})}=e^{-\frac{i}{\hslash}H\Delta t}\ket{\psi(t_n)}_C\bra{\psi(t_n)}e^{\frac{i}{\hslash}H^\dag\Delta t}\simeq (\mathbb{I}-\frac{i}{\hslash}H\Delta t)\bar{\rho}_C(t_n)(\mathbb{I}+\frac{i}{\hslash}H^\dag\Delta t)\end{equation}
+
+Y también cómo quedaría un estado de matriz densidad luego de un salto:
+
+\begin{equation}\label{eq4.13}\bar{\rho}_S(t_{n+1})=C_m\ket{\psi(t_n)}\bra{\psi(t)}C_m^\dag \Delta t \end{equation}
+
+Tomando solo los elementos de primer orden de la aproximación hecha en \ref{eq4.12}, usando el Hamiltoniano de \ref{eq4.1} y las variables de probabilidad de salto $r_n$, sobre las que se promedia la ocurrencia de \ref{eq4.12} y \ref{eq4.13}:
+
+\begin{equation}\label{eq4.14} \Delta \bar{\rho}_C= \bar{\rho}(t_{n+1})-\bar{\rho}(t_n)=(-\frac{i}{\hslash}[H,\bar{\rho}_C(t_n)]=\frac{-i}{\hslash}[H_S,\bar{\rho_C}(t_n)]-\frac{\gamma}{2}(\{\sum_m C_m^\dag C_m,\bar{\rho}_C(t_n)\}-2C_m\rho_C(t_n)C_m^\dag))\Delta t\end{equation}
+Cpmo comentario final, la ecuación Maestra es muy útil para derivar valores de expectación. Esto explica cómo se implementa en librerías como \textcolor{fgreen}{Qutip}, que funciona bajo \textcolor{fgreen}{Python}, que está optimizado para repetir la variable aleatoria y hacer suficientes saltos para obtener \textcolor{red}{la misma dinámica} que se puede obtener por la ecuación maestra \textcolor{red}{con menos gasto de cómputo}. Se ha probado la técnica usando \textcolor{fgreen}{Qutip} y se puede obtener un resultado satisfactorio haciendo aproximadamente $500$ repeticiones.
+
+\section{Derivación Formal}
+
+Esta derivación está basada en el trabajo de Carmichael, sirve para tener mayor claridad sobre la \textcolor{red}{explicación física} de lo que se hace al aplicar saltos cuánticos. Partiendo del superoperador definido en \ref{eq2.5}
+\begin{equation}\label{eq4.15}\dot{\rho}=\mathcal{L}[\rho(t)]\textcolor{red}{\Rightarrow} \rho(t)=e^{-\mathcal{L}(t)}\rho(0)=e^{-(\mathcal{L}_B+L_S)(t)}\rho(0)\end{equation}
+
+Separándose el superoperador en 2 superadores $\mathcal{L}_B$ representante de la \textcolor{red}{dinámica sin salto} y $\mathcal{L}_S$ de la \textcolor{red}{dinámica de salto}:
+
+\begin{equation}\label{eq4.16}\begin{aligned}\mathcal{L}_B[\rho]=-\frac{i}{\hslash}[H_S, \rho(t)]-\frac{1}{2}\{\sum_m C_m \dag C_m,\rho(t)\}\\\mathcal{L}_S[\rho(t)]=\sum_m C_m \rho(t)C_m^ \dag \end{aligned}\end{equation} 
+
+Usando que $(\mathcal{L}_S)^2=0$, se puede definir el operador matriz densidad para cuadro de interacción considerando como parte libre del Hamiltoniano la parte sin salto definida en \ref{eq4.16} y luego definiendo las matrices densidad como estados puros en un \textcolor{red}{truncado exacto}:
+
+\begin{equation}\label{eq4.17}\rho(t)=e^{\mathcal{L}_S}\rho_{I}(t)\textcolor{red}{\Rightarrow} \rho(t)\simeq \rho_B(t)+\int_0^t dt^\prime \rho_S(t^\prime)= p_B \ket{\psi_B(t)}\bra{\psi_B(t)}+\int_0^t dt^\prime p_S\ket{\psi_S(t^\prime)}\bra{\psi_S(t^\prime)}\end{equation}
+
+Luego se pueden definir los elementos desarrollados en la teoría anterior, pudiendo demostrarse que detras de los saltos cuánticos está el uso del marco de interacción y del hecho que los estados cuánticos son probabilistas.
+
+\chapter{Métodos de Espacios de Fase}
+\section{Definición de Función de Espacio de Fases}
+Las \textcolor{red}{Funciones de Espacio de Fase} tienen como principal utilidad poder convertir ecuaciones matriciales (como las que tienden a obtenerse en ecuaciones maestras) en \textcolor{red}{ecuaciones algebraicas}, que en algunas ocasiones simplifican los cálculos que se deben hacer. Existen 3 funciones de Espacios de Fases que se definirán por orden de complejidad de su obtención, desde la más simple a la más complicada de obtener:
+
+\begin{itemize}
+    \item Se define la \textcolor{red}{Función Q}  como la descomposición de la matriz densidad en la base coherente, que debe ser renormalizada usando un factor $\frac{1}{\pi}$
+    \begin{equation}\label{eq5.1}Q(\alpha,\alpha^*)=\frac{1}{\pi}\bra{\alpha}\rho\ket{\alpha}\end{equation}
+    \item Se define la \textcolor{red}{Función P} ocupando una \textcolor{red}{definición implícita} en la que la matriz densidad se obtiene integrando sobre esa función ($d^2\alpha=d\alpha d\alpha^*$):
+    \begin{equation}\label{eq5.2}\rho=\int d^2 \alpha P(\alpha\alpha^*)\ket{\alpha}\bra{\alpha}\end{equation}
+    \item Se define la \textcolor{red}{Función de Wigner} como una integral sobre la función de onda dependiente del \textcolor{red}{espacio de fases} (sistema coordenado con todas las posiciones y momentos del sistema posibles):
+    \begin{equation}\label{eq5.3}W(q_1...q_n;p_1...p_n)=(\frac{1}{\pi\hslash})^n\int_{-\infty}^\infty ...\int_{-\infty}^\infty  dy_1...dy_n\phi^*(q_i+y_i,p_i)\phi(q_i-y_i,p_i)e^{2i(\sum_i\frac{p_iy_i}{\hslash})}\end{equation}
+    Para la ecuación anterior $\psi(q_i\pm y_i,p_i)=\psi(q_1\pm y_1...q_n\pm y_n;p_1...p_n)$
+\end{itemize}
+
+Sin perjuicio de estas definiciones, se puede definir la función P a partir de la función Q, y la de Wigner a partir de las 2 anteriores.
+
+La principal motivación para la exposición de este capítulo es encontrar una forma simple de hallar la Función de Wigner para un estado termal. Dicho esto, se puede recordar que la Función de Wigner se usa para poder encontrar \textcolor{red}{correcciones cuánticas a la Termodinámica}. Por la forma en la que está construida dicha función, \textcolor{red}{no puede considerarse como una distribución de probabilidad} simultáneamente para coordenadas y momentum, pero integrando en los momentos la función se puede ver como una distribución probabilista de las posiciones. Esta integración es comunmente llamada \textcolor{red}{Transformación de Weyl} (por simplicidad, los siguientes cálculos se harán siempre con una sola posición ($q$) y un solo momento ($p$).
+
+\begin{equation}\label{eq5.4} \int dp W(q,p)=\bra{q}\rho\ket{q}=\lvert \psi(q)\rvert^2 t\end{equation}
+Los resultados de \ref{eq5.4} \textcolor{red}{no siempre se pueden interpretar como probabilidades}, ya que se pueden obtener números negativos cuando para poder definir como probabilidades es necesario que todos los números sean positivos y sumen uno, por lo tanto, \textcolor{red}{no siempre se puede representar completamente $\rho$ con la función de Wigner}. Aún así, los valores negativos hallados en $W(qi,pi)$ se pueden interpretar como indicadores del \textcolor{red}{entrelazamiento} del estado cuántico a estudiar.
+
+Una ventaja del método de espacio de fase es que los valores de expectación cuántico \textcolor{red}{pueden expresarse de manera similar a como se expresan en Mecánica Clásica}, con integrales respecto a $q$ y $p$ respecto a funciones de Wigner de los operadores.
+
+\begin{equation}\label{eq5.5}Tr(AB)=\int\int dq dp A_w(q,p)B_w(q,p)\textcolor{red}{(}A_w(q,p)=\int d\tau e^{i\frac{p\tau}{\hslash}}\bra{q-\frac{\tau}{2}}A\ket{q+\frac{\tau}{2}}\textcolor{red}{)}\end{equation}
+
+A pesar de los valores negativos que puede entregar \ref{eq5.4}, si se puede tomar $A=\rho$ de manera que se puede aplicar \ref{eq5.5} para obtener valores de expectación:
+
+\begin{equation}\label{eq5.6}<B>=Tr(\rho B)=\int\int dq dp W(q,p)B_w(q,p)\end{equation}
+
+También se puede, para demostrar que el método de espacio de fases funciona, tomar la ecuación de Von Neumann definida en \ref{eq2.4} para el Hamiltoniano:
+
+\begin{equation}\label{eq5.7}H=\frac{p^2}{2m}+U(q)\textcolor{red}{\Rightarrow} \frac{d}{dt}W(q,p,t)=\frac{\partial}{\partial t} U(q)W(q,p,t)-\frac{p}{m}\frac{\partial W(q,p,t)}{\partial q}\end{equation}
+
+\section{Funciones Características}
+
+A partir de las funciones anteriormente definidas también pueden definirse las Funciones Características, que no son más que transformadas de Fourier de las funciones de espacio de fases. Se definirán de manera análoga:
+
+\begin{itemize}
+    \item La Función Característica \textcolor{red}{Normal} o \textcolor{red}{Simétrica} que es transformada de Fourier de la función P
+    \begin{equation}\label{eq5.8}X_N(\eta,\eta^*)=Tr(\rho e^{\eta a^\dag}e^{-\eta^* a})\end{equation}
+    \item La Función Característica \textcolor{red}{Antinormal} o \textcolor{red}{Antisimétrica} que es transformada de Fourier de la función Q
+    \begin{equation}\label{eq5.9}X_A(\eta,\eta^*)=Tr(\rho e^{-\eta^* a}e^{\eta a^\dag})\end{equation}
+    \item La Función Característica \textcolor{red}{de Wigner} o \textcolor{red}{Simétrica} que es transformada de Fourier de la función W
+    \begin{equation}\label{eq5.10}X_W(\eta,\eta^*)=Tr(\rho e^{\eta a^\dag -\eta^* a})\end{equation}
+\end{itemize}    
+Si puede descomponer un operador $A$ en términos de operadores de creación y destrucción está descomposición puede clasificarse como \textcolor{red}{Ordenada}, \textcolor{red}{Antiordenada} o \textcolor{red}{Simétrica}, las que se pueden definir respectivamente como:
+
+\begin{equation}\label{eq5.11}
+    \begin{aligned}
+    A=\sum_{n,m=0}^\infty c_{nm}(a^\dag)^na^m\\
+    A=\sum_{n,m=0}^\infty c_{nm}a^m(a^\dag)^n\\
+    A=\sum_{n,m=0}^\infty c_{nm}\frac{1}{2}\{(a^\dag)^n,a^m\}\end{aligned}
+\end{equation}   
+Insertando la última opción de \ref{eq5.11} (la descomposición simétrica) en \ref{eq5.6} (reemplazando $B$ por $A$, se obtiene:
+\begin{equation}\label{eq5.12}<A>=\int d^2 \alpha W(\alpha\alpha^*)\sum_{n,m}^\infty C_{nm}\frac{\{(a^\dag)^n,a^m\}}{2}\end{equation}
+
+Lo obtenido en \ref{eq5.12} sugiere un método para obtener valores de espectación de operadores bajo un régimen de espacio de fases, lo que será detalldo en la siguiente sección.
+
+\section{Transformaciones de Similaridad}
+
+Junto con lo anterior, a un operador F se le puede hacer una \textcolor{red}{Transformación de Similaridad}, que consiste en definir una función en el espacio $(\alpha,\alpha^\dag)$ obtenido de manera similar a las funciones características. Para la transformación en régimen simétrico, se obtiene un exponencial parecida a la de \ref{eq5.10} en la transformación:
+
+\begin{equation}\label{eq5.13}F(a,a^\dag) \textcolor{red}{\Rightarrow} F_w(\alpha,\alpha^*)=\frac{1}{\pi} \int d^2 \eta e^{\eta^*\alpha-\eta\alpha^*}Tr(f(a,a^\dag)e^{\eta a^\dag -\eta^* a})=2Tr(D^\dag(\alpha)S(\alpha)D(\alpha)F(a,a^\dag))\end{equation}
+
+La última igualdad de \ref{eq5.13} es debido a que se ocuparon las definiciones:
+
+\begin{equation}\label{eq5.14}
+\begin{aligned}
+    D(\alpha)=e^{\alpha a^\dag-\alpha^* a}\\S(\alpha)=\frac{1}{2\pi} \int d^2\eta e^{\eta a^\dag-\eta^* a}
+\end{aligned}
+\end{equation}
+
+Esto muestra que la forma de la Transformación es similar a la que se obtiene cuando se estudian los \textcolor{red}{Estados Comprimidos} en Óptica Cuántica. Alli se enseño la \textcolor{red}{fórmula BCH}  que permite obtener \ref{eq5.13}
+
+\begin{equation}\label{eq5.15}e^{A}e^{B}\simeq e^{A+B+\frac{[A,B]}{2}}\end{equation}
+
+Estudiando el operador S de \ref{eq5.14}, este tiene como propiedades:
+
+\begin{equation}\label{eq5.16}\begin{aligned}
+    S(\alpha)=S^\dag(\alpha)=S^{-1}(\alpha)\textcolor{red}{\Rightarrow} S^2(\alpha)=\mathbb{I} \\
+    S^{-1}(\alpha)a S(\alpha)=-a \textcolor{red}{\Rightarrow} S^{-1}(\alpha)a^\dag S(\alpha)=-a^\dag
+\end{aligned}\end{equation}
+
+Hecho esto, se puede hacer una \textcolor{red}{Transformación de Bogoliubov}, que aparece en teorías de superconductividad y consiste en transformar la función $F(a,a^\dag)$ en otra que depende de los parámetros $\mu$, $\nu$, $\sigma$ y $\tau\textcolor{red}{:} \mu\sigma-\nu\tau=1$
+
+\begin{equation}\label{eq5.17}F(a,a^\dag)\textcolor{red}{\Rightarrow} G(a,a^\dag)= V^{-1}F(a,a^\dag)V=F(\rho a+\tau a^\dag, \mu a^\dag+\nu a)\end{equation}
+
+La transformación $V$ no es necesariamente unitaria pero si exige que $Im(\rho^*\tau)\geq 0$ y $Im(\nu\mu^*)\geq 0$.  A la función G se le puede aplicar la misma transformación hecha en \ref{eq5.13}
+
+\begin{equation}\label{eq5.18}G(a,a^\dag)\textcolor{red}{\Rightarrow}G_w(\alpha,\alpha^*)=2Tr(D^\dag(\alpha)S(\alpha)D(\alpha)V^{-1} F(a,a^\dag)V)\end{equation}
+
+Aprovechando la propiedad que $S$ y $V$ conmutan y que las trazas son ciclicas:
+
+\begin{equation}\label{eq5.19}G_w(\alpha,\alpha^*)2Tr(VD^\dag(\alpha)V^{-1} V S(\alpha) V^{-1} VD(\alpha)V^{-1} F(a,a^\dag))=F_w(\rho\alpha+\tau\alpha^*,\mu\alpha^*+\nu\alpha)\end{equation}
+
+Todo lo visto en el capítulo se usará en el siguiente capítulo:
+
+
+\section{Ejemplo: Condensados Bose-Einstein}
+
+Para los condensados Bose-Einstein se puede definir el operador de \textcolor{red}{Conteo de Excitaciones}:
+
+\begin{equation}\label{eq5.20}G(a,a^\dag,b,b^\dag)=e^{i(\mu a^\dag a+\nu b^\dag b)}\end{equation}
+
+Para $\epsilon=\beta\hslash\omega$, se puede definir la \textcolor{red}{función de generación} para 1 estado termal:
+
+\begin{equation}\label{eq5.21}\rho=(1-e^{-\epsilon})^2e^{-\epsilon(A^\dag A+B^\dag B)}\end{equation}
+
+Se define una transformación de Bogoliubov análogamente a la de \ref{eq5.17}
+
+\begin{equation}\label{eq5.22}\begin{bmatrix} A\\B\end{bmatrix}=\begin{bmatrix} cosh\theta & 0 & 0& -sinh\theta\\ 0& sinh\theta& -bcosh\theta &0 \end{bmatrix}\begin{bmatrix}a\\a^\dag \\ b\\ b^\dag\end{bmatrix}\end{equation}
+
+Para hallar el número de fotones por modo, basta aplicar el valor de espectación en espacio de fases usando \ref{eq5.6} para $B=G(a,a^\dag,b,b^\dag)$
+
+\begin{equation}\label{eq5.23}T(\mu,\nu,\epsilon)=Tr(\rho G(a,a^\dag,b,b^\dag))=\int d^2 \alpha \int d^2 \beta W(\alpha,\alpha^*,\beta,\beta^*)G_w(\alpha,\alpha^*,\beta,\beta^*)\end{equation}
+
+Para un \textcolor{red}{Estado Termal}, la función de Wigner es:
+
+\begin{equation}\label{eq5.24}W^{(1)}=\frac{2}{\pi}tanh(\frac{\epsilon}{2})e^{-2\lvert a\rvert^2 tanh(\frac{\epsilon}{2})}\end{equation}
+
+Ocupando convenientemente la \textcolor{red}{Base de Fock}:
+
+\begin{equation}\label{eq5.25}\rho=(1-e^{-\epsilon})\sum_{m=0}^\infty \frac{-\epsilon^m}{m!}(a^\dag a)^m\otimes \sum_{n=0}^\infty \ket{n}\bra{n}=(1-e^{-\epsilon}) \sum_{n=0}^\infty e^{-\epsilon n}\ket{n}\bra{n}\end{equation}
+Y usando la propiedad respecto a los estados termales (obtenible a partir de que estos tienen norma $\pi$)
+
+\begin{equation}\label{eq5.26}\frac{1}{\pi}\int d^2\alpha\ket{\alpha}\bra{\alpha}=\mathbb{I}\end{equation}
+
+Se puede calcular la función característica antiordenada definida en \ref{eq5.9} para la matriz densidad de \ref{eq5.25}
+
+\begin{equation}\label{eq5.27}X_A=\frac{1-e^{-\epsilon}}{\pi} \sum_{n=0}^\infty e^{-\epsilon n}Tr(\ket{n}\bra{n}\int d^2\alpha e^{-\eta^* \alpha}e^{\eta \alpha^*}\ket{\alpha}\bra{\alpha}) \end{equation}
+
+Al aplicar la traza, \ref{eq5.27} se simplifica:
+
+\begin{equation}\label{eq5.28}X_A=\frac{1-e^{-\epsilon}}{\pi} \sum_{n,m=0}^\infty e^{-\epsilon n}\bra{m}\ket{n}\int d^2\alpha e^{-\eta^* a}e^{\eta a^\dag}\bra{n}\ket{\alpha}\bra{\alpha}\ket{m}=\frac{1-e^{-\epsilon}}{\pi} \sum_{n=0}^\infty e^{-\epsilon n}\int d^2\alpha e^{-\eta^* \alpha}e^{\eta \alpha^*}\lvert\bra{\alpha}\ket{n}\rvert^2\end{equation}
+
+Usando los resultados conocidos para la proyección del espacio coherente en el espacio de Fock
+
+\begin{equation}\label{eq5.29}\lvert\bra{\alpha}\ket{n}\rvert^2=\frac{e^{-\lvert\alpha\rvert^2}\lvert\alpha\rvert^{2n}}{n!}\textcolor{red}{\Rightarrow}\sum_{n=0}^\infty e^{-\epsilon n}\lvert\bra{\alpha}\ket{n}\rvert^2=e^{-\lvert\alpha\rvert^2}\sum_{n=0}^\infty \frac{e^{-\epsilon n}\lvert\alpha\rvert^{2n}}{n!}= e^{-\lvert\alpha\rvert^2}e^{\lvert \alpha\rvert^2e^{-\epsilon}}=e^{-\lvert\alpha\rvert^2(1-e^{-\epsilon})}\end{equation}
+
+Se reemplaza \ref{eq5.29} en \ref{eq5.28}
+
+\begin{equation}\label{eq5.30}X_A=\frac{1-e^{-\epsilon}}{\pi} \int d^2\alpha e^{-\eta^* \alpha}e^{\eta \alpha^*}e^{-\lvert\alpha\rvert^2(1-e^{-\epsilon})}=e^{\frac{-\lvert n\rvert^2}{1-e^{-\epsilon}}}\end{equation}
+
+Usando la transformación de función característica antinormal a normal obtenida por la fórmula BCH definida en \ref{eq5.15} :
+
+\begin{equation}\label{eq5.31}X_N=Tr(\rho e^{\eta a^\dag}e^{-\eta^* a})\simeq Tr(\rho e^{-\eta^* a }e^{\eta a^\dag}e^{\lvert\eta\rvert^2})=X_Ae^{\lvert\eta\rvert^2}\textcolor{red}{\Rightarrow} X_N=e^{\frac{-\lvert \eta\rvert^2}{1-e^{-\epsilon}}}e^{\lvert\eta\rvert^2}=e^{-\lvert \eta\rvert^2}{1-e^{-\epsilon}+\lvert\eta\rvert^2}\end{equation}
+
+A partir de la función característica normal, se puede obtener la función P
+
+\begin{equation}\label{eq5.32}P(\alpha,\alpha^*)=\frac{1}{\pi^2}\int d^2\eta e^{\eta^*\alpha-\eta\alpha^*}X_N(\eta,\eta^*)\textcolor{red}{\Rightarrow} P(\alpha,\alpha^*)=\frac{1}{\pi <n>}e^{-\frac{\lvert\alpha\rvert^2}{<n>}}\end{equation}
+
+A partir de la función P, se puede obtener la función de Wigner para la distribución de Bose Einstein:
+
+\begin{equation}\label{eq5.33}W(\alpha,\alpha^*)=\frac{2}{\pi}\int d^2\beta P(\beta, \beta^*)e^{-2\lvert\alpha-\beta\rvert^2} \textcolor{red}{\Rightarrow} W(\alpha,\alpha^*)=\frac{2}{\pi}tanh(\frac{\epsilon}{2})e^{-2\lvert\alpha\rvert^2tanh(\frac{\epsilon}{2})}\end{equation}
+ 
+Insertando lo obtenido en \ref{eq5.33} en \ref{eq5.23} usando el cambio de operadores \ref{eq5.22}, se puede obtener $T(\mu,\nu,\epsilon)$ para la distribución buscada.
+\chapter{Ruido Cuántico}
+Entendiendo como \textit{ruido} el resultado de fuerzas pequeñas y aleatorias, se puede considerar matemáticamente interesante analizar sus efectos en sistemas de variable continua. De aquí surge el \textcolor{red}{Cálculo Estocástico}.
+Este texto funciona como una introducción de esta área aplicada a sistemas físicos simples. Esto con el objetivo de obtener métodos para evaluar sistemas cuánticos abiertos que aprovechan este formalismo.
+\section{Ejemplos de Ruido}
+Considerando como ejemplo el movimiento browniano. Este movimiento modela, por ejemplo, el comportamiento del Polen en el agua. Implica la existencia de \textcolor{red}{Fuerzas Aleatorias} que no necesariamente están en la misma dirección, con lo que se introduce el \textcolor{red}{Análisis de Langevin}.
+\begin{equation}\label{eq6.1}(dx=u(t)dt): du=-\gamma u dt +\sqrt{f}dW(t)\end{equation} Donde $f$ es una constante y $dW(t)=\xi(t) dt$ inserta la variable aleatoria. El primer sumando corresponde a un elemento de decaimiento y el segundo incluye el ruido con el ingreso de aleatoreidad.
+Esta ecuación diferencial tiene como solución.
+\begin{equation}\label{eq6.2} u(t)=u(0)e^{-\gamma t}+\sqrt{f}\int_0^t ds e^{-\gamma(t-s)}\xi(s)\end{equation}
+Un proceso es \textcolor{red}{Markoviano} si no tiene memoria y $u(t)dt$ solo depende del $t$ anterior. Esto simplifica el análisis estadístico de \ref{eq6.1} usando como propiedad:
+\begin{equation}\label{eq6.3}(dW(t)=\xi(t)dt) <\xi(t)>=0, <\xi(t)\xi(t^\prime)>=\delta(t-t^\prime) \end{equation}
+Dicho análisis consiste en hallar su promedio y su varianza. En el promedio, por \ref{eq6.3}, solo influye el sumando determinístico
+\begin{equation}\label{eq6.4}<u(t)>=u(0)e^{-\gamma t}\end{equation}
+Mientras que la desviación estándar o varianza, se obtiene a partir de \ref{eq6.2} y la propiedad
+\begin{equation}\label{eq6.5}(\Delta u(t))^2=<u(t)^2>-<u(t)>^2\end{equation}
+resultando
+\begin{equation}\label{eq6.6}(\Delta u(t))^2=f\int_0^t\int_0^{t^\prime}dt^\prime dt^{\prime\prime} e^{-\gamma(t-t^\prime)}e^{-\gamma(t-t^{\prime\prime})}<\xi(t^\prime)\xi(t^{\prime \prime})>\end{equation}
+Y por \ref{eq6.3} el promedio de funciones aleatorias no es más que una delta, dejando solo una integral fácil de resolver.
+\begin{equation}\label{eq6.7}(\Delta u(t))^2=f\int_0^t dt^\prime e^{-2\gamma(t-t^\prime)}=\frac{f}{2\gamma}(1-e^{-2\gamma t}) \end{equation}
+También se puede evaluar el promedio del desplazamiento integrando lo obtenido en \ref{eq6.2}
+\begin{equation}\label{eq6.8}<x(t)>=<\int_0^t ds u(s)>=\int_0^t ds <u(s)> =u(0)\int_0^t ds e^{-\gamma t}\end{equation}
+Por lo que el resultado final de \ref{eq6.8} es:
+\begin{equation}\label{eq6.9} (\Delta u(t))^2=\frac{u(0)}{\gamma}(1-e^{-\gamma t})\end{equation}
+Las funciones de correlación son muy ocupadas en Mecánica Cuántica. Un hecho importante a considerar es que 
+\begin{equation}\label{eq6.10} <u(t_1)u(t_2)>\neq<u(t_1)><u(t_2)>\end{equation}
+De manera análoga a cómo se obtiene varianzas, se puede decir que:
+\begin{equation}\label{eq6.11}<u(t_1)u(t_2)>-<u(t_1)><u(t_2)>=\delta u(t_1)\delta u(t_2)\end{equation}
+Lo que requiere incluir los sumandos aleatorios de las respectivas expresiones
+\begin{equation}\label{eq6.12}\delta u(t_1)\delta u(t_2)=f\int_0^{t_1}\int_0^{t_2}ds_1 ds_2 e^{-\gamma(t_1-s_1)}e^{-\gamma(t_2-s_2)}<\xi(s_1)\xi(s_2)>\end{equation}
+Haciendo el reemplazo de \ref{eq6.3} y considerando el tiempo menor (buscando la cota más baja para las correlaciones):
+\begin{equation}\label{eq6.13}\delta u(t_1)\delta u(t_2)=f\int_{0}^{min(t_1,t_2)}ds_1 e^{-\gamma(t_1+t_2-2s_1)}=\frac{f}{2\gamma}(e^{\gamma\lvert t_1-t_2\rvert}-e^{-\gamma(t_1+t_2)})\end{equation}
+Por lo que se puede concluir que \ref{eq6.10} es cierto y las correlaciones se vuelven no triviales precisamente por el ruido.
+Si se calcula el desplazamiento integrando la velocidad
+\begin{equation}\label{eq6.14}x(t)=\int_0^t ds u(0)e^{-\gamma s}+\sqrt{f}\int_0^t\int_0^s ds dt^\prime e^{-\gamma(s-t^\prime)} \xi(t^\prime)\end{equation}
+Haciendo un cambio de variable para aíslar el término aleatorio \ref{eq6.14} se convierte en 
+\begin{equation}\label{eq6.15}x(t)=\int_0^t ds u(0)e^{-\gamma s}+\sqrt{f}\int_0^t \int_{t^\prime}^t dt^\prime \xi(t^\prime) ds e^{-\gamma (s-t^\prime)}\end{equation}
+Resolviendo la integral de s en \ref{eq6.15}\begin{equation}\label{eq6.16}x(t)=\int_0^t ds u(0)e^{-\gamma s}+\frac{\sqrt{f}}{\gamma}\int_0^t d t^\prime (1-e^{-\gamma(t-t^\prime)})\xi(t^\prime)\end{equation} Si se calcula la varianza para esta definición de x cuando t tiende a infinito se obtiene
+\begin{equation}\label{eq6.17} (\Delta x(t))^2 \textcolor{red}{\Rightarrow} \frac{f}{\gamma^2}\end{equation}
+\section{Ruido Clásico}
+El ruido, como propiedad, tiene asociado un \textcolor{red}{espectro} de frecuencias, asociado con una función temporal mediante una Transformada de Fourier:
+\begin{equation}\label{eq6.18}\tilde{x}(\omega+i\gamma, \tau)=\int_{-\infty}^{\infty} dt e^{(i\omega+\gamma)t}S_Z (\omega)\end{equation}
+La función $S_Z(\omega)$ observada aquí se comporta como un límite de valores de expectación:
+\begin{equation}\label{eq6.19}S(\omega)=\lim_{\gamma\textcolor{red}{\Rightarrow} 0}\frac{\gamma}{\pi}<\lvert\tilde{x}(\omega +i\gamma,\tau)\rvert^2>\end{equation} Reemplazando \ref{eq6.18} en  \ref{eq6.19} se obtiene
+\begin{equation}\label{eq6.20}\tilde{x}(\omega+i\gamma, \tau)=\lim_{\gamma\textcolor{red}{\Rightarrow} 0}\frac{\gamma}{\pi}\int_{-\infty}^{\infty}\int_{-\infty}^0 dt dt^\prime e^{iw(t-t^\prime)}e^{\gamma(t+t^\prime}<X(t+\tau)X(t^\prime+\tau)>\end{equation} El término de 
+\begin{equation}\label{eq6.21}\tilde{x}(\omega+i\gamma, \tau)=\lim_{\gamma\textcolor{red}{\Rightarrow} 0}\frac{\gamma}{\pi}\int_{-\infty}^{\infty}\int_{-\infty}^0 dt dt^\prime e^{iw(t-t^\prime)}e^{\gamma(t+t^\prime}<X(t+\tau)X(t^\prime+\tau)>\end{equation}
+Luego con el cambio de variable $t_1=t-t^\prime$, $t_2=t+t^\prime$ y usando que el producto dentro del valor de expectación equivale a la suma del promedio y desviación estándar de la función $X$
+\begin{equation}\label{eq6.22}=\lim_{\gamma\textcolor{red}{\Rightarrow} 0} \frac{\gamma}{\pi}\int_{-\infty}^\infty \int_{-\infty}^{-\lvert t_1\rvert}dt_1 dt_2 e^{i\omega t_1+\gamma t_2}\{<X>_S^2+g_S(t_1)\}\end{equation}
+Integrando en $t_2$ lo anterior es
+\begin{equation}\label{eq6.23}=\lim_{\gamma\textcolor{red}{\Rightarrow} 0}\frac{1}{\pi}\int_{-\infty}^\infty dt_1 e^{i\omega t_1 }e^{-i\gamma\lvert t_1\rvert}\{<X>_S^2+g_S(t_1)\}\end{equation}
+La integral dependiente solo del promedio por cálculo equivale a una delta, obteniéndose finalmente
+\begin{equation}\label{eq6.24}=\delta(\omega)<X>_S^2+\frac{1}{2\pi}\int_{-\infty}^{\infty} dt_1 e^{i\omega t_1}g_s(t_1)\end{equation}
+Una forma de ruido simple es una parte en que $<x>_S^2$ es cero (lo que anula el primer sumando). Entonces, el valor de espectro finalmente vale:
+\begin{equation}\label{eq6.25}\tilde{x}(\omega+i\gamma,\tau)=\frac{1}{2\pi}\int_0^\infty dt^\prime e^{-i\omega(t-t^\prime)}g_S(t-t^\prime)=S(\omega)\delta(\omega-\omega^\prime)\end{equation}
+Lo que equivale a la descomposición espectral de una función $S(\omega)$. Si $S(\omega)$ es constante, se llama \textcolor{red}{Ruido Blanco}. Si no, se le llama \textcolor{red}{Ruido de Color}. Estos modelos de ruido no son realistas, pero representan bien lo correspondiente al ruido cuántico.
+
+La ecuación de Langevin es fundamental para el cálculo estocástico. A nivel clásico (análogamente a lo mostrado en los ejemplos anteriores) corresponde a una ecuación diferencial para la función $x$ dependiente del tiempo.
+\begin{equation}\label{eq6.26}\dot{x}(t)=a(x,t)+\sqrt{b(x,t)}\xi(t)\end{equation}
+Multiplicando \ref{eq6.26} por $dt$ se obtiene finalmente:
+\begin{equation}\label{eq6.27}dx(t)=a(x,t)dt+\sqrt{b(x,t)}\xi(t)dt=a(x,t)dt+\sqrt{b(x,t)}dW(t)\end{equation}
+Donde $\xi(t)dt=dW(t)$. Dicha diferencia es fácil de discretizar y programar. Para un ruido simple (blanco o de color) se cumplen las \textcolor{red}{Reglas de Ito}:
+\begin{equation}\label{eq6.28}(\forall N\geq 2)dW^2(t)=dt, dW(t)dt=dt^N=dW^{N+1}(t)=0 \end{equation}
+Integrando \ref{eq6.26} se obtiene para la función $x(t)$
+\begin{equation}\label{eq6.29}x(t)=x(t_0)+\int_{t_0}^t a(x(t^\prime),t^\prime) dt^\prime +(I)\int_{t_0}^t \sqrt{b(x(t^\prime),t^\prime)}dW(t^\prime)\end{equation}
+Se puede tomar $f(x)$ como una función cualquiera de la variable de $x(t)$ y considerar su expansión de Taylor:
+\begin{equation}\label{eq6.30}df(x)=f^\prime(x)dx+\frac{1}{2}f^{\prime\prime}(x)(dx)^2\end{equation}
+Aplicando \ref{eq6.27} en \ref{eq6.30}, las reglas de Ito en \ref{eq6.28} sugieren finalmente que, si se hace una aproximación lineal se agregan elementos cuadráticos de la expansión de $x(t)$.
+\begin{equation}\label{eq6.31}df(x(t))=\{f^\prime(x(t))a(x(t),t)+\frac{1}{2}f^{\prime\prime}(x(t))b(x(t),t)\}dt+f^\prime(x(t))\sqrt{b(x(t),t)}
+dW(t)\end{equation}
+Para cualquier función $f(x)$ su expansión de Taylor será corregida de esta forma si se agrega ruido en $x$.
+
+A partir de la propiedad condicional de un suceso una vez dada una probabilidad inicial:
+\begin{equation}\label{eq6.32}p(x,t)=p(x,t|x_0,t_0)p(x_0,t_0)\end{equation}
+Se puede encontrar el valor de expectación de una función de $x$ y $t$, así como su derivada
+\begin{equation}\label{eq6.33}<f(x)>=\int dx f(x)(x,t|x_0,t_0) \textcolor{red}{\Rightarrow} \dot{<f(x)>}\int dx \frac{\partial f(x)}{\partial x} p(x,t|x_0,t_0)\end{equation}
+Ocupando la regla de Ito la derivada termina valiendo:
+\begin{equation}\label{eq6.34}\dot{<f(x)>}=\int dx (f^\prime(x)a(x,t)) +\frac{1}{2}(f^{\prime\prime}(x)b(x,t)))p(x,t|x_0,t_0)\end{equation}
+Mediante integración por partes, se obtiene finalmente la \textcolor{red}{Ecuación Fokker-Planck}
+\begin{equation}\label{eq6.35}\dot{<f(x)>}=\int dx \{-\frac{\partial}{\partial x}(a(x,t)p(x,t|x_0,t_0)+\frac{1}{2}\frac{\partial^2}{\partial x^2}(b(x,t)^2p(x,t|x_0,t_0))\} f(x)\end{equation}
+Comparando con lo visto en \ref{eq6.26} y \ref{eq6.27}, dicha ecuación es obtenible de Langevin y genera las mismas soluciones, a pesar de ser más compleja (al ser no lineal). 
+
+
+Basado en la definición de \ref{eq6.26}, se puede definir un \textcolor{red}{incremento infinitesimal} entre pasos de cálculo, similar a como se define la integral Riemanniana, definiendo $a_i=a(x_i)$, $b_i=b(x_i)$ y $b^\prime_i=\sqrt{b_i}$
+:
+\begin{equation}\label{eq6.36}x_{i+1}=x_i+(I)\Delta x=x_i+a_i\Delta t+b^\prime_i\Delta W_i\end{equation}
+
+Análogo a esto, se puede definir otro incremento más preciso matemáticamente, el cual se demostrará que equivale al anterior. Es definido como \textcolor{red}{Incremento de Statonovich}:
+
+\begin{equation}\label{eq6.37}x_{i+1}=x_i+(S)\Delta x=x_i+a_i\Delta t+\frac{b^\prime(x_i)+b^\prime(x_{i+1})}{2}\Delta W_i \end{equation}
+
+Definiendo $x_{i+1}=x(t+\Delta t)$ y $x_i=x(t)$, se puede hacer una expansión de Taylor para el último sumando de \ref{eq6.37}
+
+\begin{equation}\label{eq6.38}b^\prime(x(t+\Delta t)))\simeq b^\prime(x(t))+\Delta x(t)\frac{\partial b^\prime(x(t))}{\partial x}\textcolor{red}{\Rightarrow}\frac{b^\prime(x_i)+b^\prime(x_{i+1})}{2}\simeq b_i+\frac{1}{2}\frac{\partial b^\prime_{i}}{\partial x}\frac{dx}{dt}\Delta t \end{equation}
+
+Insertando \ref{eq6.38} en \ref{eq6.37}:
+
+\begin{equation}\label{eq6.39}(S)\Delta x(t)=x_{i+1}-x_i=a_i\Delta t+b^\dag_i \Delta W_i +\frac{1}{2}\frac{\partial b^\prime}{\partial x}\frac{dx}{dt}\Delta t=(a_i+\frac{1}{2}b_i\frac{\partial b_i}{\partial t})\Delta t+b(x,t)dW(t)=(I)\Delta x(t)+\frac{1}{2}b_i\frac{\partial b_i}{\partial t}\Delta t\end{equation}
+
+Lo que demuestra que hacer un incremento de Stratonovich en lugar de uno de Ito no hace más que agregar un elemento a la aproximación de $x(t)$. También se apunta que el incremento de Ito bastará para realizar el análisis del ruido cuántico (que es finalmente el objetivo del capítulo).
+
+
+La ecuación \ref{eq6.35} puede obtenerse de una manera más general a partir de la ecuación de Langevin clásica dada en \ref{eq6.27}. A partr de la probabilidad condicional $p(x,t|x_0,t_0)$ con la condición inicial $p(x_0,t_0|x_0,t_0)=\delta(x-x_0)$. Se hace una ecuación inicial para ella usando el diferencial de \ref{eq6.27}
+
+\begin{equation}\label{eq6.40}\frac{\partial p(x,t|x_0,t_0)}{\partial t}=\frac{\partial(a(x(t),t)p(x,t|x_0,t_0))}{\partial x}+\frac{1}{2}\frac{\partial^2(b(x(t),t)p(x,t|x_0,t_0))}{\partial x^2}\end{equation}
+
+Si se escribe $p(x,t|x_0,t_0)=\rho(x,t|x_0,t_0)$ (definiéndolo como \textcolor{red}{Densidad de Probabilidad}) y el lado derecho de la igualdad de \ref{eq6.40} se define como  \textcolor{red}{Corriente de Probabilidad} esa ecuación se puede escribir como una \textcolor{red}{Conservación de la Probabilidad}:
+
+\begin{equation}\label{eq6.41}\frac{\partial \rho(x,t|x_0,t_0)}{\partial t}=J(x,t|x_0,t_0)\end{equation}
+
+A continuación, 3 ejemplos de sistemas de ruido en los que se aplica Fokker-Planck para hallar la densidad de probabilidad.
+
+\begin{itemize}
+    \item Si $J=0$ esto implica que tomando \ref{eq6.40}, la densidad de probabilidad $\rho(x,t|x_0,t_0)$ es
+\begin{equation}\label{eq6.42}a(x(t),t)\rho(x,t|x_0,t_0)=\frac{\partial(b(x(t),t)\rho(x,t|x_0,t_0))}{\partial x}\textcolor{red}{\Rightarrow}\rho(x,t|x_0,t_0)=\frac{N}{B(x,t)}e^{\int_0^x dy \frac{2a(y,t)}{b(y,t)}}\end{equation}
+
+Esta es una solución simple y extraña, ya que por lo general la densidad de probabilidad no tiene una solución análitica.
+    \item Si $J=0$ y $dx=-kx dt +\sqrt{b} dW(t)$, reemplazando en \ref{eq6.42}, se obtiene un \textcolor{red}{Proceso Ornstein-Uhlenbeck}.
+    \begin{equation}\label{eq6.43}\rho(x,t|x_0,t_0)=\frac{N}{b}e^{\frac{-kx^2}{b}}=N^\prime e^{\frac{-kx^2}{b}}\end{equation}
+    \item Si $dx=dW(t)$, reemplazando en \ref{eq6.40}, se obtiene un \textcolor{red}{Proceso de Wiener}
+    \begin{equation}\label{eq6.44}\frac{\partial\rho(x,t|x_0,t_0)}{\partial t}=\frac{1}{2}\frac{\partial^2\rho(x,t|x_0,t_0)}{\partial x^2}\textcolor{red}{\Rightarrow} \rho(x,t|x_0,t_0)=\frac{1}{\sqrt{2\pi(t-t_0)}}e^{-\frac{(x-x_0)^2}{2(t-t_0)}}\end{equation}
+    con lo que se obtiene algo similar a una gaussiana. Para este proceso $x(t)=x_0+W(t)-W(t_0)$ y la correlación $<(x(t)-x_0)^2>$ vale $x^2-x_0^2$.
+\end{itemize}
+\section{Ruido en Sistemas Cuánticos}
+
+Conocido es el principio de Incerteza de Heisenberg (acá $\hslash=1$)
+\begin{equation}\label{eq6.45}[a,a^\dag]=1\end{equation}  pero si se consideran operadores con decaimiento temporal se obtiene algo no físico: \textcolor{red}{Decaímiento de la incerteza}
+\begin{equation}\label{eq6.46} [ae^{-k t}, a^\dag e^{-k t}]=e^{-2k t}\end{equation}
+¿Cómo se evita esto? \textcolor{red}{Agregando Ruido}. ¿Cómo se agrega a nivel cuántico? Considerando un cuadro de Heisenberg, o al menos uno en donde los operadores tengan dependencia temporal. Considerando operadores de subida y bajada típicos de Mecánica Cuántica:
+ \begin{equation} \label{eq6.47}\dot{a}(t)=-ka+x\xi(t)\end{equation}
+donde $x$ es la variable a definir tal que la incerteza de Heisenberg siempre se cumpla. Para ello se comienza integrando \ref{eq6.47} 
+\begin{equation}\label{eq6.48} a(t)=ae^{-kt} +x \int_0^t ds e^{-k(t-s)}\xi(s)\end{equation}
+Se calcula la incertidumbre de Heisenberg con el nuevo operador de bajada definido en \ref{eq6.48}:
+
+\begin{equation}\label{eq6.49}[a(t),a^\dag(t)]=e^{-2kt}+x^2\int_0^t\int_0^t d\tau_1 d\tau_2 e^{-k(2t-\tau_1-\tau_2)} [\xi(\tau_1),\xi(\tau_2)]=e^{-2kt}+x^2\int_0^t d\tau_1  e^{-k(2t-2\tau_1)}  \end{equation}
+
+Lo anterior es debido a que el conmutador de operadores $\xi$ define una delta de Dirac que cancela una integral: Para que la incertidumbre de Heinsenberg se cumpla, se impone una condición para $x$:
+
+\begin{equation}\label{eq6.50}e^{-2kt}+\frac{x^2}{2k}(1-e^{-2kt})=1\textcolor{red}{\Rightarrow} \frac{x^2}{2k}=1 \textcolor{red}{\Rightarrow} x=\sqrt{2k}\end{equation}
+
+Lo que implica que para cumplir el Principio, basta definir \ref{eq6.48} con $x=\sqrt{2k}$ (se toma la raíz de signo positivo por convención). Esto es una demostración de que en los sistemas cuánticos \textcolor{red}{existe una relación entre acoplamiento y ruido}. La condición usada en \ref{eq6.49} para simplificar la integral es la que se puede obtener para \textcolor{red}{ruido blanco cuántico}, lo que consituye una buena aproximación al problema real.
+
+Para un sistema cuántico abierto cuyo baño consiste en un conjunto de osciladores:
+
+\begin{equation}\label{eq6.51}H=H_S+H_B+H_I=\hslash\omega_s c^\dag c+\hslash\int_{-\infty}^\infty d\omega \omega b^\dag(\omega)b(\omega)+i\hslash\int_{-\infty}^\infty d\omega g(\omega)(b^\dag(\omega)+b(\omega))(c-c^\dag)\end{equation}
+
+Si se considera una aproximación secular, se obtiene un Hamiltoniano de interacción equivalente a la acción de un beam splitter:
+
+\begin{equation}\label{eq6.52}H_I=i\hslash\int_{-\infty}^\infty d\omega g(\omega)(b^\dag(\omega) c-b(\omega)c^\dag)\end{equation}
+
+Si se redefine el Hamiltoniano de interacción de \ref{eq6.52} añadiendo funciones aleatorias a los operadores $c$, se puede usar para añadir estocasticidad al sistema físico. 
+
+\begin{equation}\label{eq6.53}H_I=i\hslash\int_{-\infty}^\infty d\omega k(\omega)
+g(\omega)(b^\dag(\omega) c\xi^\dag(t)-b(\omega)c^\dag\xi(t))\end{equation}
+
+Para hace un incremento pequeño al operador $C$ basta con hacer lo siguiente: (por simplicidad $H_0=H_S+H_B$
+
+\begin{equation}\label{eq6.54}dC=U^\dag(t,t_0)CU(t,t_0)-C \simeq i\Delta t [H_0+H_I,C]\end{equation}
+
+Tomando para $C$ los operadores $a$ y $b$ se obtiene para cada uno su \textcolor{red}{Ecuación de Langevin Cuántica}:
+
+\begin{equation}\label{eq6.55}\dot{a}=-i[a,H_s]+\int d\omega k(\omega)\{b^\dag(\omega)[a,c]-[a,c^\dag]b(\omega)\}\end{equation}
+\begin{equation}\label{eq6.56}\dot{b}=-i\omega b(\omega)+k(\omega)c\end{equation}
+
+Si se integra \ref{eq6.56} se obitiene una forma analítica para $b(\omega,t)$:
+
+\begin{equation}\label{eq6.57}b(\omega,t)=e^{-i\omega(t-t_0)}b(\omega,t_0)+k(\omega)\int_{t_0}^t d\tau e^{-i\omega(t-\tau)}c(\tau) d\tau\end{equation}
+
+La forma de \ref{eq6.57} se puede insertar en \ref{eq6.55} ($\Delta(t-t_0)=e^{-i\omega(t-t_0)}$):
+
+\begin{equation}\label{eq6.58}\dot{a}=-i[a,H_s]+\int d\omega k(\omega) \{(\Delta^*(t-t_0)b^\dag(\omega,t_0)+k(\omega)\int_{t_0}^t d\tau\Delta^*(t-\tau) c^\dag(\tau)d\tau)[a,c]-[a,c^\dag](\Delta(t-t_0)b(\omega,t_0)+k(\omega)\int_{t_0}^t d\tau \Delta(t-\tau)c(\tau)d\tau)\}\end{equation}
+
+Reordenando lo obtenido en \ref{eq6.59} y usando $k(\omega)=\sqrt{\frac{\gamma}{2\pi}}$
+
+\begin{equation}\label{eq6.59}\dot{a}\simeq -i[a,H_s]+\sqrt{\frac{\gamma}{2\pi}}\int d\omega \{\Delta^*(t-t_0)b^{\dag}(\omega,t)[a,c]-\Delta(t-t_0)[a,c^\dag]b(\omega,t)\}+\frac{\gamma}{2\pi}\int d\omega \int_{t_0}^t d\tau\{ \Delta^*(t-\tau)c^\dag(\tau)[a,c]-\Delta(t-\tau)[a,c^\dag]c(\tau)\}\end{equation}
+
+Al ser \ref{eq6.56} una ecuación lineal, la condición inicial \textcolor{red}{puede estar al principio o al final}. Si se hace evolucionar en la dirección temporal inversa, desde t hacia $t_0$ (yendo hacia atrás en el tiempo, se puede obtener una expresión similar a la de \ref{eq6.57}
+
+\begin{equation}\label{eq6.60}b(\omega,t)=e^{-i\omega(t-t_1)}b(\omega,t_1)-k(\omega)\int^{t_1}_t d\tau e^{-i\omega(t-\tau)}c(\tau) d\tau\end{equation}
+
+Escribiendo la ecuación análoga a \ref{eq6.59} usando la definición de $b(\omega,t)$ en \ref{eq6.60}
+
+\begin{equation}\label{eq6.61}\dot{a}\simeq -i[a,H_s]+\sqrt{\frac{\gamma}{2\pi}}\int d\omega \{\Delta^*(t-t_1)b^{\dag}(\omega,t)[a,c]-\Delta(t-t_1)[a,c^\dag]b(\omega,t)\}+\frac{\gamma}{2\pi}\int d\omega \int^{t_1}_t d\tau\{ \Delta^*(t-\tau)c^\dag(\tau)[a,c]-\Delta(t-\tau)[a,c^\dag]c(\tau)\}\end{equation}
+
+Se pueden simplificar \ref{eq6.59} y \ref{eq6.61} usando que $\int d\omega \Delta^*(t-\tau)=2\pi\delta(t-\tau)$ y definiendo los \textcolor{red}{campos de entrada y salida}:
+
+\begin{equation}\label{eq6.62}b_{in}(t)=\int d\omega\Delta(t-t_0)b(\omega, t)\textcolor{red}{\Rightarrow} \dot{a}=-i[a,H_s]+\sqrt{\gamma^\prime}(b_{in}^\dag(t)[a,c]-b_{in}(t)[a,c^\dag])+\frac{\gamma^\prime}{2}(c^\dag(t)[a,c]-[a,c^\dag]c(t))\end{equation}
+\begin{equation}\label{eq6.63}b_{out}(t)=\int d\omega \Delta(t-t_1)b(\omega,t)\textcolor{red}{\Rightarrow} \dot{b}=-i[b,H_b]+\sqrt{\gamma^\prime}(b^\dag_{out}(t)[a,c]-b_{out}[a,c^\dag])-\frac{\gamma^\prime}{2}(c^\dag(t)[a,c]-[a,c^\dag]c(t)) \end{equation}
+
+En lo anterior $\gamma^\prime=\frac{\gamma}{2\pi}$. Si se reordenan \ref{eq6.62} y \ref{eq6.63} se obtienen las \textcolor{red}{ecuaciones de entrada y de salida} para $a$:
+
+\begin{equation}\label{eq6.64}\dot{a}=-i[a,H_s]+(\sqrt{\gamma^\prime}b_{in}^\prime(t)+\frac{\gamma^\prime}{2}c^\dag(t))[a,c]-[a,c^\dag](\sqrt{\gamma^\prime}b_{in}(t)+\frac{\gamma^\prime}{2}c(t))\end{equation}
+
+\begin{equation}\label{eq6.65}\dot{a}=-i[a,H_s]+(\sqrt{\gamma^\prime}b_{out}^\prime(t)-\frac{\gamma^\prime}{2}c^\dag(t))[a,c]-[a,c^\dag](\sqrt{\gamma^\prime}b_{out}(t)-\frac{\gamma^\prime}{2}c(t))\end{equation}
+
+Usando \ref{eq6.64} y\ref{eq6.65}, se encuentra que la diferencia entre el campo de entrada y el de salida es proporcional al operador $c(t)$
+
+\begin{equation}\label{eq6.66}b_{in}(t)+\frac{\sqrt{\gamma^\prime}}{2}c(t)=b_{out}(t)-\frac{\sqrt{\gamma^\prime}}{2}c(t)\textcolor{red}{\Rightarrow}b_{out}(t)-b_{in}(t)=\sqrt{\gamma^\prime}c(t)\end{equation}
+
+A partir del formalismo de ruido antes desarrollado \textcolor{red}{se puede obtener la ecuación maestra}. Se puede definir $\xi(t)=b(t) dt$ como un operador aleatorio que cumplen las siguientes Reglas de Ito:
+
+\begin{equation}\label{eq6.67}<\xi(\omega,t)>=0, <\xi(\omega)\xi(\omega^\prime)>=-M(\omega)e^{i\phi}dt, <\xi^\dag(\omega)\xi(\omega^\prime)>=N(\omega)dt,<\xi(\omega)\xi^\dag (\omega^\prime)>=(N(\omega)+1)dt \end{equation}
+
+Se puede entonces, escribir la expansión de \ref{eq6.54} para $C=\rho$, pero que habiendo ruido requerirá \textcolor{red}{de un elemento extra}:
+
+\begin{equation}\label{eq6.68} d\rho=U^\dag(t,t_0)\rho U(t,t_0)-\rho\simeq -idt [H_0+H_I,\rho]-\frac{1}{2}\{(H_I dt)^2,\rho\}+(H_Idt)\rho(H_Idt)\end{equation}
+
+Usando la definición de \ref{eq6.52} (y simplificando para $g(\omega)=\sqrt{\gamma}$ y $\hslash=1$
+
+\begin{equation}\label{eq6.69}H_Idt=i \int_{-\infty}^\infty d\omega g(\omega)(\xi^\dag(\omega)c-\xi(\omega) c^\dag)  \textcolor{red}{\Rightarrow} (H_Idt)^2=-\gamma\iint d\omega d\omega^\prime (\xi^\dag(\omega)c-\xi(\omega)c^\dag)(\xi^\dag(\omega^\prime)c-\xi(\omega^\prime)c^\dag)\end{equation}
+
+Reemplazando \ref{eq6.69} en \ref{eq6.68} para el segundo sumando:
+
+\begin{equation}\label{eq6.70}-\frac{1}{2}\{(H_Idt)^2,\rho\}=\frac{\gamma}{2}\{<\xi^\dag(\omega)\xi^\dag(\omega^\prime)>cc+<\xi(\omega)\xi(\omega^\prime)>c^\dag c^\dag-<\xi^\dag(\omega)\xi(\omega^\prime)>cc^\dag-<\xi(\omega)\xi^\dag(\omega^\prime)>c^\dag c,\rho\}\end{equation}
+
+Y para el tercer y último sumando:
+
+\begin{equation}\label{eq6.71}(H_Idt)\rho(H_Idt)=\gamma\iint d\omega d\omega^\prime(\xi^\dag(\omega)c-\xi(\omega)c^\dag)\rho(\xi^\dag(\omega^\prime)c-\xi(\omega^\prime)c^\dag)\end{equation}
+
+Analogamente a \ref{eq6.70}, se encuentra algo de similar forma:
+
+\begin{equation}\label{eq6.72}(H_Idt)\rho(H_Idt)=-\gamma(<\xi^\dag(\omega)\xi^\dag(\omega^\prime)>c\rho c+<\xi(\omega)\xi(\omega^\prime)>c^\dag \rho c^\dag-<\xi(\omega)\xi^\dag(\omega^\prime)>c\rho c^\dag -<\xi^\dag(\omega)\xi(\omega^\prime)>c^\dag\rho c\end{equation}
+
+Usando las reglas de Ito de \ref{eq6.67}, y dividiendo por $dt$, se obtiene finalmente ($H=H_0+H_I$):
+
+\begin{equation}\label{eq6.73}\begin{aligned}
+    \dot{\rho}=-i[H,\rho]+\frac{\gamma}{2}(M(\omega)e^{-i\phi}(2c\rho c-cc\rho-\rho cc)+M(\omega)e^{i\phi}(2c^\dag\rho c^\dag-c^\dag c^\dag \rho-\rho c^\dag c^\dag\\(N(\omega)+1)(c\rho c^\dag-c^\dag c\rho-\rho c^\dag c)+N(\omega)(c^\dag\rho c-cc^\dag\rho-\rho cc^\dag))
+\end{aligned}\end{equation}
+
+Lo que coincide en forma con \ref{eq2.63}.
+
+%\bibliographystyle{acm}
+%\bibliography{main}
+\end{document}   
+
+
